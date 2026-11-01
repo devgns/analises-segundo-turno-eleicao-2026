@@ -2,7 +2,7 @@
  * Capítulo 4 — Região dos Lagos e Silva Jardim: os casos do RJ.
  * Dados: public/data/cap04-*.json (gerados por analises/04_casos_rj.py).
  */
-import { pct, pp, num } from '../lib/formato.js';
+import { pct, prob, pp, num } from '../lib/formato.js';
 
 const curtoMun = (s) => s.replace('Campos dos Goytacazes', 'Campos').replace('Armação dos Búzios', 'Búzios')
   .replace('São Pedro da Aldeia', 'S. P. da Aldeia');
@@ -137,7 +137,7 @@ export const graficos = {
       const cor = { base: p.texto1, eliminados: p.sequencial[3], retencao: p.sequencial[4], dispersao: p.sequencial[2], dados: p.lula };
       return {
         tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' },
-          formatter: (ps) => { const x = d[ps[0].dataIndex]; return `${x.cenario}<br>P(fatia de Flávio ≤ observada): <b>${pct(x.p_fatia_le_obs, 2)}</b><br>P(Flávio ≤ 8.933), válidos livres: ${pct(x.p_flavio_le_obs, 2)}${x.p_flavio_le_obs_validos_exato != null ? `<br>P(Flávio ≤ 8.933 | válidos = 14.367): ${pct(x.p_flavio_le_obs_validos_exato, 2)}<br>Válidos previstos: ${num(x.validos_previstos)} (observado 14.367)` : ''}<br>Mediana simulada de Flávio: ${num(x.mediana_flavio)} (95%: ${num(x.p025_flavio)}–${num(x.p975_flavio)})`; } },
+          formatter: (ps) => { const x = d[ps[0].dataIndex]; return `${x.cenario}<br>P(fatia de Flávio ≤ observada): <b>${pct(x.p_fatia_le_obs, 2)}</b><br>P(Flávio ≤ 8.933), válidos livres: ${pct(x.p_flavio_le_obs, 2)}${x.p_flavio_le_obs_validos_exato != null ? `<br>P(Flávio ≤ 8.933 | válidos = 14.367): ${prob(x.p_flavio_le_obs_validos_exato, 2)}<br>Válidos previstos: ${num(x.validos_previstos)} (observado 14.367)` : ''}<br>Mediana simulada de Flávio: ${num(x.mediana_flavio)} (95%: ${num(x.p025_flavio)}–${num(x.p975_flavio)})`; } },
         grid: { left: 190, right: 48, top: 8, bottom: 56 },
         yAxis: { type: 'category', data: d.map(rot), axisLabel: { fontSize: 11, width: 180, overflow: 'truncate' } },
         xAxis: { type: 'value', min: 0, max: 0.6, splitNumber: 3, name: largura < 560 ? 'Probabilidade (%)' : 'Probabilidade de a fatia de Flávio ser ≤ à observada (%)', nameLocation: 'middle', nameGap: 32, axisLabel: { formatter: (v) => pct(v, 0) } },

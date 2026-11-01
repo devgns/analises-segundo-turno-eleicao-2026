@@ -31,6 +31,7 @@ from pathlib import Path
 import numpy as np
 import polars as pl
 from scipy import optimize, stats
+from scipy.special import logsumexp
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from comum import ACHADOS, ROOT, municipios_2026, salvar_json, secoes_2026  # noqa: E402
@@ -441,15 +442,25 @@ def simular(n1: np.ndarray, P: np.ndarray, conc: np.ndarray | None, nsim: int, r
     return tot
 
 
-def conjunta_vf(n1: np.ndarray, P: np.ndarray) -> tuple[np.ndarray, int, int]:
+def _inclinar(pl_: float, pf_: float, theta: float, phi: float) -> tuple[float, float]:
+    """(P(válido), P(Flávio | válido)) depois da inclinação exponencial e^{θV + φF} sobre um eleitor com
+    probabilidades pL, pF e 1 − pL − pF de não votar validamente nos finalistas."""
+    a, b = pl_ * np.exp(theta), pf_ * np.exp(theta + phi)
+    z = a + b + (1 - pl_ - pf_)
+    return (a + b) / z, (b / (a + b) if a + b > 0 else 0.0)
+
+
+def conjunta_vf(n1: np.ndarray, P: np.ndarray, theta: float = 0.0, phi: float = 0.0) -> tuple[np.ndarray, int, int]:
     """Distribuição conjunta exata de (V, F) = (válidos nos finalistas, votos de Flávio) sob a matriz fixa P:
     por grupo, V_g ~ Bin(n_g, pL+pF) e F_g | V_g ~ Bin(V_g, pF/(pL+pF)); os grupos são convoluídos.
-    Cada grupo é truncado em ±12 desvios (massa desprezada < 1e-30). Devolve (pmf[v, f], v0, f0)."""
+    Cada grupo é truncado em ±12 desvios (massa desprezada < 1e-30). Devolve (pmf[v, f], v0, f0).
+    Com `theta`/`phi`, devolve a distribuição inclinada por e^{θV + φF}, que desloca a massa para perto do ponto
+    de interesse, onde a FFT não perde precisão (a lei original se recupera multiplicando por e^{−θv − φf})."""
     from scipy import signal
     pmf, v0, f0 = np.ones((1, 1)), 0, 0
     for g in range(5):
-        n, pv = int(n1[g]), P[g, 0] + P[g, 1]
-        pf = P[g, 1] / pv if pv > 0 else 0.0
+        n = int(n1[g])
+        pv, pf = _inclinar(P[g, 0], P[g, 1], theta, phi)
         mv, sv = n * pv, np.sqrt(n * pv * (1 - pv))
         vs = np.arange(max(0, int(mv - 12 * sv - 30)), min(n, int(mv + 12 * sv + 30)) + 1)
         mf, sf = mv * pf, np.sqrt(n * pv * pf * (1 - pv * pf))
@@ -463,20 +474,54 @@ def conjunta_vf(n1: np.ndarray, P: np.ndarray) -> tuple[np.ndarray, int, int]:
 def condicional_exato(n1: np.ndarray, P: np.ndarray, v_obs: int, f_obs: int, tau: float | None = None) -> dict:
     """P(Flávio ≤ f_obs | válidos nos finalistas = v_obs), exata sob a matriz fixa. Com `tau`, aplica o mesmo
     deslocamento N(0, tau) na fatia usado na simulação: P = Σ_f p(f | v_obs) · Φ((f_obs + 0,5 − f) / (v_obs·tau)).
-    Também devolve o ajuste do total de válidos: média e desvio previstos pelo modelo e o z do observado."""
+    Também devolve o ajuste do total de válidos: média e desvio previstos pelo modelo e o z do observado.
+
+    v_obs pode estar muitos desvios longe da média (10,8 no cenário-base). Ali a massa real (~1e-27) fica abaixo do
+    ruído de arredondamento da FFT (~1e-16), e a conta direta devolve lixo (17% numa versão anterior). Por isso cada
+    probabilidade é calculada sob a inclinação exponencial e^{θV + φF} que centra a massa no evento medido e depois
+    desfeita em escala log. Conferido contra amostragem por importância (800 mil amostras): 5,5e-16 no cenário-base."""
     pmf, v0, f0 = conjunta_vf(n1, P)
     pv = pmf.sum(axis=1)
     vs = v0 + np.arange(len(pv))
     media = float((vs * pv).sum()); dp = float(np.sqrt(((vs - media) ** 2 * pv).sum()))
-    linha = pmf[v_obs - v0]
-    fs = f0 + np.arange(len(linha))
-    cond = linha / linha.sum()
+
+    def medias(t):  # médias de V e F sob a inclinação e^{θV + φF}
+        ev = ef = 0.0
+        for g in range(5):
+            pv_g, pf_g = _inclinar(P[g, 0], P[g, 1], t[0], t[1])
+            ev += n1[g] * pv_g; ef += n1[g] * pv_g * pf_g
+        return ev, ef
+
+    def log_m(t):  # log da função geradora: Σ n_g · log(pO + pL·e^θ + pF·e^{θ+φ})
+        return float(sum(n1[g] * np.log(1 - P[g, 0] - P[g, 1] + P[g, 0] * np.exp(t[0]) + P[g, 1] * np.exp(t[0] + t[1]))
+                         for g in range(5)))
+
+    def log_pontos(t, vmask, fmask):
+        """log de Σ P(V = v, F = f) na região pedida, a partir da lei inclinada por t: P = M(t)·e^{−θv−φf}·p_t."""
+        pmf_t, v0_t, f0_t = conjunta_vf(n1, P, *t)
+        vs_t, fs_t = v0_t + np.arange(pmf_t.shape[0]), f0_t + np.arange(pmf_t.shape[1])
+        sel = vmask(vs_t)[:, None] & fmask(fs_t)[None, :] & (pmf_t > 0)
+        vv, ff = np.meshgrid(vs_t, fs_t, indexing="ij")
+        return log_m(t) + logsumexp(np.log(pmf_t[sel]) - t[0] * vv[sel] - t[1] * ff[sel])
+
+    # Cada probabilidade usa a inclinação que centra a massa no evento que ela mede:
+    # P(V = v_obs) e P(V ≤ v_obs) com θ (V em v_obs); P(V = v_obs, F ≤ f_obs) com (θ, φ) (V em v_obs e F em f_obs).
+    t_v = (optimize.brentq(lambda t: medias((t, 0.0))[0] - v_obs, -50, 50), 0.0)
+    log_den = log_pontos(t_v, lambda v: v == v_obs, lambda f: np.ones_like(f, bool))
+    p_v = float(np.exp(log_pontos(t_v, lambda v: v <= v_obs, lambda f: np.ones_like(f, bool))))
     if tau is None:
-        p = float(cond[fs <= f_obs].sum())
+        t_vf = tuple(optimize.fsolve(lambda t: np.subtract(medias(t), (v_obs, f_obs)), t_v, xtol=1e-12))
+        # φ < 0 empurra F para baixo; se F observado está acima da média condicional, a cauda pedida é o corpo
+        t_vf = t_vf if t_vf[1] < 0 else t_v
+        p = float(min(np.exp(log_pontos(t_vf, lambda v: v == v_obs, lambda f: f <= f_obs) - log_den), 1.0))
     else:
-        p = float((cond * stats.norm.cdf((f_obs + 0.5 - fs) / (v_obs * tau))).sum())
+        # com a dispersão N(0, tau) na fatia, a soma pondera a linha inteira e não depende de uma cauda extrema
+        pmf_t, v0_t, f0_t = conjunta_vf(n1, P, *t_v)
+        linha = pmf_t[v_obs - v0_t]
+        fs = f0_t + np.arange(len(linha))
+        p = float((linha / linha.sum() * stats.norm.cdf((f_obs + 0.5 - fs) / (v_obs * tau))).sum())
     return {"p_flavio_le_obs_validos_exato": p, "validos_previstos": media, "validos_dp": dp,
-            "validos_z": (v_obs - media) / dp, "p_validos_le_obs": float(pv[vs <= v_obs].sum())}
+            "validos_z": (v_obs - media) / dp, "p_validos_le_obs": min(p_v, 1.0)}
 
 
 def monte_carlo(m: pl.DataFrame, rj: pl.DataFrame) -> dict:
@@ -506,6 +551,9 @@ def monte_carlo(m: pl.DataFrame, rj: pl.DataFrame) -> dict:
     v_obs, f_obs = int(e["validos_2"]), int(e["flavio_2"])
     cen.append(resumir(simular(n1, P0, None, 200000, rng), "Base das alegações, só sorteio multinomial (sem incerteza de parâmetro)",
                        grupo="base", **condicional_exato(n1, P0, v_obs, f_obs)))
+    # regressão numérica: valores estáveis do cenário-base (o método antigo, por FFT direta, dava 17%)
+    assert 5.3e-16 < cen[-1]["p_flavio_le_obs_validos_exato"] < 5.7e-16, cen[-1]["p_flavio_le_obs_validos_exato"]
+    assert 3.1e-27 < cen[-1]["p_validos_le_obs"] < 3.3e-27, cen[-1]["p_validos_le_obs"]
     cen.append(resumir(simular(n1, P0, conc_base, 200000, rng), "Base das alegações + variação municipal (Dirichlet 130/80/50)",
                        grupo="base"))
     for ef in (0.2, 0.3, 0.5, 0.644, 0.7):  # entre os eliminados que escolhem um finalista (80% no cenário-base)

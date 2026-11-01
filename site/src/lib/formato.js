@@ -3,7 +3,7 @@
  * Todas as funções aceitam null/undefined/NaN e devolvem '—'.
  *
  * @example
- * import { num, pct, pp, compacto, votos } from '../lib/formato.js';
+ * import { num, pct, prob, pp, compacto, votos } from '../lib/formato.js';
  * num(10412345)          // '10.412.345'
  * num(3.14159, 2)        // '3,14'
  * pct(0.5179)            // '51,79%'   (fração por padrão)
@@ -47,6 +47,24 @@ export function pct(x, casas = 2, op = {}) {
   const s = nf(casas, casas).format(v);
   const pre = op.sinal && v > 0 ? '+' : '';
   return comMenos(pre + s) + '%';
+}
+
+const SOBRESCRITO = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻' };
+
+/**
+ * Probabilidade (fração). Igual a `pct` a partir de 0,01%; abaixo disso, notação científica, para que eventos
+ * raríssimos não apareçam como "0,00%".
+ * @example prob(0.0618) // '6,18%' · prob(5.48e-16) // '5,5 × 10⁻¹⁶'
+ * @param {number} x
+ * @param {number} [casas=2]
+ */
+export function prob(x, casas = 2) {
+  if (invalido(x)) return VAZIO;
+  const v = Number(x);
+  if (v === 0 || v >= 1e-4) return pct(v, casas);
+  const [m, e] = v.toExponential(1).split('e');
+  const exp = String(Number(e)).replace(/./g, (c) => SOBRESCRITO[c]);
+  return `${m.replace('.', ',')} × 10${exp}`;
 }
 
 /**

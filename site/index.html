@@ -42,10 +42,11 @@
         <p class="capa__selo">Relatório independente · Eleição presidencial 2026 · 2º turno</p>
         <h1>Segundo turno de 2026: o que os dados das urnas mostram — e o que não mostram</h1>
         <p class="capa__sub">As principais alegações que circulam sobre o resultado — votos que “não fecham”, eleitores que “não poderiam” ter migrado, pesquisas, seções tardias, um “algoritmo” na curva da apuração, biometria, logs e modelos de urna — testadas uma a uma com os dados oficiais do TSE: o boletim de cada uma das 499.205 seções e o log de cada urna. Cada alegação recebe um teste e um veredito, inclusive quando o veredito é “os dados não permitem saber”.</p>
-        <aside class="caixa caixa--limites aviso" aria-label="Aviso">
+        <aside class="caixa caixa--limites aviso" id="aviso" aria-label="Aviso">
           <div class="caixa__rotulo">Aviso</div>
           <p>Esta página é uma análise independente dos dados públicos do 2º turno da eleição presidencial de 2026. Ela examina as principais alegações que circulam nas redes sociais. O autor não expressa aqui opinião política própria e não afirma, nem sugere, que tenha havido fraude no processo eleitoral. Um número fora do esperado, ou uma pergunta que os arquivos não respondem, não é uma acusação.</p>
           <p>O caminho adotado para tratar essas desconfianças é publicar os dados e testar, com o rigor que a estatística permite, tudo o que esses arquivos conseguem verificar. O texto e os cálculos foram produzidos com apoio de vários sistemas de inteligência artificial e podem conter erros. Os scripts estão no repositório, para quem quiser conferir.</p>
+          <p>Testar uma hipótese não é o mesmo que considerá-la plausível. Aqui, cada alegação é tratada como hipótese estatística, e alguns capítulos simulam cenários de alteração (por exemplo, votos desviados de um candidato para outro) apenas para medir o que os testes conseguiriam detectar. Na prática, um cenário desses precisaria superar barreiras que esta análise não avalia: assinatura digital e lacração dos sistemas, testes públicos de segurança, inspeção do código-fonte por entidades fiscalizadoras, auditoria de funcionamento das urnas no dia da votação e boletins impressos que qualquer pessoa pode conferir. Simular um cenário não significa que ele seja viável, e nenhum resultado estatístico, sozinho, prova ou descarta fraude.</p>
         </aside>
         <div class="kpis capa__placar" data-kpis='[
           {"rotulo":"Lula, 2º turno","valor":0.5179,"formato":"pct","detalhe":"64.256.232 votos · 45,16% no 1º turno","cor":"lula"},
@@ -102,7 +103,7 @@
   </div>
 
   <footer class="rodape">
-    <p>Relatório independente baseado em dados públicos. Não afirma nem sugere fraude. <a href="https://github.com/devgns/analises-segundo-turno-eleicao-2026">Código, dados derivados e instruções no GitHub</a>.</p>
+    <p>Estudo exploratório independente, baseado em dados públicos e aberto a revisão. Não afirma nem sugere fraude. <a href="https://github.com/devgns/analises-segundo-turno-eleicao-2026">Código, dados derivados e instruções no GitHub</a>.</p>
   </footer>
 
   <script type="module" src="/src/main.js"></script>

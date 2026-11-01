@@ -78,6 +78,6 @@ export function montarMoldura({ pagina, raiz, estrelaNoTopo = null }) {
   }
   rodape.replaceChildren(
     criarEstrela(),
-    el('p', '', `Projeto independente baseado em dados públicos. <a href="${REPOSITORIO}" target="_blank" rel="noopener">Código, dados derivados e instruções no GitHub</a>.`),
+    el('p', '', `Estudo exploratório independente, baseado em dados públicos e aberto a revisão. Não afirma nem sugere fraude. <a href="${REPOSITORIO}" target="_blank" rel="noopener">Código, dados derivados e instruções no GitHub</a>.`),
   );
 }
