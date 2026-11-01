@@ -1,0 +1,168 @@
+<section class="capitulo" id="conclusoes" data-titulo-curto="Conclusões">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 15</div>
+    <h2>Conclusões: o que fica de pé</h2>
+  </header>
+
+  <div class="capitulo__corpo">
+    <p>Este relatório reúne comparações entre turnos e eleições, análises de pesquisas, horários de apuração e registros de urna. Cada capítulo apresenta seus dados, métodos e limites; comparações exploratórias realizadas após observar os resultados são identificadas.</p>
+    <p>Os testes esclareceram algumas alegações específicas e apontaram diferenças que exigem cautela na interpretação. Uma discrepância em relação a um modelo pode ter várias causas. Os dados agregados não identificam escolhas individuais nem permitem estabelecer a causa de cada resultado; o relatório não demonstra ocorrência de irregularidade.</p>
+  </div>
+
+  <div class="capitulo__corpo graficos">
+    <div class="largo" data-kpis='[
+      {"rotulo":"Itens avaliados","valor":17,"formato":"num","detalhe":"14 capítulos e 3 avaliações específicas"},
+      {"rotulo":"Refutadas","valor":9,"formato":"num","detalhe":"o teste contradiz a alegação"},
+      {"rotulo":"Sinal observado, causa em aberto","valor":4,"formato":"num","detalhe":"parciais: transferência, pesquisas, RJ e Maués"},
+      {"rotulo":"Sem decisão possível","valor":4,"formato":"num","detalhe":"1 inconclusiva, 1 metodológica, 2 não testáveis"}
+    ]'></div>
+
+    <h3>Placar consolidado</h3>
+    <div class="tabela tabela--texto largo">
+      <div class="tabela__rolagem" tabindex="0">
+        <table>
+          <caption class="sr-only">Alegação, teste, resultado, veredito e capítulo de cada questão, na ordem do relatório</caption>
+          <thead>
+            <tr><th scope="col">Alegação</th><th scope="col">Teste</th><th scope="col">Resultado</th><th scope="col">Veredito</th><th class="tabela__num" scope="col">Cap.</th></tr>
+          </thead>
+          <tbody>
+            <tr><th colspan="5" scope="colgroup">Os números fecham? (capítulos 1 a 3)</th></tr>
+            <tr><td>Os 10,4 mi de votos a mais de Lula não têm origem aritmética</td><td>Identidades em 1.942.467 BUs; conta entre turnos 2026 × 2022</td><td>Fecha voto a voto; o excedente vem de +2,96 mi de comparecimento e −1,82 mi de brancos/nulos</td><td><span data-veredito="refutada"></span></td><td class="tabela__num"><a href="#conta-nacional">1</a></td></tr>
+            <tr><td>“Eleitor de direita não vota em Lula”: os eliminados não explicam o ganho de Lula</td><td>Matriz ecológica por UF; parâmetros das pesquisas</td><td>Retenção de Flávio 98,8%; com a divisão das pesquisas, Lula teria 48,5–49,5%</td><td><span data-veredito="parcial"></span></td><td class="tabela__num"><a href="#transferencia-de-votos">2</a></td></tr>
+            <tr><td>As pesquisas erraram todas para o mesmo lado</td><td>Erro das finais, série 2014–2026</td><td>As 18 subestimaram Lula (+2,73 p.p.), com erros correlacionados entre institutos; direção inédita na série, tamanho não</td><td><span data-veredito="parcial"></span></td><td class="tabela__num"><a href="#pesquisas">3</a></td></tr>
+            <tr><td>O Polymarket virou às 19h10</td><td>—</td><td>Cotação reage a parciais e boatos; não é medida do voto</td><td><span data-veredito="nao-testavel"></span></td><td class="tabela__num"><a href="#pesquisas">3</a></td></tr>
+            <tr><th colspan="5" scope="colgroup">Padrões estranhos nos números (capítulos 4 a 8)</th></tr>
+            <tr><td>Um deslocamento uniforme “moveu a média”</td><td>Intercepto do modelo de reservatórios, 2026 × 2022</td><td>+1,90 p.p. em 2026; −1,98 p.p. em 2022. 2026 não foi mais uniforme</td><td><span data-veredito="inconclusiva"></span></td><td class="tabela__num"><a href="#mapa-da-virada">4</a></td></tr>
+            <tr><td>Os detectores usuais não veem uma alteração uniforme</td><td>Alterações sintéticas injetadas nos dados reais</td><td>O teste que controla alarmes falsos acusa no máximo 5% das alterações uniformes de até 8%; isso não indica que a alteração tenha ocorrido</td><td><span data-veredito="sustentada"></span></td><td class="tabela__num"><a href="#poder-dos-detectores">5</a></td></tr>
+            <tr><td>Região dos Lagos, Campos e Silva Jardim são anômalos</td><td>Gêmeos, regressão com controle de alarmes falsos, aglomerados, Monte Carlo</td><td>Na cauda bruta, mas o desvio é do RJ inteiro; nenhum caso passa nesse controle</td><td><span data-veredito="parcial"></span></td><td class="tabela__num"><a href="#casos-rj">6</a></td></tr>
+            <tr><td>106 seções com 100% para Lula</td><td>Nulo beta-binomial local; persistência; 2022</td><td>2022 teve 143 (141 na amostra do modelo); todas já eram redutos no 1º turno; 0,34% da margem</td><td><span data-veredito="refutada"></span></td><td class="tabela__num"><a href="#secoes-extremas">7</a></td></tr>
+            <tr><td>Maués/AM: Flávio passou de 16 votos para zero</td><td>Comparação entre turnos, seções semelhantes e modelos exploratórios</td><td>Queda atípica sob hipóteses simplificadas; causa desconhecida, com seleção posterior e limites nos testes</td><td><span data-veredito-pista="maues-zero"></span></td><td class="tabela__num"><a href="#maues-zero">7</a></td></tr>
+            <tr><td>Os dígitos violam Benford</td><td>Nulo simulado; 2022 e 1º turno; impressão digital</td><td>O teste ingênuo “rejeita” 100% das réplicas simuladas sem alteração</td><td><span data-veredito="refutada"></span></td><td class="tabela__num"><a href="#benford">8</a></td></tr>
+            <tr><th colspan="5" scope="colgroup">A noite da apuração (capítulos 9 a 11)</th></tr>
+            <tr><td>Seções tardias e prorrogação viraram o resultado</td><td>Relógios separados; DiD nas mesmas seções; placebo no 1º turno</td><td>52,39% é erro de fuso; 34.330 votos após 17h (0,77% da margem). Pausa de 115 min confirmada</td><td><span data-veredito="refutada"></span></td><td class="tabela__num"><a href="#prorrogacao-secoes-tardias">9</a></td></tr>
+            <tr><td>O “serrote” da curva de totalização revela um algoritmo que liga e desliga</td><td>Reprodução do gráfico com o histórico oficial; espectro; perfil dos lotes; placebo do 1º turno; teste de fase com poder; 2022 e 2026</td><td>O gráfico do vídeo é reproduzido exatamente; os vales, a cada ~66 s, têm perfil compatível com composição regional; placebo r = 0,998; o teste de fase não acha efeito</td><td><span data-veredito="refutada"></span></td><td class="tabela__num"><a href="#serrote-da-totalizacao">10</a></td></tr>
+            <tr><td>Um mecanismo desse tipo produziu a estagnação de Flávio nos casos do RJ</td><td>Fase do minuto, periodicidade e tendência dentro da escola; placebo do 1º turno; poder com retirada sintética</td><td>Sem efeito de fase, ritmo ou tendência nos 9 casos (p de 0,47 a 0,87); o teste acha a retirada sintética de 2%, no formato simulado, em 95% das simulações</td><td><span data-veredito="refutada"></span></td><td class="tabela__num"><a href="#serrote-nos-casos-rj">11</a></td></tr>
+            <tr><th colspan="5" scope="colgroup">As urnas e os eleitores (capítulos 12 a 14)</th></tr>
+            <tr><td>Votos sem digital inseridos a favor de Lula</td><td>Regressões com efeito fixo de local; rajadas com nulo exato</td><td>+0,01 p.p. por +10 p.p. de taxa (p = 0,49) com a medida do boletim; +0,10 p.p. com a medida ampla do log; rajadas pendem para Flávio</td><td><span data-veredito="refutada"></span></td><td class="tabela__num"><a href="#biometria">12</a></td></tr>
+            <tr><td>157 mil votos sem rastro nos logs; modelos de urna favorecem um lado</td><td>Leitura de todos os logs do pacote; comparação de modelos dentro do local</td><td>1.425 de 1.432 seções fecham; efeito de modelo na variação ≤ 0,06 p.p. (no nível, UE2013 +0,76 p.p., sem passar por Holm). Caso ES sem explicação</td><td><span data-veredito="refutada"></span></td><td class="tabela__num"><a href="#logs-das-urnas">13</a></td></tr>
+            <tr><td>Urnas antigas (UE2009–2015) inflaram Lula no N/NE em 2022 (pedronauck; IVL/PL)</td><td>Modelo pelo nº de série (940/940 logs); mesmo local/município; Δ entre turnos; mesmas seções após a troca de urna, 2022→2026</td><td>Gap bruto N+NE de 10,5 p.p. acompanha a alocação (UE2020 nas capitais) e não aparece em 2026; nas mesmas seções a diferença persiste após a troca (8,4 → 7,7 p.p.); seções que perderam a urna antiga: −0,08 p.p.</td><td><span data-veredito="refutada"></span></td><td class="tabela__num"><a href="#modelos-de-urna">14</a></td></tr>
+            <tr><th colspan="5" scope="colgroup">Fora da sequência</th></tr>
+            <tr><td>Eventos políticos e judiciais</td><td>—</td><td>Sem documento primário nem mecanismo ligado aos registros</td><td><span data-veredito="nao-testavel"></span></td><td class="tabela__num"><a href="#eventos-politicos">15</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <figure class="grafico largo" data-grafico="ch12-escala" data-src="data/ch12/escala.json"
+            data-titulo="Referências de escala para hipóteses distintas"
+            data-subtitulo="Comparações hipotéticas, não estimativas de irregularidade; não some as barras. Trocas contam em dobro na margem. Linha: margem observada."
+            data-fonte="TSE — boletins de urna e logs, 2º turno 2026; capítulos 1, 5, 7, 9, 12 e 13" data-altura="560"></figure>
+    <p>As barras são referências de escala sob hipóteses específicas, não estimativas de irregularidade nem evidência de que algum mecanismo ocorreu. O estoque de habilitações sem biometria é 8,63 milhões, enquanto o aumento líquido é 290 mil; ambos descrevem coisas diferentes. As categorias podem se sobrepor e não devem ser somadas. O componente comum do <a href="#mapa-da-virada">capítulo 4</a> não entra nesta escala: o intercepto é um ponto contrafactual do modelo e não tem tradução em votos.</p>
+  </div>
+
+  <div class="capitulo__corpo">
+    <h3>1. Resultados que merecem atenção e suas limitações</h3>
+    <p>Os itens abaixo são anomalias reais, medidas com números reproduzíveis, para as quais existe explicação inocente plausível, mas não demonstrada. Nenhum deles demonstra irregularidade; todos merecem resposta oficial. Estão na ordem dos blocos do relatório. Os três primeiros, sobre a conta e o eleitorado, são os de maior peso.</p>
+
+    <h4>1.1 Participação e votos válidos entre os turnos</h4>
+    <p>Entre os turnos, o comparecimento subiu <strong>2,96 milhões</strong>, 5,2 vezes o aumento de 2022 (+0,57 mi), e brancos e nulos caíram <strong>1,82 milhão</strong>, quando em 2022 tinham subido 0,25 milhão (<a href="#conta-nacional">capítulo 1</a>). A matriz ecológica estima que <strong>cerca de 89%</strong> dos 7,8 milhões de votos válidos atribuídos a quem votou branco, nulo ou se absteve no 1º turno foram para Lula (<a href="#transferencia-de-votos">capítulo 2</a>). Esse número precisa ser lido com cautela: a linha de brancos, nulos e abstenção é a mais instável da inferência ecológica, varia de 84% a 100% conforme a especificação e, em 2022, chegou a mudar de lado entre especificações. A medida líquida do <a href="#mapa-da-virada">capítulo 4</a> aponta na mesma direção para os ex-brancos e nulos (cerca de 71% a 76% para Lula), mas não para o aumento líquido do comparecimento, que se dividiu como o eleitorado local. Sem modelo nenhum, a fatia da direita no crescimento líquido dos finalistas caiu de 37 a 53 pontos em relação a 2022, em <em>todas</em> as faixas de municípios.</p>
+
+    <h4>1.2 A transferência medida pelas pesquisas não reproduz o resultado</h4>
+    <p>Aplicando aos votos reais a divisão dos eliminados que as pesquisas verificadas mediram (Quaest de 17 a 20/10, candidato a candidato; Datafolha de 06 e 07/10), Lula teria <strong>48,5% a 48,6%</strong> dos válidos, e Flávio venceria; a distância para os 51,79% oficiais é de <strong>3,2 a 3,3 p.p.</strong> Com o agregado da Quaest divulgada em 22/10 (43% Flávio × 37% Lula entre os eliminados), Lula teria 49,1% (49,5% com a retenção declarada de 95% e 94%), e a distância cai para 2,3 a 2,7 p.p. Para cada eliminado, as pesquisas pendiam de 6 a 20 pontos a mais para Flávio do que a matriz estimada a partir dos boletins. Reproduzir o resultado com a divisão das pesquisas exigiria que cerca de 99% dos ~8 milhões de eleitores que voltaram a votar ou deixaram de anular fossem para Lula, ou que Flávio retivesse só 89,5% a 94,7% de seus eleitores, o que os dados não mostram (retenção estimada de 98,8%, fluxo Flávio→Lula de 0,2%). A distância está no limite alto do histórico recente de erros das pesquisas, mas dentro dele, e os cruzamentos por eleitorado têm amostras de poucas centenas de pessoas, sem tamanhos de subamostra publicados (<a href="#transferencia-de-votos">capítulo 2</a>).<sup class="ref" data-ref="quaest-retencao-2026"></sup></p>
+
+    <h4>1.3 A direção do erro das pesquisas é inédita</h4>
+    <p>As 18 pesquisas finais do 2º turno subestimaram Lula, em <strong>+2,73 p.p.</strong> em média nos válidos publicados (de +1,19 a +3,87). Como os institutos compartilham fontes de erro, isso não equivale a 18 observações independentes. É a <strong>primeira vez na série 2014–2026</strong> que o erro médio das pesquisas finais vai contra o PT: em 2014, 2018 e nos dois turnos de 2022, ele favorecia o PT, de 0,6 a 3,9 p.p. O erro também trocou de sinal entre os turnos de 2026 (−1,50 p.p. no 1º turno). O tamanho, porém, não é inédito: no 1º turno de 2022 o erro médio foi de 3,9 p.p., no sentido oposto (<a href="#pesquisas">capítulo 3</a>).</p>
+
+    <h4>1.4 Limitações dos detectores nos cenários simulados</h4>
+    <p>A regressão com controle de taxa de falsas descobertas (FDR), o método usado para afirmar que “nenhum município é anômalo”, detecta uma alteração uniforme simulada em <strong>0% a 5%</strong> das simulações, mesmo quando ela desvia 8% dos votos de Flávio. Bastariam <strong>3,70%</strong> (2,215 milhões de votos) para virar o resultado. O teste do último dígito também é cego. Alterações concentradas, ao contrário, disparam o alarme a partir de 1% a 6% (<a href="#poder-dos-detectores">capítulo 5</a>). Esses resultados descrevem o poder desta bateria de testes nos cenários simulados, com 20 réplicas por cenário e réplicas sem alteração que não reproduzem toda a dispersão real; não indicam a probabilidade de qualquer evento real nem o que outro teste conseguiria ver.</p>
+
+    <h4>1.5 O Rio de Janeiro é a UF mais desviada a favor de Lula</h4>
+    <p>Com os controles do 1º turno, o RJ tem o maior resíduo médio pró-Lula entre as UFs (−0,72 p.p. na fatia de Flávio) e a maior oscilação bruta do país (−4,25 p.p.). Dos nove municípios apontados, sete estão abaixo do 4º percentil nacional em números brutos, e Campos, Saquarema e Búzios ficam abaixo de todos os seus 50 “gêmeos” estatísticos. Individualmente, nenhum passa na correção para buscas múltiplas (o menor valor-q é 0,23, de Campos). Como aglomerado, porém, a Região Imediata de Campos dos Goytacazes é a 7ª de 510 do país <em>mesmo com controles</em> (q = 0,012, num nulo de permutação que não modela a dependência espacial), e a de Cabo Frio é a 10ª em oscilação bruta (q = 0,006). Em Campos, a dispersão por seção está no percentil 100, embora volte ao normal quando se desconta a variação de comparecimento (<a href="#casos-rj">capítulo 6</a>). Nos nove casos, não encontramos na chegada dos boletins efeito de fase, de ritmo ou de tendência (<a href="#serrote-nos-casos-rj">capítulo 11</a>): a anomalia não tem a forma do “serrote” testado, mas continua sem explicação completa. Um efeito estadual real (Flávio é senador pelo RJ) e uma alteração constante aplicada ao estado produziriam o mesmo dado.</p>
+
+    <h4>1.6 A pausa de 115 minutos no recebimento de boletins</h4>
+    <p>Entre o último minuto com recebimento, <strong>17h08</strong>, e o seguinte, <strong>19h03</strong>, não há minuto intermediário com BU recebido do dia 25/10. No 1º turno, a maior pausa durante a apuração foi de 27 minutos; em 2022, as pausas longas só aparecem na cauda, depois da maior parte dos BUs. A mediana entre a emissão e o recebimento do BU subiu de 89 para 202 minutos. A pausa coincide com a suspensão anunciada após a decisão de prorrogação, e a ordem de chegada dos BUs depois dela tem o mesmo padrão do 1º turno e de 2022 (<a href="#prorrogacao-secoes-tardias">capítulo 9</a>). Depois da pausa, não encontramos na curva da apuração o padrão de pulsos testado: as ondulações reaparecem com os votos do 1º turno das mesmas seções e o teste de fase não acha efeito ligado ao ciclo da totalização (<a href="#serrote-da-totalizacao">capítulo 10</a>). Os dados dizem <em>quando</em> os BUs chegaram, não o que o sistema de totalização fez nesse intervalo.</p>
+
+    <h4>1.7 Uma seção do Espírito Santo sem explicação</h4>
+    <p>Na seção <strong>ES 57932, zona 0009, seção 0085</strong>, o log principal é de uma urna de contingência com 0 votos, e o pacote traz dois logs internos de <em>urnas distintas</em> (01750820, com 304 votos, e 01841837, com 308), ambos com votação desde as 8h. O comparecimento oficial é 308. Os dados públicos não explicam como duas urnas registraram, cada uma, a votação quase completa da mesma seção (<a href="#logs-das-urnas">capítulo 13</a>). Outras seis seções têm divergências de 1 a 36 votos entre log e BU, e a seção SP 64777/0395/0298 (268 votantes) não tem log publicado. Nenhuma tem direção partidária, e o peso conjunto é desprezível, mas são perguntas legítimas a fazer aos TREs.</p>
+
+    <h4>1.8 Seções para conferência física</h4>
+    <p>Os testes seção a seção produziram uma lista curta de casos que destoam de forma forte e que só o papel resolve. A presença na lista não indica irregularidade: entre 499 mil seções, alguns extremos são esperados, e os testes com correção para buscas múltiplas acham tantos casos pró-Flávio quanto pró-Lula, como em 2022.</p>
+  </div>
+
+  <div class="capitulo__corpo graficos">
+    <div class="tabela tabela--texto largo">
+      <div class="tabela__rolagem" tabindex="0">
+        <table>
+          <caption class="sr-only">Seções e municípios recomendados para conferência física</caption>
+          <thead>
+            <tr><th scope="col">Local</th><th scope="col">Zona/seção</th><th scope="col">O que destoa</th><th scope="col">Conferir</th><th class="tabela__num" scope="col">Cap.</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Maués (AM)</td><td>0005 / 0176</td><td>Flávio 16→0, com 333 votos válidos no 2º turno; caso extremo sob modelos simplificados, selecionado após examinar as seções</td><td>BU impresso, autenticidade, atas e presença agregada nos dois turnos</td><td class="tabela__num"><a href="#secoes-extremas">7</a></td></tr>
+            <tr><td>Campos dos Goytacazes (RJ)</td><td>todas, por local de votação</td><td>Abaixo dos 50 gêmeos; Região Imediata 7ª de 510 com controles; dispersão por seção no percentil 100</td><td>BUs impressos e cadernos por local</td><td class="tabela__num"><a href="#casos-rj">6</a></td></tr>
+            <tr><td>Rafael Godeiro (RN)</td><td>0037 / 0072, 0074, 0076, 0077, 0079</td><td>Maior resíduo pró-Lula do país (+7,88 p.p.; em 2022, −4,00); cada seção exige 21–26 trocas Flávio→Lula sob a hipótese sem rotatividade</td><td>BUs, cadernos, RDV</td><td class="tabela__num"><a href="#conta-nacional">1</a>, <a href="#mapa-da-virada">4</a></td></tr>
+            <tr><td>Santa Rosa do Purus (AC)</td><td>0003 / 0095</td><td>Lula 102→174, Flávio 105→47; o local quase não mudou. Em 2022, oscilou no sentido oposto</td><td>BU, caderno, RDV</td><td class="tabela__num"><a href="#conta-nacional">1</a>, <a href="#secoes-extremas">7</a></td></tr>
+            <tr><td>Manoel Urbano (AC)</td><td>0003 / 0160 e 0100</td><td>Na 0160, Lula 112→48 e Flávio 55→104 (pró-Flávio); a 0100, do mesmo local, desvia ao contrário</td><td>BU, caderno, RDV</td><td class="tabela__num"><a href="#secoes-extremas">7</a></td></tr>
+            <tr><td>Barcelos (AM)</td><td>0018 / 0037 e 0039</td><td>Duas seções do mesmo local inverteram de posição (18%→54% e 30%→19% de Lula)</td><td>BU, caderno, RDV</td><td class="tabela__num"><a href="#conta-nacional">1</a>, <a href="#secoes-extremas">7</a></td></tr>
+            <tr><td>Ipixuna (AM)</td><td>0045 / 0063</td><td>Flávio caiu de 61 para 2 votos</td><td>BU, caderno</td><td class="tabela__num"><a href="#secoes-extremas">7</a></td></tr>
+            <tr><td>Ouro Branco (AL)</td><td>0050 / 0079</td><td>39 de 44 votos do log após as 17h; log muito menor que o comparecimento</td><td>Ata, logs internos</td><td class="tabela__num"><a href="#prorrogacao-secoes-tardias">9</a></td></tr>
+            <tr><td>Bagé (RS)</td><td>0142 / 0263</td><td>Todos os 15 votos do log após as 17h; padrão de urna substituída</td><td>Ata, logs internos</td><td class="tabela__num"><a href="#prorrogacao-secoes-tardias">9</a></td></tr>
+            <tr><td>Ibiporã (PR), Terra Nova (BA), São Paulo (SP)</td><td>0080/0083; 0128/0179; 0392/0040</td><td>Maiores rajadas de habilitação sem digital (101 a 111 eleitores seguidos)</td><td>Caderno de votação (assinaturas)</td><td class="tabela__num"><a href="#biometria">12</a></td></tr>
+            <tr><td>ES (município 57932)</td><td>0009 / 0085</td><td>Dois logs de urnas distintas com a votação quase completa</td><td>Ata da seção, esclarecimento do TRE-ES</td><td class="tabela__num"><a href="#logs-das-urnas">13</a></td></tr>
+            <tr><td>MA 08893 e BA 35653</td><td>0047 / 0609 e 0173 / 0235</td><td>36 e 13 votos anteriores à troca de urna sem log correspondente</td><td>Ata, mídia da urna original</td><td class="tabela__num"><a href="#logs-das-urnas">13</a></td></tr>
+            <tr><td>SP 64777</td><td>0395 / 0298</td><td>268 votantes e nenhum log publicado</td><td>Publicação do log</td><td class="tabela__num"><a href="#logs-das-urnas">13</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="capitulo__corpo">
+    <h3>2. O que caiu</h3>
+    <p>As alegações abaixo circularam nas redes depois do 2º turno e, na forma em que circularam, são contraditas pelos dados oficiais: cada uma tem um número que pode ser refeito. Isso vale para a afirmação específica, não para toda hipótese parecida. Seguem a ordem dos blocos do relatório.</p>
+
+    <h4>Os números fecham?</h4>
+    <ul>
+      <li><strong>“Os 10,4 milhões de Lula não têm origem.”</strong> A identidade contábil fecha exatamente, no Brasil e em cada uma das 499.205 seções (<a href="#conta-nacional">cap. 1</a>).</li>
+      <li><strong>“A base não fecha: Cabo Frio +98, Iguaba −10.”</strong> A diferença não está nos boletins oficiais: somando as seções, não sobra nem falta voto em nenhum município, nos dois turnos (<a href="#conta-nacional">cap. 1</a>).</li>
+    </ul>
+
+    <h4>Padrões estranhos nos números</h4>
+    <ul>
+      <li><strong>“Lula cresceu em 5.378 municípios e Flávio em quase nenhum; no Sul, em todos.”</strong> Em 2022, Bolsonaro ganhou fatia em 98,0% dos municípios e cresceu em todos os 1.191 do Sul. O mesmo padrão já tinha aparecido no 2º turno anterior (<a href="#mapa-da-virada">cap. 4</a>).</li>
+      <li><strong>“Silva Jardim: Flávio ganhou só 1 voto.”</strong> O +1 é o saldo de +161 votos em 36 seções e −160 em 22, com dispersão normal; isso não diz quantas pessoas entraram, saíram ou mudaram de candidato. Com as taxas e a variação do próprio RJ, a probabilidade de Flávio ficar em até 8.933 votos, dado o total de válidos observado, é de 36% nesse modelo, que porém não reproduz o total de válidos do município (<a href="#casos-rj">cap. 6</a>).</li>
+      <li><strong>“106 seções com 100% para Lula.”</strong> Em 2022 foram 143 (141 na amostra do modelo), com excesso maior sobre o esperado pelo modelo. Todas as 106 já eram redutos de Lula no 1º turno, e pesam 0,34% da margem (<a href="#secoes-extremas">cap. 7</a>).</li>
+      <li><strong>“Os totais violam Benford.”</strong> O teste ingênuo rejeita Benford em 100% de 200 réplicas simuladas sem alteração, com os tamanhos reais das seções. Contra esse nulo simulado, os desvios de 2026 são semelhantes aos de 2022 (<a href="#benford">cap. 8</a>). Não rejeitar um teste de dígitos não certifica uma eleição; só mostra que esse teste não distingue os cenários.</li>
+    </ul>
+
+    <h4>A noite da apuração</h4>
+    <ul>
+      <li><strong>“Flávio teve 52,39% nas seções encerradas até as 17h” e “Lula teve +6,1 milhões nas demais.”</strong> Os números só aparecem lendo o horário de encerramento no relógio local, sem converter o fuso: assim, todo o AC, RO, RR, MT, MS e quase todo o AM, que fecham às 15h ou 16h de Brasília, entram como “até as 17h”. Em horário de Brasília, Flávio tem 50,99%. E as mesmas seções já tinham dado 55,20% a Flávio no 1º turno: o número mede a composição das seções, não a prorrogação (<a href="#prorrogacao-secoes-tardias">cap. 9</a>).</li>
+      <li><strong>“88 milhões de eleitores em seções fechadas entre 17h01 e 17h15” e “1,86 milhão depois das 19h”.</strong> São o comparecimento total dessas seções ao longo do dia, não votos dados nesses horários. Os logs registram <strong>34.330</strong> votos depois das 17h (o TSE divulgou 34.393), 84% deles nos primeiros cinco minutos, e só 11 depois das 19h. Mesmo que todos fossem de Lula, seriam 0,77% da margem (<a href="#prorrogacao-secoes-tardias">cap. 9</a>).</li>
+      <li><strong>“Os vales da curva de totalização são um algoritmo que liga e desliga.”</strong> O gráfico do vídeo, que usa os dados de 2022, é reproduzido ponto por ponto com o arquivo oficial, e os vales são reais e regulares, um a cada ~66 segundos. Mas os lotes dos vales têm o comparecimento, os brancos e nulos e os aptos por seção do Nordeste, medidas que uma troca de votos não alteraria. Os votos do 1º turno das mesmas seções, na mesma ordem de chegada, desenham as mesmas ondas (r = 0,998 em 2022 e 0,996 em 2026). O teste de fase não encontra penalização ligada ao ciclo, nem em 2022 nem em 2026, e encontrou uma retirada sintética de 0,5%, no formato de pulso simulado, em 40 de 40 simulações. A “virada única” é compatível com a chegada regional dos boletins; o vínculo exato entre cada lote e as seções não foi reconstituído, e o período de ~66 s foi escolhido depois de observar os dados (<a href="#serrote-da-totalizacao">cap. 10</a>).</li>
+      <li><strong>“O mesmo mecanismo explica Flávio estagnado em Campos, na Região dos Lagos e em Silva Jardim.”</strong> Nos nove casos, nem a fase do minuto, nem a periodicidade, nem a tendência ao longo da chegada dos boletins se destacam (p de 0,47 a 0,87), embora o teste encontre uma retirada sintética de 2% dos votos de Flávio, no formato simulado, em 95% das simulações. As ondulações da noite repetem as do 1º turno, e a estagnação de Flávio é a soma de centenas de seções que sobem e descem, sem degraus (<a href="#serrote-nos-casos-rj">cap. 11</a>).</li>
+    </ul>
+
+    <h4>As urnas e os eleitores</h4>
+    <ul>
+      <li><strong>“A habilitação sem biometria favoreceu Lula.”</strong> Dentro do mesmo local de votação, +10 p.p. de taxa sem biometria (medida do boletim) se associam a +0,01 p.p. de Lula (p = 0,49). Com a medida mais ampla do log, a associação é de +0,10 p.p. por 10 p.p.: pequena demais para explicar um deslocamento de pontos percentuais, mas não nula. A diferença ecológica de voto ligada à habilitação sem digital não cresceu do 1º para o 2º turno (<a href="#biometria">cap. 12</a>). Inserções pequenas e espalhadas não seriam vistas por esses testes.</li>
+      <li><strong>“157 mil votos sem rastro nos logs.”</strong> Estão nos logs das urnas substituídas, publicados dentro do mesmo pacote. Somando todos os logs, 1.425 de 1.432 seções fecham voto a voto com o BU (<a href="#logs-das-urnas">cap. 13</a>). É coerência entre arquivos da mesma origem, não conferência independente dos votos.</li>
+      <li><strong>“Algum modelo de urna favorece um lado.”</strong> Comparando urnas de modelos diferentes no mesmo local de votação, a diferença na <em>variação</em> entre turnos é de no máximo 0,06 p.p. No <em>nível</em> de voto, a UE2013 tem +0,76 p.p. (IC +0,15 a +1,38), efeito que já aparecia no 1º turno e não sobrevive à correção para múltiplos testes (<a href="#logs-das-urnas">cap. 13</a> e <a href="#modelos-de-urna">cap. 14</a>). É uma comparação observacional: a alocação das urnas não é aleatória, e um componente comum a todos os modelos não apareceria nela. O padrão de 2022 nas urnas antigas do Norte e Nordeste vem de onde as urnas estavam e não acompanhou as urnas quando elas foram trocadas (<a href="#modelos-de-urna">cap. 14</a>).</li>
+    </ul>
+    <p>Duas outras alegações que circularam, a de que os dados só foram liberados após 72 horas e a de que os percentuais deveriam seguir uma distribuição normal, não foram testadas aqui. A primeira exige o histórico de publicação do portal; a segunda parte de uma premissa sem fundamento estatístico, porque nada obriga os percentuais por seção a seguir uma curva normal.</p>
+
+    <h3>3. Limites das análises e próximos passos</h3>
+    <p>Contagens agregadas não revelam as escolhas individuais entre turnos, e modelos diferentes podem explicar os mesmos totais. Os testes de poder do <a href="#poder-dos-detectores">capítulo 5</a> usam cenários sintéticos para medir limitações dos métodos, não para estimar a probabilidade de um evento real.</p>
+    <p>Três limites atravessam o relatório. <strong>Coerência não é autenticidade:</strong> BU, log e totalização vêm da mesma cadeia de publicação, e a consistência entre eles não mostra que correspondem aos votos digitados; isso exige comparar com registros independentes, como BUs impressos preservados fora dessa cadeia. Em 2022, o TCU coletou 604 BUs impressos no 2º turno e não encontrou divergência com os arquivos publicados<sup class="ref" data-ref="tcu-bu-2022"></sup>, o que pesa contra alteração posterior ao BU nas seções conferidas, sem validar cada voto. <strong>Controles internos não veem componentes comuns:</strong> comparações com 2022, com o 1º turno, entre modelos de urna ou dentro do mesmo local cancelam qualquer componente que esteja igualmente presente nas duas pontas; isso não indica que exista um, mas significa que essas comparações não o testariam. <strong>Não rejeitar não é certificar:</strong> “não encontramos a assinatura” quer dizer que aquele teste, com aquele modelo, não a viu.</p>
+    <p>Ficam fora deste relatório, por exigirem dados brutos ou processamento longo: uma leitura dos logs com contabilidade explícita de todas as mensagens fora de sequência, uma recalibração da bateria de poder com milhares de réplicas, um modelo conjunto de comparecimento e votos para Silva Jardim, a reconstituição da fila de totalização e a conferência documental das seções com rajadas.</p>
+    <p>Novas análises podem comparar os registros públicos do primeiro turno, ampliar a série histórica de comparecimento, conferir a documentação dos locais de votação e examinar fontes independentes. A disponibilidade dos arquivos e as condições de acesso precisam ser verificadas nas fontes oficiais.</p>
+
+    <h3 id="eventos-politicos">4. Eventos políticos e judiciais</h3>
+    <p>Parte do que circula cita medidas judiciais, pressões e episódios políticos em torno da eleição. Não investigamos essas afirmações, e não as tratamos como confirmadas. Elas recebem o veredito <span data-veredito="nao-testavel"></span> porque não há documento primário nem mecanismo que as ligue a registros de votação. Coincidência temporal, conflito institucional ou crítica política não demonstram, por si, uma operação de alteração de votos. A exceção é a decisão de prorrogação e a pausa no recebimento de BUs, que deixaram rastro nos dados e foram tratadas no <a href="#prorrogacao-secoes-tardias">capítulo 9</a>.</p>
+  </div>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">Em uma frase</div>
+    <p>Os resultados devem ser interpretados à luz das hipóteses de cada teste, das fontes disponíveis e dos limites dos dados agregados.</p>
+  </aside>
+</section>

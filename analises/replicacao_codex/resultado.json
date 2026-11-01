@@ -1,0 +1,1246 @@
+{
+  "2022": {
+    "auditoria": {
+      "linhas_entrada_sem_ZZ": 471010,
+      "linhas_excluidas": 0
+    },
+    "bruto": [
+      {
+        "regiao": "Brasil",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 168027,
+        "votos_lula": 21331118,
+        "votos_validos": 40248524,
+        "percentual_lula": 52.99850995778131
+      },
+      {
+        "regiao": "Brasil",
+        "modelo": "UE2013",
+        "secoes": 24672,
+        "votos_lula": 3001068,
+        "votos_validos": 5858370,
+        "percentual_lula": 51.227013657382514
+      },
+      {
+        "regiao": "Brasil",
+        "modelo": "UE2015",
+        "secoes": 85620,
+        "votos_lula": 10749358,
+        "votos_validos": 20846019,
+        "percentual_lula": 51.56551953636807
+      },
+      {
+        "regiao": "Brasil",
+        "modelo": "UE2020",
+        "secoes": 192691,
+        "votos_lula": 25111550,
+        "votos_validos": 51301271,
+        "percentual_lula": 48.94917710713249
+      },
+      {
+        "regiao": "Brasil",
+        "modelo": "UE2022",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "N",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 13308,
+        "votos_lula": 1516727,
+        "votos_validos": 3021251,
+        "percentual_lula": 50.20195276724774
+      },
+      {
+        "regiao": "N",
+        "modelo": "UE2013",
+        "secoes": 1986,
+        "votos_lula": 201957,
+        "votos_validos": 444497,
+        "percentual_lula": 45.43495231688853
+      },
+      {
+        "regiao": "N",
+        "modelo": "UE2015",
+        "secoes": 6765,
+        "votos_lula": 803707,
+        "votos_validos": 1451362,
+        "percentual_lula": 55.376053665453554
+      },
+      {
+        "regiao": "N",
+        "modelo": "UE2020",
+        "secoes": 16916,
+        "votos_lula": 2067793,
+        "votos_validos": 4455415,
+        "percentual_lula": 46.410783282814286
+      },
+      {
+        "regiao": "N",
+        "modelo": "UE2022",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "NE",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 49023,
+        "votos_lula": 8412658,
+        "votos_validos": 11204801,
+        "percentual_lula": 75.08083365335985
+      },
+      {
+        "regiao": "NE",
+        "modelo": "UE2013",
+        "secoes": 7418,
+        "votos_lula": 1212524,
+        "votos_validos": 1663404,
+        "percentual_lula": 72.89413756369468
+      },
+      {
+        "regiao": "NE",
+        "modelo": "UE2015",
+        "secoes": 21740,
+        "votos_lula": 3741001,
+        "votos_validos": 5052940,
+        "percentual_lula": 74.03612550317241
+      },
+      {
+        "regiao": "NE",
+        "modelo": "UE2020",
+        "secoes": 54397,
+        "votos_lula": 9168784,
+        "votos_validos": 14576769,
+        "percentual_lula": 62.899974610285724
+      },
+      {
+        "regiao": "NE",
+        "modelo": "UE2022",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "CO",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 11300,
+        "votos_lula": 1064126,
+        "votos_validos": 2687619,
+        "percentual_lula": 39.593632877279106
+      },
+      {
+        "regiao": "CO",
+        "modelo": "UE2013",
+        "secoes": 2097,
+        "votos_lula": 207839,
+        "votos_validos": 503282,
+        "percentual_lula": 41.296728275598966
+      },
+      {
+        "regiao": "CO",
+        "modelo": "UE2015",
+        "secoes": 6019,
+        "votos_lula": 573622,
+        "votos_validos": 1372235,
+        "percentual_lula": 41.80202370585213
+      },
+      {
+        "regiao": "CO",
+        "modelo": "UE2020",
+        "secoes": 16516,
+        "votos_lula": 1678156,
+        "votos_validos": 4292315,
+        "percentual_lula": 39.096757810179355
+      },
+      {
+        "regiao": "CO",
+        "modelo": "UE2022",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "SE",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 70590,
+        "votos_lula": 8124211,
+        "votos_validos": 17587482,
+        "percentual_lula": 46.19314464685735
+      },
+      {
+        "regiao": "SE",
+        "modelo": "UE2013",
+        "secoes": 8008,
+        "votos_lula": 922445,
+        "votos_validos": 1946885,
+        "percentual_lula": 47.380559200980024
+      },
+      {
+        "regiao": "SE",
+        "modelo": "UE2015",
+        "secoes": 38795,
+        "votos_lula": 4500994,
+        "votos_validos": 9879140,
+        "percentual_lula": 45.56058523312758
+      },
+      {
+        "regiao": "SE",
+        "modelo": "UE2020",
+        "secoes": 76968,
+        "votos_lula": 9246176,
+        "votos_validos": 20424255,
+        "percentual_lula": 45.270566784443304
+      },
+      {
+        "regiao": "SE",
+        "modelo": "UE2022",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "S",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 23806,
+        "votos_lula": 2213396,
+        "votos_validos": 5747371,
+        "percentual_lula": 38.51145158368931
+      },
+      {
+        "regiao": "S",
+        "modelo": "UE2013",
+        "secoes": 5163,
+        "votos_lula": 456303,
+        "votos_validos": 1300302,
+        "percentual_lula": 35.09207860943073
+      },
+      {
+        "regiao": "S",
+        "modelo": "UE2015",
+        "secoes": 12301,
+        "votos_lula": 1130034,
+        "votos_validos": 3090342,
+        "percentual_lula": 36.56663243097366
+      },
+      {
+        "regiao": "S",
+        "modelo": "UE2020",
+        "secoes": 27894,
+        "votos_lula": 2950641,
+        "votos_validos": 7552517,
+        "percentual_lula": 39.0683132523899
+      },
+      {
+        "regiao": "S",
+        "modelo": "UE2022",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      }
+    ],
+    "regressoes": {
+      "Brasil": {
+        "secoes": 471010,
+        "locais": 92361,
+        "locais_com_dois_ou_mais_modelos": 6744,
+        "municipios_clusters": 5570,
+        "correcao_cr1": 1.2441530530991902,
+        "coocorrencias_modelos": [
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2013"
+            ],
+            "locais": 2358,
+            "municipios": 754
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2015"
+            ],
+            "locais": 4871,
+            "municipios": 1071
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2020"
+            ],
+            "locais": 138,
+            "municipios": 59
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2015"
+            ],
+            "locais": 1398,
+            "municipios": 466
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2020"
+            ],
+            "locais": 26,
+            "municipios": 20
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2020"
+            ],
+            "locais": 99,
+            "municipios": 44
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2020",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          }
+        ],
+        "coeficientes": [
+          {
+            "modelo": "antiga (UE2009-2011)",
+            "coef_pp": 0.2819486062100425,
+            "erro_padrao_pp": 0.2917889080613926,
+            "ic95_pp": [
+              -0.28994714467855615,
+              0.853844357098641
+            ]
+          },
+          {
+            "modelo": "UE2013",
+            "coef_pp": 0.37013837428356394,
+            "erro_padrao_pp": 0.31520541969875776,
+            "ic95_pp": [
+              -0.24765289605783342,
+              0.9879296446249612
+            ]
+          },
+          {
+            "modelo": "UE2015",
+            "coef_pp": 0.32610794798485754,
+            "erro_padrao_pp": 0.29657331545771703,
+            "ic95_pp": [
+              -0.25516506908790393,
+              0.907380965057619
+            ]
+          },
+          {
+            "modelo": "UE2022",
+            "coef_pp": null,
+            "erro_padrao_pp": null,
+            "ic95_pp": null
+          }
+        ]
+      },
+      "N+NE": {
+        "secoes": 171553,
+        "locais": 43257,
+        "locais_com_dois_ou_mais_modelos": 2338,
+        "municipios_clusters": 2244,
+        "correcao_cr1": 1.3377852515828583,
+        "coocorrencias_modelos": [
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2013"
+            ],
+            "locais": 743,
+            "municipios": 245
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2015"
+            ],
+            "locais": 1659,
+            "municipios": 416
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2020"
+            ],
+            "locais": 6,
+            "municipios": 3
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2015"
+            ],
+            "locais": 400,
+            "municipios": 127
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2020"
+            ],
+            "locais": 2,
+            "municipios": 1
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2020"
+            ],
+            "locais": 2,
+            "municipios": 1
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2020",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          }
+        ],
+        "coeficientes": [
+          {
+            "modelo": "antiga (UE2009-2011)",
+            "coef_pp": -0.5906295960491199,
+            "erro_padrao_pp": 0.33150224673060324,
+            "ic95_pp": [
+              -1.2403620604352132,
+              0.05910286833697327
+            ]
+          },
+          {
+            "modelo": "UE2013",
+            "coef_pp": -0.5213390494349144,
+            "erro_padrao_pp": 0.3674999675860757,
+            "ic95_pp": [
+              -1.2416257502232602,
+              0.1989476513534313
+            ]
+          },
+          {
+            "modelo": "UE2015",
+            "coef_pp": -0.5999893437501682,
+            "erro_padrao_pp": 0.32136091137221423,
+            "ic95_pp": [
+              -1.2298451560786763,
+              0.029866468578339852
+            ]
+          },
+          {
+            "modelo": "UE2022",
+            "coef_pp": null,
+            "erro_padrao_pp": null,
+            "ic95_pp": null
+          }
+        ]
+      },
+      "Restante": {
+        "secoes": 299457,
+        "locais": 49104,
+        "locais_com_dois_ou_mais_modelos": 4406,
+        "municipios_clusters": 3326,
+        "correcao_cr1": 1.1965091350305062,
+        "coocorrencias_modelos": [
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2013"
+            ],
+            "locais": 1615,
+            "municipios": 509
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2015"
+            ],
+            "locais": 3212,
+            "municipios": 655
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2020"
+            ],
+            "locais": 132,
+            "municipios": 56
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2015"
+            ],
+            "locais": 998,
+            "municipios": 339
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2020"
+            ],
+            "locais": 24,
+            "municipios": 19
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2020"
+            ],
+            "locais": 97,
+            "municipios": 43
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2020",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          }
+        ],
+        "coeficientes": [
+          {
+            "modelo": "antiga (UE2009-2011)",
+            "coef_pp": 0.2924560133035231,
+            "erro_padrao_pp": 0.2899599436382077,
+            "ic95_pp": [
+              -0.2758550331866279,
+              0.8607670597936742
+            ]
+          },
+          {
+            "modelo": "UE2013",
+            "coef_pp": 0.387335122579874,
+            "erro_padrao_pp": 0.32206082054349483,
+            "ic95_pp": [
+              -0.24389248651679346,
+              1.0185627316765415
+            ]
+          },
+          {
+            "modelo": "UE2015",
+            "coef_pp": 0.3535932511833056,
+            "erro_padrao_pp": 0.2979320707463985,
+            "ic95_pp": [
+              -0.23034287731907493,
+              0.9375293796856862
+            ]
+          },
+          {
+            "modelo": "UE2022",
+            "coef_pp": null,
+            "erro_padrao_pp": null,
+            "ic95_pp": null
+          }
+        ]
+      }
+    }
+  },
+  "2026": {
+    "auditoria": {
+      "linhas_entrada_sem_ZZ": 497897,
+      "linhas_excluidas": 0
+    },
+    "bruto": [
+      {
+        "regiao": "Brasil",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "Brasil",
+        "modelo": "UE2013",
+        "secoes": 11434,
+        "votos_lula": 1522611,
+        "votos_validos": 2822908,
+        "percentual_lula": 53.93767703375384
+      },
+      {
+        "regiao": "Brasil",
+        "modelo": "UE2015",
+        "secoes": 87213,
+        "votos_lula": 11417708,
+        "votos_validos": 21972513,
+        "percentual_lula": 51.9635965171576
+      },
+      {
+        "regiao": "Brasil",
+        "modelo": "UE2020",
+        "secoes": 200504,
+        "votos_lula": 25512211,
+        "votos_validos": 49513158,
+        "percentual_lula": 51.52612362152299
+      },
+      {
+        "regiao": "Brasil",
+        "modelo": "UE2022",
+        "secoes": 198746,
+        "votos_lula": 25603548,
+        "votos_validos": 49402043,
+        "percentual_lula": 51.826901166820164
+      },
+      {
+        "regiao": "N",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "N",
+        "modelo": "UE2013",
+        "secoes": 109,
+        "votos_lula": 14574,
+        "votos_validos": 24532,
+        "percentual_lula": 59.4081200065221
+      },
+      {
+        "regiao": "N",
+        "modelo": "UE2015",
+        "secoes": 6596,
+        "votos_lula": 792704,
+        "votos_validos": 1601762,
+        "percentual_lula": 49.48949968846807
+      },
+      {
+        "regiao": "N",
+        "modelo": "UE2020",
+        "secoes": 18253,
+        "votos_lula": 2175960,
+        "votos_validos": 4380654,
+        "percentual_lula": 49.67203527144577
+      },
+      {
+        "regiao": "N",
+        "modelo": "UE2022",
+        "secoes": 18811,
+        "votos_lula": 2041388,
+        "votos_validos": 4041225,
+        "percentual_lula": 50.51408916850708
+      },
+      {
+        "regiao": "NE",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "NE",
+        "modelo": "UE2013",
+        "secoes": 4873,
+        "votos_lula": 864570,
+        "votos_validos": 1228005,
+        "percentual_lula": 70.40443646402092
+      },
+      {
+        "regiao": "NE",
+        "modelo": "UE2015",
+        "secoes": 24068,
+        "votos_lula": 4300260,
+        "votos_validos": 6204361,
+        "percentual_lula": 69.31028030122683
+      },
+      {
+        "regiao": "NE",
+        "modelo": "UE2020",
+        "secoes": 56392,
+        "votos_lula": 9419813,
+        "votos_validos": 13690958,
+        "percentual_lula": 68.80316921577
+      },
+      {
+        "regiao": "NE",
+        "modelo": "UE2022",
+        "secoes": 55495,
+        "votos_lula": 9865789,
+        "votos_validos": 14123844,
+        "percentual_lula": 69.85201054330535
+      },
+      {
+        "regiao": "CO",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "CO",
+        "modelo": "UE2013",
+        "secoes": 602,
+        "votos_lula": 57700,
+        "votos_validos": 138408,
+        "percentual_lula": 41.68834171435177
+      },
+      {
+        "regiao": "CO",
+        "modelo": "UE2015",
+        "secoes": 6148,
+        "votos_lula": 637542,
+        "votos_validos": 1487237,
+        "percentual_lula": 42.86754565681193
+      },
+      {
+        "regiao": "CO",
+        "modelo": "UE2020",
+        "secoes": 17017,
+        "votos_lula": 1655686,
+        "votos_validos": 4122792,
+        "percentual_lula": 40.1593386229526
+      },
+      {
+        "regiao": "CO",
+        "modelo": "UE2022",
+        "secoes": 14281,
+        "votos_lula": 1382991,
+        "votos_validos": 3589349,
+        "percentual_lula": 38.530413175202526
+      },
+      {
+        "regiao": "SE",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "SE",
+        "modelo": "UE2013",
+        "secoes": 2860,
+        "votos_lula": 344356,
+        "votos_validos": 721211,
+        "percentual_lula": 47.746914564531046
+      },
+      {
+        "regiao": "SE",
+        "modelo": "UE2015",
+        "secoes": 38845,
+        "votos_lula": 4726843,
+        "votos_validos": 9802821,
+        "percentual_lula": 48.21921159225492
+      },
+      {
+        "regiao": "SE",
+        "modelo": "UE2020",
+        "secoes": 80883,
+        "votos_lula": 9530468,
+        "votos_validos": 20167899,
+        "percentual_lula": 47.255631337701566
+      },
+      {
+        "regiao": "SE",
+        "modelo": "UE2022",
+        "secoes": 80649,
+        "votos_lula": 9436064,
+        "votos_validos": 20190301,
+        "percentual_lula": 46.73562816126417
+      },
+      {
+        "regiao": "S",
+        "modelo": "antiga (UE2009-2011)",
+        "secoes": 0,
+        "votos_lula": 0,
+        "votos_validos": 0,
+        "percentual_lula": null
+      },
+      {
+        "regiao": "S",
+        "modelo": "UE2013",
+        "secoes": 2990,
+        "votos_lula": 241411,
+        "votos_validos": 710752,
+        "percentual_lula": 33.96557449011751
+      },
+      {
+        "regiao": "S",
+        "modelo": "UE2015",
+        "secoes": 11556,
+        "votos_lula": 960359,
+        "votos_validos": 2876332,
+        "percentual_lula": 33.38832234943671
+      },
+      {
+        "regiao": "S",
+        "modelo": "UE2020",
+        "secoes": 27959,
+        "votos_lula": 2730284,
+        "votos_validos": 7150855,
+        "percentual_lula": 38.18122448294645
+      },
+      {
+        "regiao": "S",
+        "modelo": "UE2022",
+        "secoes": 29510,
+        "votos_lula": 2877316,
+        "votos_validos": 7457324,
+        "percentual_lula": 38.58376007264804
+      }
+    ],
+    "regressoes": {
+      "Brasil": {
+        "secoes": 497897,
+        "locais": 94539,
+        "locais_com_dois_ou_mais_modelos": 8497,
+        "municipios_clusters": 5571,
+        "correcao_cr1": 1.2346081959289974,
+        "coocorrencias_modelos": [
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2013"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2015"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2020"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2015"
+            ],
+            "locais": 3069,
+            "municipios": 757
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2020"
+            ],
+            "locais": 14,
+            "municipios": 11
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2022"
+            ],
+            "locais": 16,
+            "municipios": 12
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2020"
+            ],
+            "locais": 74,
+            "municipios": 29
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2022"
+            ],
+            "locais": 69,
+            "municipios": 35
+          },
+          {
+            "modelos": [
+              "UE2020",
+              "UE2022"
+            ],
+            "locais": 5350,
+            "municipios": 831
+          }
+        ],
+        "coeficientes": [
+          {
+            "modelo": "antiga (UE2009-2011)",
+            "coef_pp": null,
+            "erro_padrao_pp": null,
+            "ic95_pp": null
+          },
+          {
+            "modelo": "UE2013",
+            "coef_pp": 0.7621640560173266,
+            "erro_padrao_pp": 0.34845058356870867,
+            "ic95_pp": [
+              0.07921346183069333,
+              1.4451146502039598
+            ]
+          },
+          {
+            "modelo": "UE2015",
+            "coef_pp": 0.5737400903721327,
+            "erro_padrao_pp": 0.3179897596012301,
+            "ic95_pp": [
+              -0.04950838589882819,
+              1.1969885666430935
+            ]
+          },
+          {
+            "modelo": "UE2022",
+            "coef_pp": -0.03694537135062973,
+            "erro_padrao_pp": 0.043532629985519364,
+            "ic95_pp": [
+              -0.12226775827455612,
+              0.04837701557329665
+            ]
+          }
+        ]
+      },
+      "N+NE": {
+        "secoes": 184597,
+        "locais": 44812,
+        "locais_com_dois_ou_mais_modelos": 3417,
+        "municipios_clusters": 2244,
+        "correcao_cr1": 1.3211879834820557,
+        "coocorrencias_modelos": [
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2013"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2015"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2020"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2015"
+            ],
+            "locais": 1101,
+            "municipios": 231
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2020"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2020"
+            ],
+            "locais": 3,
+            "municipios": 1
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2020",
+              "UE2022"
+            ],
+            "locais": 2313,
+            "municipios": 427
+          }
+        ],
+        "coeficientes": [
+          {
+            "modelo": "antiga (UE2009-2011)",
+            "coef_pp": null,
+            "erro_padrao_pp": null,
+            "ic95_pp": null
+          },
+          {
+            "modelo": "UE2013",
+            "coef_pp": 2.386615766053737,
+            "erro_padrao_pp": 0.1204230616360625,
+            "ic95_pp": [
+              2.1505909023390073,
+              2.622640629768467
+            ]
+          },
+          {
+            "modelo": "UE2015",
+            "coef_pp": 2.3110346440035396,
+            "erro_padrao_pp": 1.9301919890164126e-07,
+            "ic95_pp": [
+              2.3110342656928613,
+              2.311035022314218
+            ]
+          },
+          {
+            "modelo": "UE2022",
+            "coef_pp": -0.11690674441476913,
+            "erro_padrao_pp": 0.06850738637857186,
+            "ic95_pp": [
+              -0.25117875439173987,
+              0.017365265562201616
+            ]
+          }
+        ]
+      },
+      "Restante": {
+        "secoes": 313300,
+        "locais": 49727,
+        "locais_com_dois_ou_mais_modelos": 5080,
+        "municipios_clusters": 3327,
+        "correcao_cr1": 1.1890321240401152,
+        "coocorrencias_modelos": [
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2013"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2015"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2020"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "antiga (UE2009-2011)",
+              "UE2022"
+            ],
+            "locais": 0,
+            "municipios": 0
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2015"
+            ],
+            "locais": 1968,
+            "municipios": 526
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2020"
+            ],
+            "locais": 14,
+            "municipios": 11
+          },
+          {
+            "modelos": [
+              "UE2013",
+              "UE2022"
+            ],
+            "locais": 16,
+            "municipios": 12
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2020"
+            ],
+            "locais": 71,
+            "municipios": 28
+          },
+          {
+            "modelos": [
+              "UE2015",
+              "UE2022"
+            ],
+            "locais": 69,
+            "municipios": 35
+          },
+          {
+            "modelos": [
+              "UE2020",
+              "UE2022"
+            ],
+            "locais": 3037,
+            "municipios": 404
+          }
+        ],
+        "coeficientes": [
+          {
+            "modelo": "antiga (UE2009-2011)",
+            "coef_pp": null,
+            "erro_padrao_pp": null,
+            "ic95_pp": null
+          },
+          {
+            "modelo": "UE2013",
+            "coef_pp": 0.7494655725543806,
+            "erro_padrao_pp": 0.3628714827056115,
+            "ic95_pp": [
+              0.038250535434733016,
+              1.4606806096740281
+            ]
+          },
+          {
+            "modelo": "UE2015",
+            "coef_pp": 0.5046765828414578,
+            "erro_padrao_pp": 0.3175562433260109,
+            "ic95_pp": [
+              -0.11772221714336142,
+              1.127075382826277
+            ]
+          },
+          {
+            "modelo": "UE2022",
+            "coef_pp": 0.004332765016623641,
+            "erro_padrao_pp": 0.05667642560949449,
+            "ic95_pp": [
+              -0.10675098795044913,
+              0.11541651798369643
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,148 @@
+<section class="capitulo" id="serrote-da-totalizacao" data-titulo-curto="O “serrote” da totalização">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 10 <span data-veredito-capitulo></span></div>
+    <h2>O “serrote” da totalização: um algoritmo que liga e desliga?</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">Vídeo do prof. Marcelo Trindade (out./2026)</span></div>
+    <p>Na noite do 2º turno de 2026 circulou um vídeo em que o professor Marcelo Trindade, que se apresenta como doutor em matemática aplicada, mostra no computador a curva do <strong>percentual acumulado de Jair Bolsonaro ao longo da totalização do 2º turno de 2022</strong><sup class="ref" data-ref="video-trindade-x video-trindade-yt"></sup>. Ele faz duas alegações:</p>
+    <ol>
+      <li><strong>Vales igualmente espaçados.</strong> Ampliando a curva entre 70 mil e 85 mil seções, aparecem quedas bruscas e regulares: “picos não, vales, 1, 2, 3, 4, 5, 6, 7, igualmente espaçados”. Para ele, é o candidato “penalizado linearmente de cadência em cadência”, um “algoritmo que liga e desliga, como o pulso do coração batendo”.</li>
+      <li><strong>Uma única virada.</strong> Num resultado de 51% a 49%, “era esperado que isso aqui se invertesse várias vezes ao longo do processo”. Segundo ele, embaralhando 3 mil vezes a ordem de envio das urnas, aparecem “várias inversões”.</li>
+    </ol>
+    <p>O vídeo atribui uma interpretação ao padrão da curva; aqui examinamos os dados, os testes e suas limitações.</p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>Se a prorrogação não deixou marca, a alegação seguinte olha para a própria curva da apuração. O vídeo usa 2022, e não 2026: a pasta do notebook se chama “Eleições 2022”, a série no gráfico se chama “Bolsonaro” e o próprio autor diz que “esses são os dados de 2022”. Por isso o capítulo tem duas partes. Primeiro, reproduzimos e desmontamos o gráfico de 2022 exatamente como ele foi mostrado. Depois, aplicamos os mesmos testes a 2026, com Flávio Bolsonaro.</p>
+    <p>Uma advertência de método, porque também circula a hipótese de que as urnas já estivessem alteradas em 2022. <strong>Nenhum teste deste capítulo usa 2022 como “eleição limpa” de referência.</strong> Cada teste compara as seções consigo mesmas: com o próprio 1º turno, com as vizinhas da mesma escola, com o próprio comparecimento ou com ordens sorteadas. Um resultado inocente em 2022 não é usado para absolver 2026, nem o contrário.</p>
+    <p>A fonte do gráfico é pública. O TSE publica o <strong>Histórico de totalização</strong> do presidente<sup class="ref" data-ref="tse-historico-totalizacao"></sup>. São 5.286 registros, um a cada segundo em que a totalização andou, com as seções e os votos que entraram naquele segundo e os acumulados. O eixo horizontal do vídeo é o número de seções totalizadas, e o vertical é o percentual acumulado de Bolsonaro.</p>
+  </div>
+
+  <div class="largo" data-kpis='[{"rotulo":"Pontos do vídeo reproduzidos (6 casas decimais)","valor":"5 de 5"},{"rotulo":"Intervalo entre os vales","valor":"62–68 s"},{"rotulo":"Correlação 2º × 1º turno, mesmas seções e mesma ordem (2022)","valor":"0,998"},{"rotulo":"Ordens aleatórias sem virada depois do 1º 1% das seções","valor":0.9997,"formato":"pct"}]'></div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <p>Definido antes de olhar os resultados (o teste do ciclo de 66 segundos, descrito na seção sobre o teste de fase, foi acrescentado depois de observar os vales e é exploratório):</p>
+    <ol>
+      <li><strong>Reproduzir o gráfico</strong> com o arquivo oficial e conferir os valores que aparecem na tela do vídeo.</li>
+      <li><strong>Medir a regularidade.</strong> Calcular o espaçamento dos vales no tempo e o espectro de frequências da série, no 2º turno e também no 1º turno de 2022.</li>
+      <li><strong>A impressão digital dos lotes.</strong> Um algoritmo que troca votos de Bolsonaro para Lula muda a fatia de cada um, mas não muda o comparecimento, a proporção de brancos e nulos nem o número de eleitores aptos por seção. Se os lotes dos vales tiverem nessas medidas o perfil de outra região do país, eles são <em>outras seções</em>, e não votos trocados.</li>
+      <li><strong>Placebo do 1º turno.</strong> Pegamos as mesmas seções, na ordem em que os boletins do 2º turno chegaram, e acumulamos os votos que elas deram no <em>1º turno</em>, contados quatro semanas antes. Um algoritmo agindo na hora da totalização do 2º turno não poderia ter mexido nesses votos. Se as ondulações reaparecerem iguais, elas medem <em>quem</em> chegou naquele momento.</li>
+      <li><strong>Teste de fase, com poder.</strong> As seções que chegam no mesmo segundo do minuto perdem mais votos de Bolsonaro/Flávio entre o 1º e o 2º turno do que as vizinhas da mesma escola? O nulo mantém os horários fixos e embaralha os resíduos entre seções do mesmo local de votação. Para medir o poder do teste, injetamos um algoritmo sintético que tira uma fração dos votos de Bolsonaro/Flávio numa janela de 8 segundos de cada minuto, e verificamos se o teste o encontra.</li>
+      <li><strong>Viradas.</strong> Comparar o número de viradas da série real com o de 3.000 ordens aleatórias, como no vídeo, e medir a composição regional da contagem.</li>
+    </ol>
+  </aside>
+
+  <div class="capitulo__corpo graficos">
+    <h3>1. O gráfico do vídeo é real, ponto por ponto</h3>
+    <p>Os cinco valores legíveis na tela batem com o arquivo do TSE até a sexta casa decimal. Por exemplo, 72.747 seções às 17h42min37s, com 0,516508 para Bolsonaro, e 74.682 seções às 17h42min51s, com 0,515568. O total final do histórico (Lula 60.345.999 × Bolsonaro 58.206.354) é idêntico à soma dos boletins de urna. O autor plotou corretamente o dado oficial. A divergência está na interpretação.</p>
+    <figure class="grafico largo" data-grafico="ch06b-serie" data-src="data/ch06b/serie-2t-2022.json"
+            data-titulo="2º turno de 2022: percentual acumulado ao longo da totalização"
+            data-subtitulo="Eixo x = seções já totalizadas. Bolsonaro chega a 56,8% no início e é ultrapassado uma vez, às 18h42, com 66,8% das seções."
+            data-fonte="TSE: Histórico de totalização Presidente BR, 2º turno 2022" data-altura="380"></figure>
+
+    <h3>2. Os vales existem e são regulares: um a cada ~66 segundos</h3>
+    <p>Ampliando o mesmo trecho do vídeo, os vales são reais. Cada um é uma sequência de 3 a 7 segundos em que os lotes que entram dão só 20% a 30% a Bolsonaro, contra 55% a 60% nos lotes ao redor. Os vales começam às 17h41min41s, 17h42min46s, 17h43min52s, 17h45min00s e 17h46min02s, com intervalos de <strong>65, 66, 68 e 62 segundos</strong>. Até aqui, a observação do vídeo está certa.</p>
+    <figure class="grafico largo" data-grafico="ch06b-zoom" data-src="data/ch06b/zoom-2t-2022.json"
+            data-titulo="O trecho do vídeo: 65 mil a 90 mil seções"
+            data-subtitulo="Em cima: percentual acumulado de Bolsonaro. Embaixo: fatia de Bolsonaro só nas seções que entraram em cada segundo (tamanho do ponto = nº de seções). Os vales coincidem com lotes abaixo de 35%."
+            data-fonte="TSE: Histórico de totalização Presidente BR, 2º turno 2022" data-altura="520"></figure>
+    <p>O espectro de frequências confirma o ritmo. A série tem picos em 33 s e 22 s, que são harmônicas de um ciclo de ~66 s, e o próprio ciclo de 66 s também aparece. A regularidade é a do <strong>sistema de totalização</strong>, que processa as filas de boletins em rodadas. Esse ciclo também aparece no <strong>1º turno de 2022</strong>, e com força ainda maior: o pico de 33 s chega a 105 vezes a mediana, contra 62 no 2º turno. Ele aparece mesmo sem a “virada” que, segundo o vídeo, o algoritmo teria produzido.</p>
+    <figure class="grafico largo" data-grafico="ch06b-espectro" data-src="data/ch06b/espectro.json"
+            data-titulo="Espectro de frequências dos incrementos, 17h–19h"
+            data-subtitulo="Potência relativa à mediana, por período (segundos). O mesmo ciclo nos dois turnos de 2022."
+            data-fonte="TSE: Histórico de totalização Presidente BR, 1º e 2º turnos 2022; cálculo próprio" data-altura="340"></figure>
+
+    <h3>3. O perfil dos vales se aproxima do Nordeste</h3>
+    <p>É aqui que a hipótese do algoritmo e a hipótese inocente se separam. Se um algoritmo tirasse votos de Bolsonaro e os desse a Lula, a fatia de Bolsonaro cairia, mas três características dos lotes continuariam iguais às dos lotes vizinhos:</p>
+    <ul>
+      <li>o comparecimento;</li>
+      <li>a proporção de brancos e nulos;</li>
+      <li>o número de eleitores aptos por seção.</li>
+    </ul>
+    <p>Se, em vez disso, os vales forem seções de outra região entrando juntas, essas três medidas terão o perfil daquela região.</p>
+    <p>O resultado é inequívoco. Os lotes dos vales (abaixo de 35% para Bolsonaro, 49.799 seções entre 17h e 19h) têm:</p>
+    <ul>
+      <li>comparecimento de <strong>80,1%</strong>;</li>
+      <li>brancos e nulos de <strong>5,1%</strong>;</li>
+      <li><strong>321 aptos por seção</strong>;</li>
+      <li>Bolsonaro com <strong>30,0%</strong>.</li>
+    </ul>
+    <p>O Nordeste inteiro tem 80,7%, 4,9%, 320 e 30,7%. Outras regiões também se aproximam em algumas dessas medidas. O Sudeste, por exemplo, tem 343 aptos por seção, e o Sul tem 3,7% de brancos e nulos. O perfil é compatível com lotes nordestinos, mas não foi possível ligar cada lote às seções e UFs exatas.</p>
+    <div class="largo" data-tabela="ch06b-tab-assinatura"></div>
+    <p>Para produzir os vales trocando votos, o “algoritmo” teria de tirar cerca de <strong>45% dos votos de Bolsonaro</strong> nas seções de cada vale (de ~55% para 30%), e ainda assim acertar por acaso o comparecimento e os brancos e nulos do Nordeste. O teste da seção 5 detecta, em todas as simulações, uma troca cem vezes menor que essa.</p>
+
+    <h3>4. O placebo: os votos do 1º turno desenham as mesmas ondas</h3>
+    <p>O histórico do TSE não diz quais seções entraram em cada segundo. Por isso, para o placebo, reconstruímos a ordem de chegada com o horário de recebimento de cada boletim (<code>DT_BU_RECEBIDO</code>), que chega à mesma curva com diferença de milésimos. Depois, sobre essa ordem do 2º turno, acumulamos duas coisas: os votos que as seções deram em 30 de outubro, e os votos que <strong>as mesmas seções</strong> deram em 2 de outubro, no 1º turno.</p>
+    <p>As duas curvas são praticamente a mesma. Em blocos de 150 seções, a correlação entre a fatia de Bolsonaro no 2º turno e no 1º turno é de <strong>0,998</strong> (r² = 0,996) em todo o período e de 0,994 no trecho do vídeo. Cada subida e cada descida já estava nos votos do 1º turno. As ondas são uma propriedade de <em>quais seções</em> chegaram em cada momento, e não do momento em que chegaram.</p>
+    <figure class="grafico largo" data-grafico="ch06b-placebo-2022" data-src="data/ch06b/placebo.json"
+            data-titulo="2022: mesmas seções, mesma ordem de chegada, votos de dois dias diferentes"
+            data-subtitulo="Variação do percentual acumulado de Bolsonaro desde 65 mil seções. Linha cheia = votos do 2º turno; tracejada = votos do 1º turno das mesmas seções."
+            data-fonte="TSE: boletins de urna 2022, 1º e 2º turnos (DT_BU_RECEBIDO do 2º turno)" data-altura="360"></figure>
+
+    <h3>5. Teste de fase: nenhuma penalização ligada ao ciclo</h3>
+    <p>O teste mais direto da tese procura a marca deixada por um algoritmo que agisse em certas fases do ciclo: as seções processadas nessas fases teriam perdido mais votos de Bolsonaro entre o 1º e o 2º turno do que as outras seções da <em>mesma escola</em>. Medimos isso para cada segundo do minuto em que o boletim chegou, nas 472 mil seções de 2022 e nas 499 mil de 2026.</p>
+    <ul>
+      <li><strong>2022:</strong> nenhuma janela de 8 segundos se destaca. A janela mais desfavorável a Bolsonaro difere das vizinhas da mesma escola em −0,010 ponto, com p = 0,15 na direção alegada (p = 0,82 bilateral).</li>
+      <li><strong>2026:</strong> nenhuma janela se destaca. A janela mais desfavorável a Flávio difere em −0,006 ponto (p = 1,0 na direção alegada). A janela mais extrema é a favor de Flávio, +0,05 ponto, e também não é significativa (p = 0,81 bilateral).</li>
+      <li><strong>Uma correção de método, registrada por transparência.</strong> A primeira versão deste teste usava outro nulo: girava a fase de cada escola ao acaso. Esse nulo espalha as seções pelo minuto. Mas, na realidade, quase nenhum boletim chega em certos segundos, e a média dessas janelas quase vazias oscila muito. Com isso, o nulo antigo era estreito demais e produzia falsos positivos: um “p = 0,0025” para 2026 que não se sustenta. A versão publicada mantém os horários de chegada exatamente como foram, embaralha a variação apenas entre seções da mesma escola e usa um escore padronizado por janela, que trata por igual janelas cheias e vazias.</li>
+      <li><strong>Poder:</strong> um algoritmo sintético que tirasse só <strong>0,5%</strong> dos votos de Bolsonaro/Flávio numa janela de 8 segundos por minuto foi detectado em <strong>40 de 40</strong> simulações, nos dois anos. Os vales do vídeo exigiriam uma troca da ordem de 45%.</li>
+    </ul>
+    <figure class="grafico largo" data-grafico="ch06b-fase" data-src="data/ch06b/fase.json"
+            data-titulo="Variação 1º→2º turno por segundo de chegada do boletim, descontada a média da escola"
+            data-subtitulo="Resíduo médio (p.p.) da fatia de Bolsonaro/Flávio. Valor negativo = perdeu mais votos que as vizinhas da mesma escola."
+            data-fonte="TSE: boletins de urna 2022 e 2026; cálculo próprio" data-altura="340"></figure>
+
+    <h3>Teste exploratório de fase de 66 segundos</h3>
+    <p>Para investigar um pulso que desliza em relação ao minuto, repetimos a comparação entre seções do mesmo local usando janelas de 8 segundos em um ciclo de 66 segundos, com horários de recebimento fixos e 199 permutações. O valor-p unilateral foi 0,105 em 2022 e 0,885 em 2026; não houve evidência de penalização na direção examinada. Uma troca sintética de 0,5% na janela foi detectada em 40 de 40 simulações em cada ano. O período foi escolhido depois de observar os vales, a resolução é limitada e esse exercício não testa todos os períodos ou mecanismos. Em 2022 e 2026 usamos horários de recebimento, que não identificam exatamente a ordem da totalização.</p>
+    <h3>6. A “virada única” é exatamente o que se espera</h3>
+    <p>O argumento das 3.000 simulações embaralhadas se volta contra a conclusão do vídeo. Repetimos o exercício. Numa ordem aleatória, o percentual acumulado converge muito depressa para o resultado final. Em <strong>99,97%</strong> das 3.000 ordens sorteadas não há <em>nenhuma</em> virada depois do primeiro 1% das seções, e 99% das viradas acontecem nas primeiras 2.500 seções. Em ordem aleatória, a curva também em 99% das simulações não se afasta mais de 0,73 ponto do resultado final. A curva real se afasta 7,5 pontos.</p>
+    <p>Isso prova só que a ordem de chegada <strong>não é aleatória</strong>, e não deveria ser: regiões diferentes transmitem em horários diferentes. Entre as primeiras 9.440 seções recebidas, só 6% eram do Nordeste e 25% eram do Sul. No fim, o Nordeste chega a 28% e o Sul cai a 15%. A composição regional muda ao longo da chegada e contribui para a variação da curva. No <strong>1º turno de 2022</strong> aconteceu a mesma coisa: Lula ultrapassou Bolsonaro uma única vez, às 19h59, com 68% das seções apuradas.</p>
+    <figure class="grafico largo" data-grafico="ch06b-composicao" data-src="data/ch06b/composicao.json"
+            data-titulo="De onde vinham as seções já recebidas, ao longo da contagem (2º turno 2022)"
+            data-subtitulo="Fração de cada região entre as seções recebidas até aquele ponto"
+            data-fonte="TSE: boletins de urna 2022 (DT_BU_RECEBIDO)" data-altura="340"></figure>
+
+    <h3>7. E em 2026, com Flávio?</h3>
+    <p>Não localizamos um arquivo bruto do histórico de totalização de 2026 com a resolução de 2022 (busca no portal e no CDN em 31/10/2026). O TSE divulgou um <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/saiba-como-foi-a-totalizacao-dos-votos-no-1o-turno-das-eleicoes-2026" target="_blank" rel="noopener">Painel da evolução da totalização</a><sup class="ref" data-ref="tse-painel-totalizacao-2026"></sup>, com recortes por UF e município, anunciado para o 1º turno; não confirmamos na fonte primária se ele já cobre o 2º turno. O acesso automatizado ao painel foi recusado e não verificamos se ele permite exportar a série com a resolução necessária para reproduzir o “serrote”. A reconstrução pelo horário de recebimento mostra uma curva diferente da de 2022, porque o recebimento de boletins ficou parado das 17h08 às 19h03 (<a href="#prorrogacao-secoes-tardias">capítulo 9</a>). Ainda assim, os testes dão o mesmo resultado:</p>
+    <ul>
+      <li><strong>Placebo:</strong> a correlação entre os votos do 2º e do 1º turno das mesmas seções, na ordem de chegada do 2º turno, é de <strong>0,996</strong>. No trecho de 65 mil a 90 mil seções, é de 0,995.</li>
+      <li><strong>Teste de fase:</strong> não há penalização de Flávio na fase fixa do minuto testada (p = 1,0 na direção alegada).</li>
+      <li><strong>Liderança:</strong> como a disputa foi apertada no começo, Flávio liderou só nas primeiras seções, com no máximo 50,5% depois da largada, e a liderança trocou de mãos 16 vezes até ~235 mil seções. É o comportamento de uma série cuja composição muda devagar.</li>
+    </ul>
+    <figure class="grafico largo" data-grafico="ch06b-placebo-2026" data-src="data/ch06b/placebo.json"
+            data-titulo="2026: mesmas seções, mesma ordem de chegada, votos do 2º e do 1º turno"
+            data-subtitulo="Variação do percentual acumulado de Flávio desde 65 mil seções. Linha cheia = 2º turno; tracejada = 1º turno."
+            data-fonte="TSE: boletins de urna 2026, 1º e 2º turnos (DT_BU_RECEBIDO do 2º turno)" data-altura="360"></figure>
+  </div>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <p><strong>O gráfico é verdadeiro; a conclusão, não.</strong> Os vales existem e se repetem a cada ~66 segundos. O perfil é compatível com lotes de regiões com votação diferente, mas a ligação dos lotes às UFs não foi estabelecida. Os resultados seguintes são compatíveis com essa explicação, mas não são provas independentes:</p>
+    <ul>
+      <li>o comparecimento dos lotes é próximo ao do Nordeste, embora outras regiões também sejam próximas em algumas medidas;</li>
+      <li>os votos do 1º turno das mesmas seções, na mesma ordem, desenham as mesmas ondas (r = 0,998);</li>
+      <li>não há penalização na fase fixa de 8 segundos por minuto testada; o teste exploratório do ciclo de 66 segundos também não a encontra (p = 0,885), mas esse período foi escolhido depois de observar os dados, e nenhum dos dois cobre todos os ritmos ou formatos de pulso possíveis;</li>
+      <li>o ciclo aparece igual no 1º turno de 2022.</li>
+    </ul>
+    <p>A “virada única” é a marca de uma ordem de chegada regional, e não de manipulação: em ordem aleatória não haveria virada nenhuma depois do início da contagem.</p>
+    <p><strong>Sobre a “probabilidade de ser fraude”.</strong> Não existe um número honesto do tipo “X% de chance de fraude”, porque isso exigiria uma probabilidade prévia que nenhum dado fornece. O que os dados permitem dizer é o seguinte:</p>
+    <ul>
+      <li>O perfil, o placebo e os testes temporais são compatíveis com diferenças de composição; não estabelecem a UF de cada lote nem excluem todo mecanismo alternativo.</li>
+      <li>A explicação por algoritmo, no tamanho necessário para desenhar os vales, teria sido detectada em 40 de 40 simulações, e não foi.</li>
+    </ul>
+    <p>O padrão do vídeo não sustenta a alegação de fraude, nem em 2022 nem em 2026.</p>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <ul>
+      <li>Este capítulo testa uma alegação específica: a de que o <em>ritmo</em> da totalização revela um algoritmo. Uma alteração gravada nos próprios boletins, igual em todos os momentos e sem ligação com o ciclo, não deixaria serrote nenhum. Ela não é testada aqui. Testá-la exige comparar os boletins impressos, afixados nas seções, com os publicados. Para o deslocamento nacional uniforme, veja os capítulos <a href="#mapa-da-virada">4</a> e <a href="#poder-dos-detectores">5</a>.</li>
+      <li>O placebo e o teste de fase de 2022 usam a ordem de <em>recebimento</em>, que é uma aproximação da ordem de <em>totalização</em>; a diferença entre totalização e recebimento varia ao longo da apuração. Tentamos ligar cada registro do histórico às seções exatas pela soma dos votos, mas a fila de totalização não segue a ordem de recebimento dentro de cada UF, e a ligação exata não foi possível. O teste da impressão digital (seção 3) não depende dessa aproximação.</li>
+      <li>Não sabemos por que aparecem ciclos de cerca de 66 s nem quais UFs compõem cada lote. A explicação técnica (filas por TRE, servidor regional, janela de lote) precisaria vir do TSE.</li>
+      <li>Não localizamos o histórico bruto de totalização de 2026. Se o painel do TSE ou outra publicação oferecer a série com resolução suficiente, a reprodução exata do gráfico de 2026 poderá ser feita com o mesmo script. O horário de recebimento de um BU e o momento em que ele entra no total acumulado são coisas diferentes, e não ligamos cada lote às seções exatas.</li>
+    </ul>
+  </aside>
+</section>

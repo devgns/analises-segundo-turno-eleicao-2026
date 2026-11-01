@@ -1,0 +1,108 @@
+<section class="capitulo" id="logs-das-urnas" data-titulo-curto="Logs das urnas">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 13 <span data-veredito-capitulo></span></div>
+    <h2>Os logs das urnas: modelos, alertas, substituições</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">Redes sociais, após o 2º turno</span></div>
+    <p>Circula a alegação de que os logs das urnas não fecham com os boletins: na base de logs do 2º turno, <strong>1.435 seções</strong> registrariam menos votos no log que no boletim de urna, somando <strong>157.290 votos</strong> “a menos”, que ninguém conseguiria rastrear. O balanço do TSE menciona <strong>1.551 substituições de urna</strong> no 2º turno<sup class="ref" data-ref="tse-balanco-2t"></sup>. Um argumento que acompanha a alegação é que “coerência digital não é verificação física”: os arquivos da urna podem bater entre si e ainda assim não provar o que aconteceu na seção. Em paralelo, circula a suspeita de que algum modelo de urna, ou as urnas que emitiram mais alertas, tenham se comportado de modo diferente.</p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>Se a biometria não deixa rastro de votos inseridos, a próxima alegação mira o próprio diário da urna: votos que faltariam no log, substituições e alertas.</p>
+    <p>Cada urna grava um <em>log</em>: um diário com hora, minuto e segundo de cada evento. Ali ficam registrados a ligação da urna, a zerésima, cada eleitor identificado, cada tentativa de digital, cada voto computado, os alertas, os erros e o encerramento. O TSE publica esses arquivos, seção por seção<sup class="ref" data-ref="tse-arquivo-urna tse-logs"></sup>. Lemos os logs do 2º turno de todas as seções que têm log: 128.077.685 registros de eleitor. Com eles fizemos três coisas: comparamos o log com o boletim, procuramos eventos impossíveis e cruzamos o modelo da urna e os alertas com o resultado.</p>
+    <div class="largo" data-kpis-src="data/ch08/kpis.json"></div>
+  </div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <ol>
+      <li><strong>Substituições.</strong> O arquivo de log de cada seção (<code>log.jez</code>) é um pacote compactado. Nossa leitura inicial abria só o log da <em>última</em> urna. Baixamos de novo o pacote completo das 1.432 seções com déficit no Brasil, além de 400 seções de controle sorteadas sem déficit. Lemos então todos os logs contidos no pacote e conferimos se a soma dos votos de todas as urnas usadas fecha com o comparecimento do boletim.</li>
+      <li><strong>Modelo de urna.</strong> Os modelos (UE2013, 2015, 2020 e 2022) não são distribuídos ao acaso: as urnas mais antigas vão para certas regiões. A comparação bruta, portanto, mistura modelo e geografia. A comparação mais informativa que os dados permitem é observacional, com efeito fixo de local: nos 8.497 locais de votação onde convivem modelos diferentes (71.005 seções), comparamos a variação de Lula entre turnos nas seções do mesmo prédio que usaram urnas diferentes. Não é um experimento: a alocação das urnas não é aleatória, e “mesmo local” não quer dizer “mesmo eleitorado”.</li>
+      <li><strong>Alertas, erros e habilitações sem voto.</strong> Verificamos se as seções com mais registros desse tipo têm variação diferente na fatia de Lula, comparando dentro do município e com controles do 1º turno.</li>
+      <li><strong>Relógio e ordem dos eventos.</strong> Procuramos urnas prontas antes das 8h, votos computados antes da habilitação, votos fora de ordem, eleitores sobrepostos, números de ordem repetidos e votos depois das 17h. Os horários estão em Brasília, convertidos pelo fuso de cada UF.</li>
+      <li><strong>Tipo de urna no boletim</strong> (“Apurada”, contingência, voto manual), nos dois turnos.</li>
+    </ol>
+  </aside>
+
+  <div class="capitulo__corpo graficos">
+    <h3>Os 157 mil votos “a menos”: estão nos logs das urnas substituídas</h3>
+    <p>Quando uma urna quebra no meio da votação, a mídia com os votos já dados passa para uma urna de contingência, que continua a votação. O pacote de log que o TSE publica guarda <em>dentro dele</em> o log da urna que quebrou. Ao abrir os pacotes completos, verificamos o seguinte:</p>
+    <ul>
+      <li><strong>1.425 das 1.432 seções</strong> fecham <em>exatamente</em> com o boletim quando se somam os votos de todas as urnas do pacote, e 1.429 fecham com diferença de até 2 votos.</li>
+      <li>Em 1.413 delas há duas urnas com votos registrados no mesmo dia, uma antes e outra depois da troca.</li>
+      <li>O número de urna que o boletim informa é o da última urna do log em 1.429 dos 1.432 casos.</li>
+      <li>Nessas seções, o número de urna mudou entre o 1º e o 2º turno em 1.424 casos. Nas 400 de controle, mudou em 1.</li>
+      <li>Nenhuma das 400 seções de controle tem log interno com votos.</li>
+    </ul>
+    <p>A troca acontece ao longo de todo o dia, com pico entre 9h e 10h (horário de Brasília). Nas seções que tiveram troca, a variação da fatia de Lula é igual à das vizinhas do mesmo município: −0,04 p.p. (IC −0,14 a +0,06; p = 0,44).</p>
+    <p><strong>Os 7 casos que não fecham</strong>, descritos um a um:</p>
+    <ul>
+      <li>Três seções (BA 34711/0021/0178, PI 11533/0003/0216, PB 21750/0002/0254) têm um voto a menos no log, com uma única urna e sem troca. É compatível com um eleitor cujo registro de “voto computado” não foi gravado da forma que o nosso leitor procura. O leitor usado aqui descarta sem contar uma mensagem de voto computado que apareça fora de uma sequência aberta (por exemplo, sem a identificação do eleitor antes); um descarte desse tipo produziria exatamente esse déficit de 1. Não verificamos essa hipótese nos arquivos originais.</li>
+      <li>Duas seções (BA 35653/0173/0235, faltam 13 votos; MA 08893/0047/0609, faltam 36) tiveram troca de urna, mas o log interno da urna original não tem nenhum voto do dia. Os votos anteriores à troca estão no boletim e não aparecem em log nenhum.</li>
+      <li>RS 89060/0017/0191 tem as duas urnas no log, com 15 + 75 votos, mas faltam 2 votos para o comparecimento de 92.</li>
+      <li>ES 57932/0009/0085 é o caso mais estranho. O log principal (urna de contingência) não tem votos. O pacote traz <em>dois</em> logs internos de urnas diferentes, com 304 e 308 votos, ambos começando às 8h. O comparecimento é 308. Pode ser uma cópia do log com outro número de urna ou uma segunda urna preparada para a seção. Não conseguimos esclarecer com os dados públicos, e o caso merece pedido formal de esclarecimento ao TRE-ES.</li>
+    </ul>
+    <p>Somados, os 7 casos envolvem menos de 60 votos de diferença real, deixando de lado o caso do ES, em que o log tem votos a <em>mais</em>.</p>
+    <div class="largo" data-tabela="ch08-tab-subst"></div>
+    <p>Fora as substituições, 368 seções tiveram a urna pronta depois das 8h30 sem perder votos, 99 delas depois das 9h. São atrasos de abertura ou trocas feitas antes do primeiro voto. Nenhuma urna ficou pronta antes das 8h (horário de Brasília). No Amazonas essa conferência é parcialmente circular, porque o fuso das seções é conferido pela própria hora de prontidão; a classificação por município (11 municípios em UTC−5) é a mesma.</p>
+    <figure class="grafico largo" data-grafico="ch08-pronta" data-src="data/ch08/pronta.json"
+            data-titulo="Hora em que a última urna usada na seção ficou pronta para receber votos"
+            data-subtitulo="Horário de Brasília, faixas de 5 min, escala logarítmica. Exclui exterior."
+            data-fonte="TSE — logs das urnas do 2º turno 2026" data-altura="340"></figure>
+
+    <h3>Modelo de urna: a geografia engana; a comparação dentro do local, menos</h3>
+    <p>Na comparação bruta, Lula cresceu 6,75 p.p. nas seções com UE2013, 6,70 com UE2015, 6,54 com UE2020 e 6,66 com UE2022. As diferenças são de décimos de ponto, e a geografia as explica. Na comparação dentro do local, que compara seções do mesmo local de votação com modelos diferentes, as diferenças na <em>variação</em> entre turnos em relação à UE2013 ficam entre <strong>−0,06 e −0,04 p.p.</strong>, com intervalos que cruzam ou tocam o zero. A UE2015 dá −0,06 p.p. (p = 0,045), mas esse único p-valor marginal não sobrevive à correção por múltiplos testes. Isso é sobre a variação entre turnos; no <em>nível</em> de voto, o <a href="#modelos-de-urna">capítulo 14</a> encontra +0,76 p.p. para a UE2013, efeito que já existia no 1º turno e não passa por correção. Intervalo que inclui zero não é o mesmo que efeito zero, e uma alteração comum a todos os modelos não apareceria nessa comparação. A tese de 2022 sobre as urnas antigas (UE2009–2015) no Norte e Nordeste é testada no <a href="#modelos-de-urna">capítulo 14</a>, que compara 2022 com 2026.</p>
+    <figure class="grafico largo" data-grafico="ch08-modelos" data-src="data/ch08/modelos.json"
+            data-titulo="Fatia de Lula nos votos válidos, por modelo de urna"
+            data-subtitulo="Rótulo = variação entre turnos (p.p.)"
+            data-fonte="TSE — bweb e logs das urnas, 2026" data-altura="340"></figure>
+    <figure class="grafico largo" data-grafico="ch08-modelos-reg" data-src="data/ch08/modelos_reg.json"
+            data-titulo="Diferença no Δ da fatia de Lula em relação à UE2013, por especificação"
+            data-subtitulo="Ponto = estimativa; barra = IC 95% (EP agrupado por município)"
+            data-fonte="TSE — bweb e logs das urnas, 2026; cálculo próprio" data-altura="440"></figure>
+
+    <h3>Alertas, erros e habilitações sem voto</h3>
+    <p>Os logs registram 7.039.759 alertas no 2º turno, com mediana de 13 por seção. O 99º percentil é 40, e o máximo, 429. A maioria corresponde a eventos rotineiros, como digital não reconhecida e reimpressões. Os erros somam 533.002, mas 473.868 seções têm <em>exatamente um</em> erro, o que indica um registro de rotina e não uma falha. Só 1.414 não têm nenhum. As habilitações sem voto computado, em que o eleitor foi liberado e não votou, somam pelo menos 8.847 em 8.286 seções, quase todas com um caso só. É um piso: o leitor só contava esse caso quando um novo eleitor era identificado, e não contava uma habilitação ainda pendente no fim do arquivo. Por decil de alertas por 100 votos, a variação de Lula relativa ao município oscila entre −0,06 e +0,03 p.p. Dobrar o número de alertas está associado a +0,07 p.p. na variação de Lula: estatisticamente detectável com 490 mil seções, mas irrelevante em magnitude, e sem padrão monotônico.</p>
+    <figure class="grafico largo" data-grafico="ch08-alertas" data-src="data/ch08/alertas_decis.json"
+            data-titulo="Δ da fatia de Lula (vs. média do município) por decil de alertas no log"
+            data-subtitulo="Eixo y fixo em ±1 p.p. para dar escala; as barras são quase invisíveis"
+            data-fonte="TSE — logs das urnas e bweb, 2026" data-altura="320"></figure>
+
+    <h3>Procuramos o impossível, nos registros que o leitor montou</h3>
+    <p>Varremos os 128 milhões de registros em busca de eventos fisicamente impossíveis ou fora do protocolo. A tabela mostra cada contagem, inclusive as que deram zero. Há um limite importante: o leitor monta cada registro de eleitor na ordem das linhas do log e só guarda sequências completas. Mensagens fora de uma sequência (um voto computado sem identificação aberta, uma segunda mensagem de computação depois de fechada a sequência) ficam de fora, sem contagem. Os zeros abaixo valem, portanto, para os registros pareados; uma contabilidade de todas as mensagens brutas, com o motivo de cada descarte, não foi feita. A divergência entre o total do log e o do BU, seção a seção, pega parte desses descartes, mas não todos.</p>
+    <ul>
+      <li><strong>Zero:</strong> votos computados antes da habilitação, habilitações antes de o mesário digitar o título, tempos de cabine negativos, votos fora de ordem e eleitores sobrepostos. Como os registros são montados na ordem das linhas, esses itens checam essencialmente se os relógios andam para trás entre registros pareados, não a ordem bruta das mensagens.</li>
+      <li><strong>608 votos em 585 seções</strong> foram computados sem a linha “Voto confirmado para [Presidente]”. São poucos demais para afetar qualquer resultado e são compatíveis com eleitores que abandonaram a cabine, cujo voto é encerrado pelo mesário. Esta interpretação não foi verificada no manual do log.</li>
+      <li><strong>Votos depois das 17h.</strong> Contamos <strong>34.330 votos</strong> computados a partir das 17h (Brasília) nos logs principais. O TSE informou 34.393<sup class="ref" data-ref="tse-votos-apos-17h"></sup>. A diferença de 63 (0,2%) <strong>não está reconciliada</strong>. Ela não vem das urnas substituídas: nos logs internos das 1.432 seções reconciliadas, nenhum voto foi computado depois das 17h. O número depende do critério: contando só votos estritamente depois de 17h00min00s, são 34.050 (280 caem exatamente em 17h00min00s); contando a confirmação do voto para Presidente em vez do voto computado, 34.126; incluindo o exterior em horário local, 34.542. Não sabemos qual critério o TSE usou. Em 1.667 seções, concentradas em RJ, SP, BA e PE, o último voto foi depois das 18h. São as seções prorrogadas, analisadas no <a href="#prorrogacao-secoes-tardias">capítulo 9</a>.</li>
+      <li><strong>Pausas longas.</strong> Em 4.546 seções houve um intervalo de pelo menos 1 hora sem nenhum eleitor, e em 385 de pelo menos 2 horas. A mediana da maior pausa é de 16 minutos.</li>
+    </ul>
+    <div class="largo" data-tabela="ch08-tab-esq"></div>
+
+    <h3>Tipo de urna no boletim</h3>
+    <p>No boletim de urna (bweb), <strong>todas</strong> as 499.206 seções do 1º turno e 499.205 do 2º constam como “Apurada”. Nenhuma aparece como contingência ou voto manual. Uma seção do exterior (ZZ 30686/0001/0443) não tem registro no 2º turno. O campo do bweb, portanto, <em>não</em> informa as substituições: elas só aparecem no log.</p>
+    <div class="largo" data-tabela="ch08-tab-tipo"></div>
+  </div>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <ul>
+      <li>Os 157.290 votos que “faltavam” no log não são votos sem rastro: estão nos logs das urnas substituídas, publicados dentro do mesmo pacote. 1.425 de 1.432 seções fecham voto a voto.</li>
+      <li>Modelo de urna, alertas, erros e substituições não têm relação relevante com a variação de Lula entre turnos.</li>
+      <li>Nenhum dos eventos impossíveis procurados aparece nos registros pareados pelo leitor (mensagens fora de sequência não são contadas).</li>
+      <li>Os votos depois das 17h ficam a 0,2% do número do TSE, numa diferença ainda não reconciliada.</li>
+    </ul>
+    <p>Restam 7 seções sem fechamento exato: seis com divergências de 1 a 36 votos (54 no total) e o caso do ES 57932/0009/0085, em que dois logs de urnas diferentes registram 304 e 308 votos para um comparecimento de 308, sem explicação nos dados públicos. Isso não significa que votos a mais tenham entrado na totalização; é preciso saber qual arquivo foi aceito e por quê.</p>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <ul>
+      <li><strong>Coerência não é verificação física.</strong> Log, boletim e RDV são gerados pelo mesmo software. Se o próprio software fosse adulterado, ele poderia produzir arquivos coerentes entre si. A coerência que mostramos torna improváveis erros e manipulações <em>posteriores</em> aos arquivos, como edição de planilhas, mas só entre arquivos da mesma origem; ela não substitui a comparação com BUs impressos preservados de forma independente. Não exclui uma adulteração do software que gera tudo. Isso só se testa com auditoria do código, testes de integridade e conferência de urnas e cédulas fora do sistema.</li>
+      <li><strong>O 1º turno.</strong> Não temos os logs do 1º turno, então não comparamos alertas e substituições entre turnos.</li>
+      <li><strong>A pausa de 115 minutos.</strong> Os logs das urnas registram a votação, não a totalização. O intervalo sem recebimento de BUs entre 17h08 e 19h03 (<a href="#prorrogacao-secoes-tardias">capítulo 9</a>) não aparece nem pode ser examinado com estes arquivos.</li>
+      <li><strong>As 1.551 substituições.</strong> A contagem do TSE inclui trocas feitas antes do primeiro voto. Essas trocas não geram déficit, e nós só as vemos indiretamente, pelas urnas prontas depois das 8h30. Não reconciliamos esse número exatamente.</li>
+    </ul>
+  </aside>
+</section>

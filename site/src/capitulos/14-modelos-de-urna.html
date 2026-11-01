@@ -1,0 +1,129 @@
+<section class="capitulo" id="modelos-de-urna" data-titulo-curto="Modelos de urna: 2022 × 2026">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 14 <span data-veredito-capitulo></span></div>
+    <h2>Modelos de urna: o padrão de 2022 voltou em 2026?</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">pedronauck/eleicoes2022 · Instituto Voto Legal (2022)</span></div>
+    <p>Logo depois do 2º turno de 2022, um estudo publicado no GitHub separou os votos por modelo de urna e por região<sup class="ref" data-ref="pedronauck-eleicoes2022"></sup>. Segundo o autor, nas urnas antigas (UE2009, UE2010, UE2011, UE2013 e UE2015) Lula teve votação “muito diferente” da registrada nas UE2020, mas só no Norte e no Nordeste. A diferença aumentaria nas cidades menores, “chegando a mais de 3x o número de votos total quando comparado com os modelos das urnas novas”. O presente capítulo examina essas diferenças e suas possíveis relações com a distribuição dos modelos.</p>
+    <p>Na mesma época, o PL entregou ao TSE um relatório do Instituto Voto Legal (IVL) e pediu a invalidação dos votos do 2º turno dados nesses cinco modelos, que eram 59,18% das urnas. O relatório afirmava que, contando só as UE2020, Bolsonaro teria 51,05% dos votos<sup class="ref" data-ref="comprova-pl-ivl-2022"></sup>. O argumento técnico do IVL era outro: os logs dos modelos antigos traziam o mesmo número de identificação, “67305985”, em vez de um número por urna. O TSE rejeitou o pedido em 23/11/2022. Respondeu que as urnas antigas são rastreáveis por identificação física (patrimônio) e lógica (código de carga) e multou a coligação em R$ 22,9 milhões por litigância de má-fé<sup class="ref" data-ref="migalhas-moraes-pl-2022 tse-multa-pl-2022"></sup>.</p>
+    <p>A pergunta deste capítulo: <strong>o padrão de 2022 se repetiu em 2026? E ele resiste a uma comparação justa?</strong></p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>A última alegação sobre as urnas vem de 2022 e voltou a circular em 2026: a de que os modelos antigos votam diferente. O <a href="#logs-das-urnas">capítulo 13</a> já comparou os modelos de urna de 2026 dentro do mesmo local de votação e não encontrou efeito. Aqui o foco é a tese de 2022 e o que mudou de uma eleição para a outra. O ponto de partida é um detalhe técnico: o boletim de urna de 2022 não informa o modelo da urna, mas informa o <strong>número de série</strong> da urna usada (<code>nr_urna_efetivada</code>), e os modelos ocupam faixas de série que não se misturam. Com isso dá para classificar cada uma das 471 mil seções de 2022 por modelo, validar essa classificação com os próprios logs das urnas e, o mais importante, acompanhar <strong>as mesmas seções</strong> de 2022 a 2026. Entre uma eleição e outra, as UE2009, UE2010 e UE2011 foram aposentadas e substituídas.</p>
+    <div class="largo" data-kpis-src="data/ch08b/kpis.json"></div>
+  </div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <p>Definido antes de olhar os resultados controlados:</p>
+    <ol>
+      <li><strong>Classificar as urnas pelo número de série e conferir com os logs.</strong> Sorteamos 940 seções do 2º turno de 2022 (540 numa amostra estratificada por faixa de série, inclusive nas fronteiras entre faixas, e 400 numa amostra aleatória simples). Para cada uma, baixamos o log original da urna no arquivo do TSE<sup class="ref" data-ref="tse-arquivo-urna-2022"></sup> e lemos a linha “Identificação do Modelo de Urna” gravada pela própria máquina.</li>
+      <li><strong>Reproduzir o padrão bruto</strong> com honestidade: votos por minuto de recebimento do boletim, como nos gráficos originais, fatia de Lula por modelo, região e porte da cidade.</li>
+      <li><strong>Comparar urnas no mesmo lugar.</strong> A fatia de Lula de cada seção é comparada só com a de seções do mesmo município ou do mesmo local de votação (efeito fixo). A comparação é ponderada por votos válidos, com erro-padrão agrupado por município e correção de Holm para os 34 testes da família principal. Fazemos isso para 2022 e 2026, nos dois turnos.</li>
+      <li><strong>A variação entre turnos por modelo.</strong> Uma manipulação feita só no 2º turno teria de aparecer como uma variação de Lula do 1º para o 2º turno maior nas urnas antigas.</li>
+      <li><strong>A troca de urnas nas mesmas seções.</strong> É uma comparação observacional, não um experimento: a troca não foi sorteada. 443.132 seções têm a mesma identificação (UF, município, zona, seção) e o mesmo local de votação em 2022 e 2026. Muitas tinham urna antiga em 2022 e receberam UE2020 ou UE2022 em 2026. Se a urna antiga tivesse inflado Lula em 2022, essas seções deveriam <em>perder</em> fatia de Lula em 2026 em relação às vizinhas que mantiveram a mesma urna. Como teste complementar, seguimos a mesma urna física (mesmo número de série) de 2022 para 2026: se o viés estivesse na máquina, ele viajaria com ela.</li>
+      <li>Repetir tudo por região e por porte do município, porque a alegação é específica do Norte e do Nordeste e das cidades pequenas.</li>
+    </ol>
+  </aside>
+
+  <div class="capitulo__corpo graficos">
+    <h3>A classificação por número de série acerta 940 de 940</h3>
+    <p>As faixas são nítidas: UE2009 até 1,215 milhão; UE2010 até 1,36 mi; UE2011 até 1,65 mi; UE2013 até 1,75 mi; UE2015 até 2,0 mi; UE2020 até 2,25 mi; UE2022 acima disso. Nas 940 seções sorteadas, o modelo gravado no log coincidiu com o modelo inferido pela série em <strong>todas</strong>. O intervalo de confiança de 95% da acurácia na amostra aleatória vai de 99,1% a 100%. Em 2026, a mesma regra aplicada às 497.896 seções com log acerta todas. As 258.273 urnas de 2022 que reaparecem em 2026, identificadas pelo mesmo número de série, têm em 2026 o modelo previsto pela regra de 2022.</p>
+    <p>Os logs também confirmam o fato técnico apontado pelo IVL. Em todos os 719 logs de UE2009 a UE2015 que abrimos, a coluna de identificação de cada linha traz o mesmo número, “67305985”. Nos 221 logs de UE2020, essa coluna traz o número de série da própria urna. Esse identificador fixo, porém, não esconde o modelo, que fica gravado em linha própria. Também não impediu que cada log fosse ligado à sua seção, porque o TSE publica o arquivo seção por seção, junto com o boletim. Foi assim que fizemos a validação.</p>
+    <div class="largo" data-tabela="ch08b-tab-validacao"></div>
+
+    <h3>O padrão de 2022 existe, e é grande</h3>
+    <p>Reproduzimos o gráfico original com os dados oficiais do 2º turno de 2022, restritos ao Norte e Nordeste. As urnas UE2009–2015 somam 100.240 seções e 15,9 milhões de votos em Lula, e as UE2020 somam 71.313 seções e 11,2 milhões. A diferença na fatia é de <strong>10,5 pontos</strong>: 69,6% de Lula nas antigas contra 59,0% nas UE2020. No Nordeste, Lula teve 76,4% nas UE2010 e 62,9% nas UE2020. Ninguém inventou essa diferença: ela está nos boletins.</p>
+    <figure class="grafico largo" data-grafico="ch08b-tempo-2022" data-src="data/ch08b/tempo.json"
+            data-titulo="Norte + Nordeste, 2º turno de 2022: votos por intervalo de 5 min de recebimento do boletim"
+            data-subtitulo="Linha cheia = urnas UE2009–2015; tracejada = UE2020. Mesmo recorte dos gráficos do pedronauck/eleicoes2022."
+            data-fonte="TSE — bweb 2022; modelo inferido pelo nº de série" data-altura="380"></figure>
+    <p>Em 2026, com outra distribuição de urnas, a mesma figura muda de cara. As urnas antigas restantes (UE2013 e UE2015) são minoria no Norte e Nordeste, e a diferença na fatia de Lula cai para 1,0 ponto: 65,9% contra 64,9%.</p>
+    <figure class="grafico largo" data-grafico="ch08b-tempo-2026" data-src="data/ch08b/tempo.json"
+            data-titulo="Norte + Nordeste, 2º turno de 2026: votos por intervalo de 5 min de recebimento do boletim"
+            data-subtitulo="Linha cheia = UE2013–2015; tracejada = UE2020–2022"
+            data-fonte="TSE — bweb e logs das urnas, 2026" data-altura="380"></figure>
+
+    <h3>Por que contar votos engana</h3>
+    <p>O “mais de 3× o número de votos” vem de contar votos, e contar votos mede sobretudo <em>quantas urnas</em> de cada modelo havia em cada lugar. Nas cidades do Norte e Nordeste com menos de 50 mil votantes havia, em 2022, 82.563 seções com urna antiga e 21.349 com UE2020: 3,87 vezes mais urnas antigas. Lula teve 3,95 vezes mais votos nas antigas. A razão entre os votos é praticamente a razão entre as seções. Na fatia, que é o que importa, a diferença nessas cidades é de 3,2 pontos (72,3% contra 69,2%), não de “3×”.</p>
+    <figure class="grafico largo" data-grafico="ch08b-porte-secoes" data-src="data/ch08b/bruto_porte.json"
+            data-titulo="Norte + Nordeste, 2022: onde estavam as urnas"
+            data-subtitulo="Número de seções por porte do município (votantes no 2º turno) e grupo de modelo"
+            data-fonte="TSE — bweb 2022; modelo inferido pelo nº de série" data-altura="320"></figure>
+    <p>E o grande salto de 10,5 pontos? É um paradoxo de Simpson. As UE2020 estavam concentradas nas capitais e cidades grandes do Norte e Nordeste: nos municípios com 500 mil votantes ou mais havia 23.227 seções com UE2020 e só 599 com urna antiga. São justamente os lugares da região onde Lula vai menos bem. Já as urnas antigas estavam no interior, onde Lula tem as maiores votações do país. Somando tudo, a média das UE2020 puxa para baixo, sem que nenhuma urna faça nada.</p>
+    <figure class="grafico largo" data-grafico="ch08b-porte-fatia" data-src="data/ch08b/bruto_porte.json"
+            data-titulo="Fatia de Lula no 2º turno de 2022, por porte do município e grupo de modelo"
+            data-subtitulo="Dentro de cada porte a diferença encolhe; ela só fica grande quando se mistura capital com interior"
+            data-fonte="TSE — bweb 2022; modelo inferido pelo nº de série" data-altura="360"></figure>
+    <div class="largo" data-tabela="ch08b-tab-bruto"></div>
+
+    <h3>Lado a lado no mesmo prédio</h3>
+    <p>O teste justo compara urnas que atenderam o mesmo eleitorado. O primeiro obstáculo é que, em 2022, urnas antigas e UE2020 quase nunca dividiram o mesmo local de votação. Isso aconteceu em 163 locais de 70 municípios no Brasil inteiro e em apenas 6 locais de 3 municípios no Norte e Nordeste. Em 2026, os números são 123 locais em 47 municípios no país e 3 locais em 1 município no Norte e Nordeste. Por isso, a comparação “dentro do local” entre urna antiga e nova <strong>não é possível no Norte e Nordeste</strong>, em nenhum dos dois anos. Coeficientes calculados ali dependem de um punhado de prédios e os marcamos como “não identificados”. É exatamente a região da alegação, e é por isso que o teste decisivo é o da troca de urnas, mais abaixo.</p>
+    <p>No Brasil como um todo, onde a comparação existe, as diferenças dentro do local são pequenas e nenhuma sobrevive à correção para múltiplos testes. Em 2022, as urnas antigas aparecem de +0,25 a +0,37 ponto acima das UE2020 no 2º turno e de +0,43 a +0,57 no 1º, com todos os intervalos cruzando ou tocando o zero. Em 2026, as UE2022 ficam a −0,04 ponto das UE2020.</p>
+    <figure class="grafico largo" data-grafico="ch08b-nivel" data-src="data/ch08b/regressoes.json"
+            data-titulo="Fatia de Lula: diferença em relação à UE2020 no mesmo local de votação"
+            data-subtitulo="Ponto = estimativa (p.p.); barra = IC 95% (EP agrupado por município). Brasil; ponderado por votos válidos."
+            data-fonte="TSE — bweb 2022 e 2026; logs; cálculo próprio" data-altura="520"></figure>
+
+    <h3>Uma diferença entre modelos: UE2013 em 2026, +0,76 ponto</h3>
+    <p>Um número merece destaque. Em 2026, nas seções com UE2013, Lula teve <strong>+0,76 ponto</strong> a mais que nas UE2020 do mesmo local de votação no 2º turno (IC 95%: +0,15 a +1,38; p = 0,015). A replicação independente feita em paralelo chegou ao mesmo valor (+0,76; IC +0,08 a +1,45). A UE2015 dá +0,57 (p = 0,045). Examinamos esse sinal por quatro lados:</p>
+    <ul>
+      <li><strong>Correção para múltiplos testes.</strong> Com Holm sobre os 34 testes da família, o p ajustado da UE2013 é 0,51. O resultado não é significativo depois da correção.</li>
+      <li><strong>O 1º turno.</strong> A mesma diferença já existia no 1º turno: +0,77 ponto (IC +0,13 a +1,41). Nada mudou entre os turnos. Se fosse uma alteração do 2º turno, ela teria de aparecer só no 2º.</li>
+      <li><strong>A variação entre turnos</strong>, que é o teste de manipulação no 2º turno. Dentro do mesmo local, a UE2013 teve variação de Lula <strong>+0,04 ponto</strong> diferente da UE2020 (IC −0,32 a +0,40), e a UE2015, −0,03 (IC −0,38 a +0,33). O capítulo 13, usando a UE2013 como referência, chegou ao mesmo resultado: −0,06 a −0,04 ponto.</li>
+      <li><strong>2022 tem o mesmo desenho.</strong> No mesmo tipo de comparação, as urnas antigas de 2022 também ficam um pouco acima das UE2020, nos dois turnos (+0,43 a +0,57 no 1º; +0,25 a +0,37 no 2º). É uma diferença <em>de nível</em> estável, compatível com a composição das seções. Seções numeradas e equipadas há mais tempo tendem a reunir eleitores inscritos há mais tempo, que diferem dos eleitores das seções criadas depois. O dado não permite verificar essa explicação diretamente, mas ela é compatível com a diferença aparecer igual nos dois turnos.</li>
+    </ul>
+    <p>A estimativa é estável quando mudamos a referência (contra a UE2022: +0,80 no 2º turno e +0,82 no 1º), quando tiramos a ponderação (+0,90) e quando ficamos só com locais de 6 ou mais seções (+0,77). Ela enfraquece (+0,58, p = 0,10) quando exigimos pelo menos 2 seções de cada modelo no local. O sinal de nível existe e é robusto à especificação. O que ele não tem é a marca de uma manipulação do 2º turno.</p>
+    <div class="largo" data-tabela="ch08b-tab-robustez"></div>
+    <figure class="grafico largo" data-grafico="ch08b-delta" data-src="data/ch08b/delta.json"
+            data-titulo="Variação de Lula do 1º para o 2º turno: diferença em relação à UE2020"
+            data-subtitulo="Seções com o mesmo modelo nos dois turnos. Ponto = estimativa (p.p.); barra = IC 95%. Brasil."
+            data-fonte="TSE — bweb 2022 e 2026; logs; cálculo próprio" data-altura="520"></figure>
+    <p>Em 2022, o resultado contraria a tese. Entre o 1º e o 2º turno, Lula cresceu <em>menos</em> nas urnas antigas do que nas UE2020: +2,0 pontos contra +3,0 na média bruta e −0,34 a −0,45 ponto na comparação dentro do município (todos com p &lt; 0,001). Dentro do local, a diferença é de −0,12 a −0,17 ponto, sem significância. Se as urnas antigas tivessem sido programadas para favorecer Lula no 2º turno, aconteceria o contrário.</p>
+
+    <h3>A troca de urnas: trocaram a urna, a diferença ficou</h3>
+    <p>As UE2009, UE2010 e UE2011 de 2022 não existem mais em 2026. As seções que as usavam receberam outras urnas, quase sempre UE2020 ou UE2022. Isso permite o teste mais forte do capítulo: acompanhar as <strong>mesmas seções</strong> e ver se a diferença de 2022 acompanhou a urna ou ficou no lugar.</p>
+    <p>O caso mais extremo da alegação, as cidades com menos de 50 mil votantes do Norte e Nordeste, é também o que mais impressiona. Em 2022, nos municípios onde urnas antigas e UE2020 conviveram, as seções com urna antiga deram a Lula <strong>8,4 pontos a mais</strong> que as seções com UE2020 do mesmo município. Em 2026, essas mesmas seções já tinham trocado a urna antiga por uma UE2020 ou UE2022, e a diferença continuou lá: <strong>7,7 pontos</strong>. Se a diferença estivesse na urna, ela teria desaparecido com a troca. Ela estava no eleitorado: zona rural contra sede do município, por exemplo.</p>
+    <figure class="grafico largo" data-grafico="ch08b-persistencia" data-src="data/ch08b/persistencia.json"
+            data-titulo="Diferença de Lula entre as seções que tinham urna antiga em 2022 e as que tinham UE2020, nas mesmas seções, em quatro eleições"
+            data-subtitulo="Comparação dentro do município (p.p.; barra = IC 95%). Em 2026, todas essas seções “antigas” já votavam em UE2020 ou UE2022."
+            data-fonte="TSE — bweb 2022 e 2026; logs; cálculo próprio" data-altura="380"></figure>
+    <p>No país inteiro, a conta é a mesma. As 157.385 seções que perderam uma UE2009–2011 variaram de 2022 para 2026 <strong>−0,08 ponto</strong> em relação às seções do mesmo município que já tinham UE2020 (IC −0,14 a −0,02). O p bruto é 0,015, sem correção para múltiplas comparações; a estimativa é cerca de 130 vezes menor que a diferença bruta de 10,5 pontos, e no 1º turno a mesma comparação dá −0,73 ponto. A queda maior no 1º turno indica uma tendência das próprias seções, e não um efeito da urna no 2º. No Norte e Nordeste, a estimativa é −0,13 ponto (IC −1,00 a +0,74). Nas cidades pequenas da região, −0,61 (IC −1,75 a +0,52). Nessa especificação municipal, os intervalos são compatíveis com diferenças de até cerca de 1 ponto no Norte e Nordeste e 0,14 ponto no país; a comparação por local tem intervalo mais amplo e essas inferências dependem das hipóteses do desenho. A alegação original era de 10 pontos.</p>
+    <figure class="grafico largo" data-grafico="ch08b-realocacao" data-src="data/ch08b/realocacao.json"
+            data-titulo="Seções que perderam a urna UE2009–2011: variação da fatia de Lula 2022 → 2026, relativa ao município"
+            data-subtitulo="Se a urna antiga tivesse inflado Lula em 2022, o ponto seria fortemente negativo no 2º turno. Ponto = estimativa (p.p.); barra = IC 95%."
+            data-fonte="TSE — bweb 2022 e 2026; cálculo próprio" data-altura="380"></figure>
+
+    <h3>A mesma urna física em dois lugares</h3>
+    <p>Por fim, seguimos 238 mil urnas físicas (mesmo número de série) que votaram em 2022 e em 2026. Para cada uma, medimos o quanto a seção dela se desviou da média do seu local de votação em cada ano. Quando a urna fica na mesma seção, o desvio se repete (correlação 0,73), porque o eleitorado é o mesmo. Quando a urna muda de local, o desvio de 2022 não diz nada sobre o de 2026: a correlação é −0,001 no mesmo município e 0,003 em outro município, inclusive entre as UE2013–2015. Se uma urna carregasse um viés próprio, ele apareceria nos dois lugares.</p>
+    <figure class="grafico largo" data-grafico="ch08b-urna-fisica" data-src="data/ch08b/urna_fisica.json"
+            data-titulo="A mesma urna em 2022 e 2026: o desvio da seção acompanha a urna?"
+            data-subtitulo="Correlação entre o desvio da fatia de Lula (seção − média do local) em 2022 e em 2026, por destino da urna"
+            data-fonte="TSE — bweb 2022 e 2026; cálculo próprio" data-altura="320"></figure>
+  </div>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <ul>
+      <li><strong>A anomalia bruta de 2022 é real e grande.</strong> No Norte e Nordeste, Lula teve 69,6% nas urnas UE2009–2015 e 59,0% nas UE2020. A diferença vem de <em>onde</em> as urnas estavam: as UE2020 se concentravam nas capitais. A diferença de “3× mais votos” é contagem de urnas, não de preferência.</li>
+      <li><strong>O padrão não voltou em 2026.</strong> Com outra distribuição de urnas, as fatias de Lula no Nordeste ficam entre 68,8% e 70,4% em todos os modelos.</li>
+      <li><strong>Nenhum efeito de modelo sobrevive aos testes justos.</strong> Dentro do mesmo local, as diferenças são de décimos de ponto, já existiam no 1º turno e não passam pela correção de Holm. A variação entre turnos não depende do modelo; em 2022, Lula cresceu <em>menos</em> nas urnas antigas.</li>
+      <li><strong>A troca de urnas é o teste mais informativo.</strong> As seções que trocaram a urna antiga por uma nova mantiveram a diferença que tinham, por exemplo 8,4 pontos em 2022 e 7,7 em 2026 nas cidades pequenas do Norte e Nordeste. Uma urna que muda de lugar não leva o “desvio” consigo. A comparação é observacional (a troca não foi sorteada, e Jair e Flávio Bolsonaro não são o mesmo candidato), mas aponta para o eleitorado, não para a máquina.</li>
+      <li>A diferença de UE2013 de +0,76 ponto em 2026 (IC +0,15 a +1,38; p bruto 0,015, p ajustado 0,51; identificada em 47 municípios) é diferença de nível presente igualmente no 1º turno, não sobrevive à correção e não aparece na variação entre turnos. Não sobreviver à correção não é o mesmo que ser zero.</li>
+    </ul>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <ul>
+      <li><strong>Uma alteração idêntica em todos os modelos.</strong> Todo este capítulo compara modelos entre si. Uma manipulação que afetasse UE2009, UE2015, UE2020 e UE2022 da mesma forma não deixaria diferença entre modelos e seria invisível aqui. Esse é o caso do deslocamento uniforme, discutido no <a href="#mapa-da-virada">capítulo 4</a>, e o poder dos detectores contra esse tipo de alteração está no <a href="#poder-dos-detectores">capítulo 5</a>.</li>
+      <li><strong>Norte e Nordeste, dentro do mesmo prédio.</strong> Urnas antigas e novas quase nunca conviveram no mesmo local da região (6 locais em 2022, 3 em 2026). Para a região, a evidência vem da comparação dentro do município e da troca de urnas nas mesmas seções. Os intervalos são mais largos ali: o teste tem sensibilidade para efeitos acima de cerca de 1 ponto, não para efeitos de alguns décimos.</li>
+      <li><strong>Seções “iguais” nos dois anos.</strong> A mesma identificação de seção, no mesmo local, não garante o mesmo eleitorado: há transferências, mortes, novos eleitores e remanejamentos. Isso adiciona ruído, mas não explicaria a persistência de uma diferença de 8 pontos se ela fosse causada pela urna.</li>
+      <li><strong>O argumento do IVL sobre o identificador dos logs.</strong> Confirmamos que o identificador “67305985” é fixo nos modelos antigos. Esse é um problema de rastreabilidade do arquivo, não de contagem de votos, e a rastreabilidade física (patrimônio, lacres, código de carga) não é verificável com dados públicos. O que mostramos é que o modelo gravado no log bate com o número de série do boletim em 940 de 940 seções sorteadas.</li>
+      <li>A integridade do software que gera boletim e log, que é comum a todos os modelos, não se verifica com estes dados (ver limites do <a href="#logs-das-urnas">capítulo 13</a>).</li>
+    </ul>
+  </aside>
+</section>

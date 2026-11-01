@@ -1,0 +1,162 @@
+<section class="capitulo" id="poder-dos-detectores" data-titulo-curto="Poder dos detectores">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 5 <span data-veredito-capitulo></span></div>
+    <h2>Os detectores conseguem ver uma alteração uniforme? (testes de poder)</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">Redes sociais, após o 2º turno</span></div>
+    <p>Circula o argumento de que uma alteração <strong>nacional e quase uniforme</strong> a favor de Lula deslocaria a média. Quando todos os municípios e seções se movem juntos, nenhum parece atípico em relação aos demais, e a ausência de outliers deixaria de ser prova de que não houve alteração. A crítica é metodologicamente procedente: um efeito comum é absorvido pelo intercepto, pelos efeitos territoriais ou por outros coeficientes, e só experimentos de poder, com alterações artificiais aplicadas a cópias dos dados, dizem o que um teste é capaz de ver.</p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>O <a href="#mapa-da-virada">capítulo 4</a> mostrou que o deslocamento comum de 2026 existe e tem o tamanho do de 2022. A pergunta seguinte é se uma alteração uniforme desse porte seria detectável. Este é o capítulo que testa os próprios testes. Os demais capítulos procuram anomalias; este pergunta <em>se elas apareceriam caso existissem</em>. O método é simples de explicar. Pegamos os boletins reais das 497.897 seções do Brasil (exceto exterior) presentes nos dois turnos. Fazemos cópias. Em cada cópia, <strong>injetamos uma alteração sintética</strong>: uma fração dos votos de Flávio passa para Lula. Depois rodamos sobre a cópia os detectores que um analista usaria e contamos quantas vezes eles disparam.</p>
+    <p>A escala de referência é a do resultado. A diferença entre os dois foi de 4.430.191 votos, de modo que transferir <strong>3,70% dos votos de Flávio</strong> (2.215.096) para Lula basta para inverter o vencedor. No recorte do experimento, sem o exterior, a fração equivalente é 3,69%, que é a usada nas contas abaixo. Testamos tamanhos de 0,5% a 8% e seis formatos de alteração.</p>
+  </div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <p><strong>Formatos de alteração</strong>, todos calibrados para mover o mesmo total nacional:</p>
+    <ol>
+      <li>uniforme, em que a mesma fração dos votos de Flávio vira Lula em toda seção;</li>
+      <li>proporcional à força de Flávio na seção;</li>
+      <li>concentrada em 10% das seções sorteadas;</li>
+      <li>concentrada em 10% dos municípios sorteados;</li>
+      <li>só nas urnas modelo UE2020;</li>
+      <li>só nas seções que encerraram depois das 17h05.</li>
+    </ol>
+    <p><strong>Detectores.</strong> Testamos dez:</p>
+    <ul>
+      <li>outliers de seção, por z robusto;</li>
+      <li>municípios sinalizados por FDR numa regressão com regressoras do 1º turno, o método usado nas análises que circulam e no <a href="#casos-rj">capítulo 6</a>. As regressoras são fixas, mas os coeficientes são reajustados ao 2º turno de cada réplica, de modo que um deslocamento comum a todos os municípios é absorvido pelo próprio ajuste;</li>
+      <li>dispersão do resíduo;</li>
+      <li>Benford do 2º dígito e último dígito;</li>
+      <li>seções "extremas", em que Flávio perde 20% ou mais dos votos;</li>
+      <li>"impressão digital" comparecimento × voto;</li>
+      <li>dispersão comparada com a de 2022;</li>
+      <li>forma da distribuição no 1º e no 2º turno;</li>
+      <li>a retenção de Flávio estimada por regressão ecológica.</li>
+    </ul>
+    <p><strong>Calibração.</strong> Cada réplica re-sorteia a divisão Lula/Flávio de toda seção (ruído binomial). Fizemos 80 réplicas sem alteração e 20 por combinação de formato e tamanho. O detector "dispara" se a estatística sai da faixa central de 95% das réplicas sem alteração.</p>
+    <p>Isso define um detector com <strong>referência conhecida</strong> (chamado aqui de “oráculo”): ele compara cada estatística com o que ela seria nos dados sem a alteração simulada, a menos do acaso. Nenhum analista real tem essa informação. O resultado é o <strong>poder desta bateria de testes, sob este gerador de réplicas e estes critérios</strong>; não é um limite superior para qualquer teste que alguém possa desenhar, e outra estatística ou outra fonte de dados poderia ver o que esta bateria não vê. O FDR e o último dígito também são pontuados contra a faixa de referência; para eles, descrevemos ainda o que um analista sem referência veria (o número de municípios sinalizados).</p>
+    <p><strong>Calibração imperfeita.</strong> As réplicas sem alteração re-sorteiam votos em torno da fatia já observada, o que acrescenta ruído a um dado que já tem ruído. Por isso a própria eleição real fica fora da faixa central das réplicas sem alteração em 7 das 10 estatísticas (tabela abaixo). O experimento mede bem como cada estatística reage às alterações sintéticas, mas não serve, sozinho, para classificar o dado real como regular ou irregular. E com 20 réplicas por cenário, cada taxa tem resolução de 5 pontos: 0 em 20 é compatível com uma taxa verdadeira de até cerca de 14%; 20 em 20, com uma taxa a partir de cerca de 83%.</p>
+    <div class="tabela tabela--texto">
+      <div class="tabela__rolagem" tabindex="0">
+        <table>
+          <caption class="sr-only">Valor de cada estatística nos dados reais e faixa central de 95% das 80 réplicas sem alteração</caption>
+          <thead><tr><th scope="col">Estatística</th><th class="tabela__num" scope="col">Dado real</th><th class="tabela__num" scope="col">Faixa das réplicas sem alteração (95%)</th><th scope="col">Real fora da faixa?</th></tr></thead>
+          <tbody>
+            <tr><td>Outliers de seção (|z| robusto &gt; 4)</td><td class="tabela__num">320</td><td class="tabela__num">143–189</td><td>sim</td></tr>
+            <tr><td>Municípios sinalizados por FDR</td><td class="tabela__num">16</td><td class="tabela__num">5–12</td><td>sim</td></tr>
+            <tr><td>Desvio-padrão do resíduo municipal</td><td class="tabela__num">0,0087</td><td class="tabela__num">0,0105–0,0109</td><td>sim</td></tr>
+            <tr><td>Benford, 2º dígito (χ²)</td><td class="tabela__num">6.757</td><td class="tabela__num">6.201–6.631</td><td>sim</td></tr>
+            <tr><td>Último dígito (χ²)</td><td class="tabela__num">4,5</td><td class="tabela__num">3,8–21,5</td><td>não</td></tr>
+            <tr><td>Seções em que Flávio perde ≥ 20%</td><td class="tabela__num">1.123</td><td class="tabela__num">4.399–4.606</td><td>sim</td></tr>
+            <tr><td>Impressão digital comparecimento × voto</td><td class="tabela__num">0,1705</td><td class="tabela__num">0,1691–0,1717</td><td>não</td></tr>
+            <tr><td>Dispersão municipal comparada com 2022</td><td class="tabela__num">1,233</td><td class="tabela__num">1,361–1,394</td><td>sim</td></tr>
+            <tr><td>Forma da distribuição, 1º × 2º turno</td><td class="tabela__num">0,0099</td><td class="tabela__num">0,0128–0,0139</td><td>sim</td></tr>
+            <tr><td>Retenção de Flávio estimada</td><td class="tabela__num">0,9967</td><td class="tabela__num">0,9963–0,9971</td><td>não</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </aside>
+
+  <div class="capitulo__corpo graficos">
+    <h3>1. O detector mais citado no debate não vê a alteração uniforme</h3>
+    <p>Comecemos pelo detector central do debate: a regressão que prevê o resultado de cada município a partir do 1º turno, com FDR para corrigir as buscas múltiplas. É o tipo de teste que "não sinalizou" os casos do RJ.</p>
+    <p>O resultado é nítido e <strong>dá razão à crítica metodológica</strong>. Com alteração uniforme, a taxa de detecção fica entre 0% e 5% em todos os tamanhos, <strong>mesmo com 8% dos votos de Flávio desviados, mais que o dobro do necessário para virar a eleição</strong>. O número de municípios sinalizados nem se altera: fica em 7 a 8 por réplica, com ou sem alteração. A alteração proporcional à força de Flávio também passa invisível (no máximo 10%).</p>
+    <p>Nos dados reais, o FDR aponta 16 municípios, fora da faixa de 5–12 das réplicas, e há 320 outliers de seção, fora da faixa de 143–189. Isso mostra que o nulo simulado não reproduz toda a dispersão observada (ver “Calibração imperfeita”), sem identificar a causa. A alteração concentrada é outra história. Em 10% dos municípios, com só 1% dos votos nacionais de Flávio, ela dispara o alarme em 19 de 20 réplicas (95%; intervalo de 95% de cerca de 75% a 100%), e o número de sinalizados salta de cerca de 8 para 125. Nas seções que fecharam tarde, a detecção é de 100% a partir de 2%. Em 10% das seções sorteadas, a alteração só aparece a partir de 4–6%, porque o sorteio a espalha por todos os municípios e a torna quase uniforme no agregado municipal.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch05-fdr-cenarios" data-src="data/cap05-poder.json"
+          data-titulo="Regressão + FDR: quem enxerga o quê"
+          data-subtitulo="Taxa de detecção do método de regressão com regressoras do 1º turno e FDR, por formato de alteração (20 réplicas por ponto). Linhas tracejadas = alterações que atingem todo o país."
+          data-fonte="TSE — boletins de urna 2026; manipulação sintética; cálculo próprio (analises/05_poder_detectores.py)"
+          data-altura="400"></figure>
+
+  <div class="capitulo__corpo">
+    <p>Há uma sutileza importante no caso das urnas UE2020, que são 40% do total e se espalham pelo país. O oráculo "detecta" essa alteração a partir de 2%, mas porque os municípios sinalizados <em>diminuem</em>, de cerca de 8 para 0. A alteração infla a variação de todos os municípios, e a regressão passa a considerar tudo normal. Um analista real, que só vê o número final, enxergaria <strong>menos</strong> anomalias, não mais. O mesmo vale para os outliers de seção na alteração uniforme, cujo número cai de cerca de 160 para 110 quando 4% dos votos são desviados.</p>
+    <p>O teste do último dígito, sob a hipótese de distribuição uniforme dos dígitos, <strong>não vê nada</strong> em nenhum formato. A detecção fica entre 0% e 30%, sem relação com o tamanho da alteração. Transferir votos não altera o último dígito de maneira sistemática.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch05-mapa-poder" data-src="data/cap05-poder.json"
+          data-largura-minima="440"
+          data-titulo="Detecção com 4% dos votos de Flávio desviados (o bastante para virar a eleição)"
+          data-subtitulo="Fração de réplicas em que cada detector percebe a alteração, por formato. Referência conhecida: o detector sabe como seriam os dados sem a alteração simulada. 20 réplicas por célula."
+          data-fonte="TSE — boletins de urna 2026; manipulação sintética; cálculo próprio"
+          data-altura="480"></figure>
+
+  <div class="capitulo__corpo">
+    <h3>Acréscimos sintéticos: outro mecanismo</h3>
+    <p>Num experimento exploratório separado, convertemos em votos para Lula uma fração dos abstencionistas ou dos votos brancos/nulos observados no 2º turno, de modo uniforme ou proporcional à fatia de Lula na seção. O total de Flávio fica fixo; ao converter abstenção, o comparecimento aumenta. Fizemos 80 réplicas nulas e 20 por cenário, com semente fixa. O alarme indica que a estatística saiu da faixa central de 95% do nulo: é uma comparação com um modelo, não prova de irregularidade.</p>
+    <p>Com 20% das abstenções convertidas uniformemente, cerca de 6 milhões de votos são acrescentados e o FDR dispara em 10% das réplicas; o último dígito, em 5%. Com 20% dos brancos/nulos convertidos, são cerca de 829 mil votos e as taxas são 5% e 10%. Com apenas 20 réplicas, cada ocorrência equivale a cinco pontos percentuais e a incerteza é grande. A retenção de Flávio dessa regressão permanece igual por construção: seus votos e as variáveis do primeiro turno não mudam. Os dados reais são a referência da simulação e não constituem uma eleição comprovadamente livre de alteração.</p>
+    <div class="largo" data-tabela="ch05-acrescimo"></div>
+    <h3>2. O oráculo vê quase tudo, e é por isso que ele não existe</h3>
+    <p>O mapa acima parece contradizer a seção anterior: outliers, Benford, seções extremas, impressão digital, forma e retenção detectam a alteração uniforme a partir de 1–3%. Mas olhe <em>por que</em> eles detectam. Todos comparam uma estatística com o valor que ela teria nos dados sem a alteração simulada, e esse valor só o oráculo conhece.</p>
+    <ul>
+      <li><strong>Seções extremas</strong>: o número de seções em que Flávio perde 20% ou mais dos votos dispara com qualquer alteração. Mas qual é o número "normal"? Nos dados reais, são 1.123. Sem saber quantas haveria sem alteração, o número não acusa nada.</li>
+      <li><strong>Benford do 2º dígito</strong>: os dados reais <em>já violam</em> Benford de forma gritante (χ² = 6.757), como qualquer contagem limitada pelo tamanho da seção (ver <a href="#benford">capítulo 8</a>). A alteração muda o χ², mas um analista não saberia de quanto ele "deveria" ser.</li>
+      <li><strong>Dispersão comparada com 2022</strong>: a dispersão municipal da oscilação em 2026 já é 23% maior que em 2022, sem nenhuma alteração injetada. Uma alteração de 1% a aumentaria mais, mas a variação natural entre eleições é do mesmo tamanho ou maior.</li>
+      <li><strong>Retenção de Flávio</strong>: a alteração uniforme reduz exatamente a retenção estimada. Quem soubesse a retenção verdadeira veria a alteração. É justamente isso que as pesquisas tentam medir, e com erro de vários pontos (seção 3).</li>
+    </ul>
+    <p>A conclusão honesta: <strong>com dados de 2026 apenas, uma alteração uniforme é estatisticamente indistinguível de comportamento eleitoral</strong>. Os detectores que decidem sozinhos não a veem. Os que a veriam precisam de uma referência externa, e é aí, não na comparação entre municípios, que a tese pode ser testada.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch05-uniforme" data-src="data/cap05-poder.json"
+          data-titulo="Alteração uniforme: curvas de poder dos detectores de distribuição"
+          data-subtitulo="Taxa de detecção por tamanho da alteração (referência conhecida). O FDR e o último dígito ficam no chão; os demais sobem porque o oráculo conhece os dados sem a alteração."
+          data-fonte="TSE — boletins de urna 2026; manipulação sintética; cálculo próprio"
+          data-altura="420"></figure>
+
+  <figure class="grafico largo" data-grafico="ch05-nivel" data-src="data/cap05-poder.json"
+          data-titulo="Alteração uniforme: estatísticas de nível e de dispersão"
+          data-subtitulo="Taxa de detecção por tamanho da alteração (referência conhecida). Retenção estimada e dispersão contra 2022 detectam já em 0,5%, mas só para quem sabe o valor sem alteração."
+          data-fonte="TSE — boletins de urna 2026 e 2022; manipulação sintética; cálculo próprio"
+          data-altura="380"></figure>
+
+  <div class="capitulo__corpo">
+    <h3>3. As pegadas que uma alteração uniforme deixaria, e o que os dados mostram</h3>
+    <p>Mesmo invisível para comparações entre unidades, uma transferência uniforme não é "perfeita". Ela tira votos de Flávio onde ele os tem, inclusive em lugares onde não havia de onde Lula crescer. Procuramos essas pegadas nos dados reais.</p>
+    <p><strong>(a) Retenção líquida, 2022 × 2026.</strong> Uma regressão ecológica municipal estima quanto de cada "estoque" do 1º turno foi para cada candidato no 2º. O candidato da direita reteve 105,4% em 2022 (Bolsonaro; IC 95% de 103,4% a 106,8%) e <strong>97,4% em 2026</strong> (Flávio; de 94,7% a 100,3%). Lula foi de 99,6% para 104,7%.</p>
+    <p>A direção é a que uma transferência de Flávio para Lula produziria, e o tamanho, cerca de 8 pontos, é maior que os 3,7 pontos necessários para virar a eleição. Mas há uma ressalva forte: a mesma regressão feita por seção, em vez de por município, dá retenção de Flávio de 100,1%, sem perda nenhuma. Valores acima de 100% mostram que o estimador ecológico está trocando contas entre estoques. É uma pegada compatível com a tese, mas também com eleitores de Bolsonaro em 2022 que não votaram em Flávio. O diretor da Quaest publicou uma retenção de Flávio de 94% (ver <a href="#transferencia-de-votos">capítulo 2</a>); de todo modo, o estimador é instável demais para separar as duas leituras.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch05-retencao" data-src="data/cap05-assinaturas.json"
+          data-titulo="Retenção líquida estimada por candidato, 2022 × 2026"
+          data-subtitulo="Regressão ecológica municipal não negativa (traço = IC 95% por bootstrap de municípios). Valores acima de 100% indicam viés do estimador."
+          data-fonte="TSE — resultados municipais 2022 e 2026; cálculo próprio"
+          data-altura="340"></figure>
+
+  <div class="capitulo__corpo">
+    <p><strong>(b) Redutos de Flávio sem eliminados.</strong> Escolhemos 631 seções onde Flávio tinha mais de 60% dos finalistas, os eliminados somavam menos de 2% dos válidos e o comparecimento caiu. Ali, Lula praticamente não tinha de onde crescer. Lula ganhou +1.006 votos e Flávio perdeu −4.558, com 1.587 votos de eliminados e 3.437 brancos e nulos disponíveis. O ganho de Lula cabe no estoque, e a queda de Flávio acompanha a de comparecimento, não um ganho equivalente de Lula.</p>
+    <p>Se tivesse havido ali uma alteração uniforme do tamanho necessário para virar a eleição (3,69%, ou 3.019 votos nessas seções), o resultado sem a alteração teria sido <strong>Lula −2.013</strong>, e Lula teria perdido votos em 71% dessas seções, contra 31% observados. Se Lula não perdeu votos nesses redutos sem a alteração, ela ali não passaria de 1,2%. Essa premissa é razoável, mas não garantida, porque o comparecimento caiu.</p>
+    <p><strong>(c) Todos os redutos de Flávio</strong> (mais de 70% dos finalistas, 70.791 seções). Hoje, Lula perde votos em 1,2% delas e Flávio, em 8,7%. Removida uma alteração uniforme de 3,69%, Lula passaria a perder votos em 11,5% desses redutos, mais que o próprio Flávio. Não é impossível, mas seria um padrão estranho para um 2º turno em que Lula cresceu em quase todo o país.</p>
+    <p><strong>(d) Ganho acima do estoque.</strong> Em 0,48% das seções em que Flávio tinha mais de 70%, Lula ganhou mais votos que a soma de eliminados, brancos, nulos e aumento de comparecimento. Isso exige troca direta de votos entre finalistas ou rotatividade de eleitores, e acontece mais onde Lula já era forte (3,4%). É o padrão de quem atrai eleitores parecidos com os seus, e não o de uma transferência proporcional aos votos de Flávio, que concentraria esses casos nos redutos dele.</p>
+  </div>
+
+  <div class="largo" data-tabela="ch05-excesso"></div>
+
+  <div class="capitulo__corpo">
+    <h3>4. Simule você mesmo uma alteração</h3>
+    <p>O simulador abaixo roda no seu navegador sobre os dados reais: os 5.571 municípios e uma amostra aleatória de 30 mil seções. Escolha o formato e o tamanho da alteração. O gráfico compara a distribuição real da oscilação municipal com a distribuição depois da alteração, e a tabela mostra o veredito de cada detector, calibrado contra 30 réplicas sem alteração.</p>
+    <p>Repare que, na alteração uniforme, a curva só desliza para a esquerda, e o detector de FDR continua dizendo "não percebe". Com alteração concentrada em municípios, ele percebe já com 1%.</p>
+  </div>
+
+  <div class="largo" data-simulador="sim-fraude"></div>
+  <div class="largo" data-ch05-vereditos></div>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <p><strong>A crítica metodológica procede.</strong> Uma alteração uniforme ou proporcional, mesmo de 8% dos votos de Flávio (mais que o dobro do necessário para virar a eleição), é detectada em no máximo 10% das réplicas pela regressão com FDR, o método usado para dizer que "nenhum município é anômalo". O teste do último dígito também não a vê. "Não há outliers" <em>não</em> é evidência contra uma alteração uniforme. Esses números valem para esta bateria e este gerador de réplicas, com a calibração imperfeita descrita acima.</p>
+    <p>Alterações concentradas, em municípios, em seções tardias ou em parte das seções, disparam o alarme a partir de 1% a 6% nas simulações. Os outros capítulos não encontraram a assinatura que essas alterações simuladas deixam; isso as enfraquece, para os formatos testados, mas não as exclui em geral (outro formato pode não deixar essa assinatura). Contra a alteração uniforme, a ausência de anomalias locais não diz nada.</p>
+    <p>As pegadas de nível que uma alteração uniforme deixaria dão sinais mistos. A retenção municipal da direita caiu 8 pontos de 2022 para 2026, na direção da tese, mas o estimador é instável e a versão por seção não mostra perda. Nos redutos de Flávio, a ausência de alteração é o cenário mais simples: uma transferência do tamanho necessário para virar a eleição exigiria que Lula, sem a alteração, tivesse perdido votos em 11,5% dos redutos de Flávio, mais que o próprio Flávio (8,7%). Esses sinais não resolvem a questão: eles a deslocam para a pergunta sobre a retenção verdadeira de cada eleitorado, que só fontes externas (pesquisas, auditoria física) respondem.</p>
+    <p><strong>Atenção ao que o selo significa.</strong> O veredito “sustentada” refere-se à limitação metodológica testada nas simulações, e não à ocorrência de um evento real. Os resultados dependem dos cenários e modelos adotados. O balanço está no <a href="#conclusoes">capítulo 15</a>.</p>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <p>Este capítulo mostra o <strong>limite</strong> da análise estatística, não a existência de qualquer alteração. Que um teste não consiga ver algo não significa que esse algo aconteceu. Um movimento eleitoral real de alguns pontos, como a tendência de alta de Lula que as pesquisas registraram nas semanas finais<sup class="ref" data-ref="ch11-atlas-serie"></sup>, produz exatamente o mesmo dado que uma alteração uniforme do mesmo tamanho. Só evidência externa aos totais distingue os dois: auditoria física dos votos impressos onde houver, teste de integridade, verificação de assinatura e hash dos arquivos, comparação com pesquisas independentes.</p>
+    <p>As simulações usam o dado real como ponto de partida, e por isso não testam alterações que já estariam embutidas nele; acrescentar uma alteração sintética mede a sensibilidade de cada estatística, não se o dado de partida já continha algo. O detector oráculo superestima o poder de quem não tem referência, as réplicas sem alteração não reproduzem a dispersão real em 7 de 10 estatísticas, e 20 réplicas por cenário dão taxas com incerteza de vários pontos. A regressão ecológica e as contas de "estoque" não observam eleitores individuais. O simulador do navegador usa uma amostra de seções e aproxima a alteração por seção, no nível municipal, pelo valor esperado.</p>
+  </aside>
+</section>

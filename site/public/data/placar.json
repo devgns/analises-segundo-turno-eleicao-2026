@@ -1,0 +1,118 @@
+{
+ "meta": {
+  "descricao": "Placar das alegações. Fonte única dos vereditos: cada item é aplicado ao capítulo com o mesmo id. Itens com \"capitulo\" são alegações avulsas tratadas dentro de outro capítulo.",
+  "atualizado_em": "2026-11-01"
+ },
+ "pistas": [
+  {
+   "id": "conta-nacional",
+   "veredito": "refutada",
+   "pista": "Circula que os 10,4 milhões de votos a mais de Lula no 2º turno não têm origem aritmética possível e que a base municipal “não fecha” (Cabo Frio +98).",
+   "resumo": "A soma dos boletins oficiais fecha: não sobra nem falta voto, em nenhum município, nos dois turnos. Os cerca de 10,4 milhões a mais de Lula cabem no aumento do comparecimento (mais 2,96 milhões de eleitores, cerca de cinco vezes o aumento de 2022) e na queda de brancos e nulos (menos 1,82 milhão). A diferença que circulou, como os 98 votos a mais em Cabo Frio, não está nessa soma. Uma conta que fecha não prova, sozinha, que cada boletim corresponda ao voto digitado na urna."
+  },
+  {
+   "id": "transferencia-de-votos",
+   "veredito": "parcial",
+   "pista": "“Eleitor de direita não vota em Lula”: os eleitores de Cury, Renan, Caiado e Zema não explicariam o crescimento de Lula.",
+   "resumo": "Se os eleitores dos candidatos eliminados tivessem se dividido como as pesquisas mediram, Flávio venceria: Lula ficaria entre 48,5% e 49,5%, a cerca de 2 a 3 pontos do resultado oficial. Os boletins não exigem que eleitor de Flávio tenha passado para Lula (a estimativa é que ele reteve cerca de 99%). O resultado depende de os eliminados terem se dividido quase ao meio e de quem não votou válido no 1º turno ter ido, em maioria, para Lula. Essa segunda conta muda bastante conforme o método."
+  },
+  {
+   "id": "pesquisas",
+   "veredito": "parcial",
+   "pista": "As pesquisas finais mostravam outra eleição e erraram todas para o mesmo lado.",
+   "resumo": "As 18 pesquisas finais colocaram Lula abaixo do resultado, em média 2,73 pontos percentuais. Na série desde 2014, é a primeira vez que o erro médio vai contra o PT. O tamanho do erro já aconteceu antes, no sentido oposto (3,9 pontos no 1º turno de 2022). Institutos erram juntos, então 18 pesquisas não são 18 medições independentes. O erro não distingue eleitor que mudou de voto de uma contagem alterada."
+  },
+  {
+   "id": "polymarket",
+   "capitulo": "pesquisas",
+   "titulo": "Polymarket na noite da apuração",
+   "veredito": "nao-testavel",
+   "pista": "O Polymarket dava cerca de 77% a Flávio às 16h e virou por volta das 19h10.",
+   "resumo": "O preço de uma aposta sobe e desce com parciais, boatos e o volume de dinheiro na plataforma. Não é uma pesquisa, nem um registro de voto. Sem a série completa e um elo com os dados eleitorais, não há o que testar."
+  },
+  {
+   "id": "mapa-da-virada",
+   "veredito": "inconclusiva",
+   "pista": "Um deslocamento quase uniforme em todo o país teria “movido a média” e escondido alterações locais.",
+   "resumo": "Há um deslocamento parecido em quase todo o país: cerca de 1,9 ponto percentual a mais para Lula, depois de descontar o que cada município já tinha de eleitores disponíveis. Em 2022 houve um deslocamento do mesmo tamanho, no sentido contrário. A contagem dos votos, sozinha, não separa um comportamento real do eleitorado de uma alteração aplicada por igual em todo lugar."
+  },
+  {
+   "id": "poder-dos-detectores",
+   "veredito": "sustentada",
+   "pista": "Os testes estatísticos usuais não enxergariam uma alteração uniforme: “sem outliers” não prova “sem alteração”.",
+   "resumo": "A crítica procede, e vale para o método, não como prova de que os votos tenham sido alterados. O teste usual prevê o 2º turno a partir do 1º e, ao olhar milhares de municípios de uma vez, só aponta o que ainda destoa depois de descontar os alarmes que o acaso produziria. Esse teste acusa uma alteração espalhada por igual em no máximo 5 de cada 100 simulações, mesmo quando a simulação troca 8% dos votos de Flávio — e 3,7% já inverteriam o resultado. Uma troca concentrada deixaria rastros que não apareceram. Um acréscimo de votos de quem não compareceu não deixaria esses rastros."
+  },
+  {
+   "id": "casos-rj",
+   "veredito": "parcial",
+   "pista": "Campos dos Goytacazes, a Região dos Lagos e Silva Jardim teriam crescimento “bizarro” de Lula com Flávio estagnado.",
+   "resumo": "Os nove municípios estão entre os que mais se moveram para Lula no país, e ficam perto uns dos outros. O desvio, porém, é do Rio de Janeiro inteiro: dentro do estado, esses municípios não se destacam, e nenhum passa no teste que evita apontar caso demais só por acaso. O “mais um voto” de Flávio em Silva Jardim é a soma de seções que sobem (+161 votos) e seções que descem (−160). A diferença do estado continua sem uma explicação única."
+  },
+  {
+   "id": "secoes-extremas",
+   "veredito": "refutada",
+   "pista": "106 seções com 100% para Lula (e só 4 para Flávio) indicariam manipulação.",
+   "resumo": "As 106 seções com 100% para Lula existem. Em 2022 foram mais (143). Todas as 106 já davam pelo menos 90% a Lula no 1º turno. A contagem, sozinha, não indica manipulação. O caso de Maués, em que Flávio passou de 16 votos a zero, é tratado à parte."
+  },
+  {
+   "id": "maues-zero",
+   "capitulo": "secoes-extremas",
+   "ancora": "maues-zero",
+   "titulo": "Maués: queda de 16 votos para zero",
+   "veredito": "parcial",
+   "pista": "Na seção 5/176 de Maués, Flávio passou de 16 votos a zero enquanto Lula cresceu de 310 para 333.",
+   "resumo": "A queda de 16 para zero é rara e merece conferência. Os arquivos da seção batem entre si, mas não dizem quem votou. O caso foi escolhido depois de se ver o resultado, e o teste não separa erro, abstenção ou outra causa."
+  },
+  {
+   "id": "benford",
+   "veredito": "refutada",
+   "pista": "A distribuição de dígitos dos totais por seção violaria a Lei de Benford.",
+   "resumo": "A lei de Benford, aplicada do jeito que circula, também “reprova” eleições simuladas sem nenhuma alteração. Com um critério adequado ao tamanho das seções, os dígitos de 2026 não destoam — e destoam menos do que em 2022. O teste não serve para concluir que houve alteração, nem para carimbar a eleição como íntegra."
+  },
+  {
+   "id": "prorrogacao-secoes-tardias",
+   "veredito": "refutada",
+   "pista": "Seções que fecharam tarde ou foram prorrogadas teriam virado o resultado (Flávio com 52,39% “até as 17h”).",
+   "resumo": "O 52,39% só aparece quando se ignora o fuso horário. As mesmas seções já davam 55% a Flávio no 1º turno. Depois das 17h, no horário de Brasília, votaram 34.330 pessoas, menos de 1% da margem, e o movimento entre os turnos foi parecido em todas as faixas de horário. Houve, sim, 115 minutos (17h08–19h03) sem chegada de boletins ao TSE. A pausa está nos dados; a causa dela, não."
+  },
+  {
+   "id": "serrote-da-totalizacao",
+   "veredito": "refutada",
+   "pista": "Vales igualmente espaçados na curva da apuração seriam um algoritmo que “liga e desliga” penalizando Bolsonaro, e uma “virada única” seria impossível num resultado de 51% a 49% (vídeo do prof. Marcelo Trindade).",
+   "resumo": "O gráfico do vídeo de 2022 é real: a curva da apuração sobe e desce a cada cerca de 66 segundos. O mesmo desenho aparece quando se usam, na mesma ordem, os votos do 1º turno dessas seções. O perfil combina com a chegada de lotes de regiões diferentes, não com um interruptor que tira voto de um candidato. Não foi possível cravar de qual estado é cada lote."
+  },
+  {
+   "id": "serrote-nos-casos-rj",
+   "veredito": "refutada",
+   "pista": "Nos municípios do RJ com Lula disparando e Flávio estagnado, um mecanismo intermitente teria penalizado Flávio ao longo da apuração.",
+   "resumo": "Nos nove municípios do Rio, a chegada dos boletins não mostra ritmo, tendência nem um “liga e desliga” contra Flávio. A oscilação da noite já estava nos votos do 1º turno das mesmas seções. A diferença de nível do capítulo 6 continua; ela só não tem a forma de um serrote."
+  },
+  {
+   "id": "biometria",
+   "veredito": "refutada",
+   "pista": "Votos de eleitores habilitados sem digital teriam sido inseridos a favor de Lula.",
+   "resumo": "Onde mais gente votou sem a digital, Lula não cresceu mais do que no restante do mesmo local de votação. Há uma associação pequena quando se usa outra medida, tirada do diário da urna, e ela não aponta um volume capaz de mudar a eleição. As sequências longas de voto sem digital parecem leitor com defeito e, no saldo, pendem um pouco para Flávio. Poucos votos inseridos de forma espalhada não apareceriam nesse teste."
+  },
+  {
+   "id": "logs-das-urnas",
+   "veredito": "refutada",
+   "pista": "Logs com 157.290 votos a menos que os boletins e as substituições de urna esconderiam votos sem rastro.",
+   "resumo": "Os 157 mil votos que pareciam faltar estão nos diários das urnas trocadas no meio do dia: em 1.425 de 1.432 seções a conta fecha. Modelo da urna, alertas e trocas não acompanham o crescimento de Lula. Fica sem explicação uma seção do Espírito Santo, com dois diários quase completos. Arquivos gerados pelo mesmo equipamento baterem entre si não prova que o voto digitado foi aquele."
+  },
+  {
+   "id": "modelos-de-urna",
+   "veredito": "refutada",
+   "pista": "Em 2022, as urnas antigas deram a Lula votação muito maior que as novas no Norte e Nordeste — sinal de “possível manipulação algorítmica” (pedronauck; relatório do IVL/PL ao TSE). O padrão se repetiu em 2026?",
+   "resumo": "Em 2022, no Norte e no Nordeste, as urnas antigas deram a Lula cerca de 10 pontos a mais do que as novas. A diferença acompanha o lugar — as urnas novas estavam nas capitais — e não o aparelho: nas mesmas seções, ela continuou depois da troca da urna, e em 2026 some. Uma diferença pequena da urna de 2013 em 2026 já existia no 1º turno. Ninguém sorteou qual seção receberia qual urna, então a comparação não é um experimento."
+  },
+  {
+   "id": "eventos-politicos",
+   "capitulo": "conclusoes",
+   "ancora": "eventos-politicos",
+   "titulo": "Eventos políticos e judiciais",
+   "veredito": "nao-testavel",
+   "pista": "Medidas judiciais, pressões e episódios políticos em torno da eleição indicariam uma operação de alteração dos votos.",
+   "resumo": "Não há documento nem um mecanismo que ligue esses episódios aos votos registrados. Coincidência de datas, ou um conflito entre instituições, não se testa com os arquivos da urna."
+  }
+ ]
+}

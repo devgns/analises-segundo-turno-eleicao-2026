@@ -1,0 +1,159 @@
+/* Base, layout, tipografia. Tokens em tokens.css. */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+/* Saltos instantâneos evitam que a hidratação de gráficos desloque o destino
+   enquanto uma rolagem animada atravessa o relatório. */
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 72px; }
+
+body {
+  margin: 0;
+  background: var(--sup-0);
+  color: var(--texto-1);
+  font-family: var(--fonte-texto);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  font-optical-sizing: auto;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--fonte-texto);
+  line-height: 1.2;
+  font-weight: 650;
+  text-wrap: balance;
+  margin: 2em 0 0.6em;
+}
+h2 { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.3rem); }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 1.1rem; }
+p { margin: 0 0 1em; text-wrap: pretty; }
+a { color: var(--link); text-underline-offset: 0.15em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--foco); outline-offset: 2px; border-radius: 2px; }
+strong { font-weight: 650; }
+small, figcaption, .ui { font-family: var(--fonte-ui); }
+code { font-family: var(--fonte-mono); font-size: 0.88em; background: var(--sup-2); padding: 0.1em 0.3em; border-radius: 3px; }
+hr { border: 0; border-top: 1px solid var(--borda); margin: 3rem 0; }
+.num, .tabular { font-family: var(--fonte-ui); font-variant-numeric: tabular-nums; }
+.lula { color: var(--lula); }
+.flavio { color: var(--flavio); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.pular-link {
+  position: absolute; left: -999px; top: 8px; z-index: 100;
+  background: var(--sup-1); padding: 8px 12px; font-family: var(--fonte-ui);
+}
+.pular-link:focus { left: 8px; }
+
+.botao {
+  font: 500 0.875rem/1 var(--fonte-ui);
+  color: var(--texto-1); background: var(--sup-1);
+  border: 1px solid var(--borda); border-radius: var(--raio);
+  padding: 8px 12px; cursor: pointer; min-height: 36px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.botao:hover { border-color: var(--texto-3); }
+
+/* ---------- layout geral: sumário + conteúdo ---------- */
+.layout { display: block; }
+@media (min-width: 1180px) {
+  .layout {
+    display: grid;
+    grid-template-columns: var(--toc-largura) minmax(0, 1fr);
+    gap: 32px;
+    max-width: calc(var(--largura-larga) + var(--toc-largura) + 64px);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+}
+.conteudo { min-width: 0; padding: 0 var(--gutter); }
+
+/* Tudo dentro de uma seção fica na largura de leitura; .largo pode extrapolar. */
+.secao > *,
+.capitulo > *,
+.capitulo__corpo > * {
+  max-width: var(--largura-texto);
+  margin-left: auto;
+  margin-right: auto;
+}
+.secao > .largo,
+.capitulo > .largo,
+.capitulo__corpo > .largo { max-width: var(--largura-larga); }
+.capitulo__corpo { max-width: none !important; }
+
+/* ---------- sumário (TOC) ---------- */
+.sumario { font-family: var(--fonte-ui); font-size: 0.875rem; }
+.sumario ol { list-style: none; margin: 0; padding: 0; }
+.sumario a {
+  display: grid; grid-template-columns: 2.2em 1fr; gap: 4px;
+  padding: 6px 8px; border-radius: var(--raio);
+  color: var(--texto-2); text-decoration: none; line-height: 1.35;
+}
+.sumario a:hover { background: var(--sup-2); color: var(--texto-1); }
+.sumario a[aria-current='true'] { background: var(--sup-2); color: var(--texto-1); font-weight: 600; box-shadow: inset 2px 0 0 var(--texto-1); }
+.sumario__n { color: var(--texto-3); font-variant-numeric: tabular-nums; }
+.sumario__titulo { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--texto-3); margin: 0 0 8px; padding: 0 8px; font-weight: 600; }
+.sumario .veredito-ponto { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-left: 6px; vertical-align: middle; }
+
+/* Desktop: barra lateral fixa */
+.sumario--lateral { display: none; }
+@media (min-width: 1180px) {
+  .sumario--lateral {
+    display: block; position: sticky; top: 64px; align-self: start;
+    max-height: calc(100vh - 80px); overflow-y: auto; padding: 24px 0;
+  }
+  .sumario--movel { display: none; }
+}
+/* Móvel: recolhível dentro da barra superior */
+.sumario--movel { position: relative; }
+.sumario--movel > summary { list-style: none; }
+.sumario--movel > summary::-webkit-details-marker { display: none; }
+.sumario--movel[open] .sumario__painel {
+  position: fixed; left: 0; right: 0; top: 53px;
+  max-height: calc(100vh - 53px); overflow-y: auto;
+  background: var(--sup-1); border-bottom: 1px solid var(--borda);
+  padding: 12px var(--gutter) 24px; box-shadow: 0 12px 24px rgb(0 0 0 / 0.12);
+}
+
+/* ---------- capa ---------- */
+.capa { padding: clamp(48px, 10vw, 120px) 0 48px; border-bottom: 1px solid var(--borda); }
+.capa__selo {
+  font: 600 0.75rem/1 var(--fonte-ui); text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--texto-3); margin-bottom: 20px;
+}
+.capa h1 {
+  font-size: clamp(2rem, 1.3rem + 3.2vw, 3.4rem); margin: 0 auto 20px; letter-spacing: -0.01em;
+}
+.capa > .capa__sub {
+  max-width: var(--largura-larga);
+  font-size: clamp(1.1rem, 1rem + 0.5vw, 1.35rem);
+  line-height: 1.6;
+  color: var(--texto-1);
+  background: var(--sup-1);
+  border: 1px solid var(--borda);
+  border-left: 4px solid var(--teste-borda);
+  border-radius: 0 var(--raio) var(--raio) 0;
+  padding: clamp(18px, 2.5vw, 28px);
+}
+.capa .aviso { max-width: var(--largura-larga); margin-top: 28px; margin-bottom: 0; }
+.capa .aviso p { font-size: 0.98rem; }
+.capa__meta { font: 0.875rem/1.5 var(--fonte-ui); color: var(--texto-3); margin-top: 24px; }
+.capa__placar {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 32px;
+  max-width: var(--largura-larga) !important;
+}
+
+/* ---------- seções genéricas ---------- */
+.secao { padding: 32px 0; border-bottom: 1px solid var(--borda); }
+.secao > h2:first-child, .capitulo h2 { margin-top: 0.5em; }
+
+/* ---------- rodapé ---------- */
+
+/* blocos de código (metodologia): rolam dentro de si, nunca na página */
+.capitulo pre { max-width: 100%; overflow-x: auto; padding: 12px 14px; background: var(--sup-2); border: 1px solid var(--borda); border-radius: 6px; font-size: 0.8125rem; line-height: 1.5; }
+.capitulo pre code { white-space: pre; }
+.capitulo :not(pre) > code { overflow-wrap: anywhere; }

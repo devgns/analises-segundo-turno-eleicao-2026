@@ -1,0 +1,106 @@
+<section class="capitulo" id="benford" data-titulo-curto="Benford e dígitos">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 8 <span data-veredito-capitulo></span></div>
+    <h2>Benford, dígitos e a “impressão digital” da eleição</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">Redes sociais, após o 2º turno</span></div>
+    <p>Uma conta que circulou nas redes após o 2º turno afirma que a distribuição de dígitos dos totais por seção “viola a Lei de Benford”, mas não mostra números. A violação seria a marca de números fabricados.</p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>Ainda no terreno dos números, a última alegação deste bloco é a mais técnica. A Lei de Benford diz que, em muitos conjuntos de números que se espalham por várias ordens de grandeza (populações de cidades, valores de notas fiscais), o primeiro dígito é “1” em cerca de 30% dos casos e “9” em menos de 5%. Ela virou ferramenta de auditoria contábil. O raciocínio é que quem inventa números tende a espalhá-los de modo uniforme demais.</p>
+    <p>Votos por seção eleitoral <strong>não são esse tipo de número</strong>. Uma seção brasileira tem entre algumas dezenas e cerca de 500 eleitores. Se Lula tem 50% num lugar, os votos dele nas seções dali se concentram em torno de 100 a 200, e o primeiro dígito será “1” na maioria delas, muito mais que os 30% de Benford. Aplicar a tabela de Benford diretamente a esses números produz “violações” gigantescas em <em>qualquer</em> eleição, honesta ou não. A literatura especializada documenta isso há anos: Benford só deveria ser usado com um nulo simulado, porque é inadequado para contagens limitadas pelo tamanho da seção.<sup class="ref" data-ref="ch10-deckert ch10-mebane"></sup></p>
+    <p>O teste correto é outro: <strong>simular eleições sem alteração, com o mesmo eleitorado e a mesma heterogeneidade entre seções</strong>, e verificar se a eleição real se parece com elas. Se a eleição real tiver dígitos diferentes dos de eleições simuladas sem nenhuma alteração, aí sim há algo a explicar.</p>
+  </div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <ol>
+      <li><strong>Três testes de dígitos</strong> nos votos de Lula e de Flávio por seção (Bolsonaro em 2022). Foram aplicados ao 2º turno de 2026, ao 1º turno de 2026 e ao 2º turno de 2022, em cerca de 500 mil seções cada.<sup class="ref" data-ref="tse-boletins"></sup>
+        <ul>
+          <li><strong>1º dígito</strong>, o Benford clássico.</li>
+          <li><strong>2º dígito</strong>, a versão “2BL” proposta por Walter Mebane para eleições.</li>
+          <li><strong>Último dígito</strong>, que deveria ser uniforme. Aqui, só contagens ≥ 100.</li>
+        </ul>
+      </li>
+      <li><strong>Nulo simulado.</strong> Em cada eleição simulada, cada seção recebe seu número real de votos válidos. A probabilidade de voto é a do restante do seu local de votação (sem a própria seção). Os votos são sorteados por uma binomial (nulo “binomial”) ou por uma beta-binomial, que acrescenta a variação real entre seções vizinhas (nulo “beta-binomial”, o mesmo do <a href="#secoes-extremas">capítulo 7</a>). Foram 200 eleições simuladas por caso.</li>
+      <li><strong>Duas comparações.</strong> O χ² da eleição real contra Benford, que é o teste ingênuo, e contra a distribuição das eleições simuladas, que é o teste correto. Também aplicamos o teste ingênuo às 200 eleições simuladas, nas quais não inserimos alteração nenhuma, para ver com que frequência ele as “reprova”.</li>
+      <li><strong>Impressão digital (Klimek et al., 2012).</strong> Um mapa de calor de comparecimento × fatia do candidato por seção. Enchimento de urnas aparece como uma mancha que escorre para o canto de 100% de comparecimento e 100% de votos num candidato.<sup class="ref" data-ref="ch10-klimek"></sup></li>
+    </ol>
+  </aside>
+
+  <div class="capitulo__corpo graficos">
+    <h3>1. O teste ingênuo reprova todas as eleições, inclusive as simuladas sem alteração</h3>
+    <p>Contra a tabela de Benford, os votos de Lula no 2º turno de 2026 dão χ² = 297.064 no 1º dígito. O valor crítico a 5% é 15,5, de modo que a “violação” parece astronômica. Mas a <strong>eleição de 2022 dá 288.854</strong>, o 1º turno de 2026 dá 223.191, e o mesmo acontece com Flávio e com Bolsonaro. Mais revelador: nas <strong>200 eleições simuladas sem nenhuma alteração inserida</strong>, o teste ingênuo rejeitou Benford em <strong>100% dos casos, nos 18 testes</strong> (3 eleições × 2 candidatos × 3 dígitos). O χ² mediano dessas eleições limpas foi de 290.163 para o 1º dígito de Lula em 2026, praticamente o mesmo da eleição real. Quem diz que “os votos violam Benford” está descrevendo o tamanho das seções, não uma manipulação.</p>
+
+    <figure class="grafico largo" data-grafico="ch10-1bl" data-src="data/ch10/digitos.json"
+            data-titulo="1º dígito dos votos por seção, 2º turno de 2026"
+            data-subtitulo="Barras: frequência observada. Linha tracejada: Lei de Benford. Traço preto: o que 200 eleições simuladas sem alteração produzem (faixa de 95%). As barras batem com o traço, não com a linha."
+            data-fonte="TSE — boletins de urna 2026; simulação própria. Script: analises/10_benford.py"
+            data-altura="380"></figure>
+
+    <h3>2. Contra o nulo simulado: o 2º e o último dígito não se afastam</h3>
+    <p>Os resultados dependem do nulo simulado escolhido. No <strong>2º dígito</strong> e no <strong>último dígito</strong>, nenhum dos 12 testes contra o nulo beta-binomial rejeita a 1%. O único abaixo de 5% é o 2º dígito de Lula em <em>2022</em> (p = 0,045), e um em 12 a 5% é o que se espera por acaso. No 2º turno de 2026, os valores-p foram:</p>
+    <ul>
+      <li>2º dígito: 0,16 para Lula e 0,11 para Flávio;</li>
+      <li>último dígito: 0,68 para Lula e 0,23 para Flávio.</li>
+    </ul>
+    <p>Com o nulo binomial alternativo, menos flexível quanto à heterogeneidade entre seções, o segundo dígito de Flávio apresenta p = 0,025 e 0,030 nos dois turnos de 2026. Estes são valores brutos; com o nulo beta-binomial, que admite sobredispersão, o resultado não se repete. Isso ilustra a dependência do modelo e não identifica a causa do desvio.</p>
+    <p>O dígito médio do 2BL, a estatística de Mebane, foi de 3,858 para Lula em 2026, contra 3,853 em 2022. Nas duas eleições ele fica na borda inferior da faixa simulada, ou seja, se comporta igual.</p>
+
+    <figure class="grafico largo" data-grafico="ch10-2bl" data-src="data/ch10/digitos.json"
+            data-titulo="2º dígito (2BL de Mebane), 2º turno de 2026"
+            data-subtitulo="Observado contra Benford e contra o nulo simulado (faixa de 95%)."
+            data-fonte="TSE — boletins de urna 2026; simulação própria. Script: analises/10_benford.py"
+            data-altura="340"></figure>
+    <figure class="grafico largo" data-grafico="ch10-ultimo" data-src="data/ch10/digitos.json"
+            data-titulo="Último dígito (contagens ≥ 100), 2º turno de 2026"
+            data-subtitulo="Nem o último dígito é perfeitamente uniforme: há leve excesso de dígitos baixos, que o nulo reproduz."
+            data-fonte="TSE — boletins de urna 2026; simulação própria. Script: analises/10_benford.py"
+            data-altura="340"></figure>
+
+    <p>O <strong>1º dígito</strong> é o único em que a eleição real se afasta do nulo simulado de forma consistente (p &lt; 0,03 nos seis casos). O afastamento é maior para Lula: χ² de 139 no 2º turno de 2026, 198 no 1º turno de 2026 e 162 no 2º turno de 2022. Ele é <strong>menor em 2026 do que nas duas linhas de base</strong>. A causa é a mesma do <a href="#secoes-extremas">capítulo 7</a>: o nulo não captura toda a heterogeneidade dos redutos muito homogêneos, e o 1º dígito é sensível à forma inteira da distribuição de votos. Em termos práticos, a diferença é mínima. O afastamento absoluto médio por dígito (MAD) contra o nulo é de 0,1 ponto percentual, contra 7,9 pontos contra Benford.</p>
+    <div class="largo" data-tabela="ch10-testes"></div>
+
+    <h3>3. A impressão digital: sem mancha no canto</h3>
+    <p>Em eleições com enchimento de urnas, como as russas estudadas por Klimek e colegas, o mapa comparecimento × votação mostra uma cauda que escorre para o canto superior direito: seções com quase 100% de comparecimento e quase 100% para o partido do governo. Nos três mapas abaixo, de 2026 (dois turnos) e 2022, a nuvem tem a mesma forma, centrada em 75% a 85% de comparecimento, sem cauda em direção ao canto.</p>
+
+    <figure class="grafico largo" data-grafico="ch10-digital-2026-2" data-src="data/ch10/impressao-digital.json"
+            data-titulo="Impressão digital, 2º turno de 2026"
+            data-subtitulo="Nº de seções em cada célula de 2 × 2 pontos percentuais (cor em escala log)."
+            data-fonte="TSE — boletins de urna 2026. Script: analises/10_benford.py" data-altura="440"></figure>
+    <figure class="grafico largo" data-grafico="ch10-digital-2026-1" data-src="data/ch10/impressao-digital.json"
+            data-titulo="Impressão digital, 1º turno de 2026"
+            data-subtitulo="Fatia de Lula sobre todos os votos nominais (por isso a nuvem fica mais à esquerda)."
+            data-fonte="TSE — boletins de urna 2026. Script: analises/10_benford.py" data-altura="440"></figure>
+    <figure class="grafico largo" data-grafico="ch10-digital-2022-2" data-src="data/ch10/impressao-digital.json"
+            data-titulo="Impressão digital, 2º turno de 2022"
+            data-subtitulo="Linha de base."
+            data-fonte="TSE — boletins de urna 2022. Script: analises/10_benford.py" data-altura="440"></figure>
+
+    <p>Há um número que, isolado, poderia soar como alerta. No 2º turno de 2026, <strong>64 seções</strong> tiveram comparecimento ≥ 95% e Lula ≥ 95%, contra 26 no 1º turno e 31 em 2022. O detalhe muda a leitura:</p>
+    <ul>
+      <li>Das 64, 59 já tinham comparecimento ≥ 90% no 1º turno, com mediana de 94,6%, e 52 já davam ≥ 95% a Lula.</li>
+      <li>O número de seções com comparecimento ≥ 95% subiu em geral, de 559 para 639, porque o comparecimento médio por seção aumentou de 79,2% para 80,9%.</li>
+      <li>O mais importante: se houvesse enchimento a favor de Lula, o comparecimento subiria <em>mais</em> nos redutos dele. Aconteceu o contrário. Nas 1.749 seções com ≥ 95% para Lula, o comparecimento subiu só 0,30 ponto, contra 1,71 no país e 2,02 nos redutos de Flávio.</li>
+      <li>As 64 seções somam um aumento de 316 votantes.</li>
+    </ul>
+    <p>A correlação entre comparecimento e fatia de Lula por seção é praticamente nula nas três eleições: 0,05 em 2026 (2º turno), 0,06 no 1º turno e −0,09 em 2022.</p>
+    <div class="largo" data-tabela="ch10-digital-resumo"></div>
+  </div>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <p><strong>A “violação de Benford” é um artefato do teste.</strong> Ela aparece com a mesma intensidade em 2022, no 1º turno e em 100% das eleições simuladas sem alteração.</p>
+    <p>Contra o nulo simulado, o 2º e o último dígito de 2026 não se distinguem das réplicas sem alteração. O 1º dígito mostra um pequeno desajuste do modelo, que é <em>menor</em> em 2026 que nas linhas de base. Isso mostra que o teste de dígitos não distingue os cenários, não que a eleição esteja certificada: o nulo parte da heterogeneidade observada, e um padrão já presente nos dados seria preservado por ele. Rejeitar o modelo beta-binomial numa cauda, em 2022 e 2026, também só diz que o modelo não descreve bem aquela cauda.</p>
+    <p>A impressão digital comparecimento × votação não tem a cauda típica de enchimento de urnas. Nos redutos de Lula, o comparecimento subiu menos que no resto do país.</p>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <p>Testes de dígitos têm alcance limitado: seu resultado depende da distribuição de referência e das características dos dados. Eles não identificam, isoladamente, a causa dos padrões observados. Os capítulos <a href="#transferencia-de-votos">2</a> e <a href="#biometria">12</a> apresentam outras perspectivas e suas limitações.</p>
+    <p>A conclusão também depende de o nulo ser razoável. Ele não é perfeito no 1º dígito, e por isso a comparação decisiva é com 2022 e com o 1º turno.</p>
+  </aside>
+</section>

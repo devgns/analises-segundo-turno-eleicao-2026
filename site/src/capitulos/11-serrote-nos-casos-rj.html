@@ -1,0 +1,99 @@
+<section class="capitulo" id="serrote-nos-casos-rj" data-titulo-curto="O “serrote” nos casos do RJ">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 11 <span data-veredito-capitulo></span></div>
+    <h2>Há um “serrote” em Campos, na Região dos Lagos e em Silva Jardim?</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">Redes sociais, após o 2º turno · tese do vídeo do capítulo 10</span></div>
+    <p>O <a href="#casos-rj">capítulo 6</a> tratou de nove municípios do RJ onde Lula cresceu muito e Flávio quase não se moveu entre os turnos:</p>
+    <ul>
+      <li>Campos dos Goytacazes: Lula +24.822, Flávio −1.389;</li>
+      <li>a Região dos Lagos;</li>
+      <li>Silva Jardim: Lula +984, Flávio +1.</li>
+    </ul>
+    <p>O <a href="#serrote-da-totalizacao">capítulo 10</a> examinou a tese de um “algoritmo que liga e desliga” e penaliza o candidato da direita em intervalos regulares ao longo da apuração. A pergunta aqui junta as duas alegações: <strong>se um mecanismo assim produziu a estagnação de Flávio nesses municípios, ele deixou rastro no tempo?</strong></p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>Os boletins das 2.950 seções dos nove casos chegaram ao TSE entre 19h03min38s e 21h10min26s, depois da pausa no recebimento (<a href="#prorrogacao-secoes-tardias">capítulo 9</a>). Os de Campos chegaram ao longo de duas horas, e os de Silva Jardim entre 20h50 e 21h07.</p>
+    <p>Diferentemente de 2022, não localizamos um arquivo bruto do histórico de totalização de 2026 por município. O TSE divulgou um <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/saiba-como-foi-a-totalizacao-dos-votos-no-1o-turno-das-eleicoes-2026" target="_blank" rel="noopener">Painel da evolução da totalização</a><sup class="ref" data-ref="tse-painel-totalizacao-2026"></sup> com recorte municipal, mas não verificamos se ele permite exportar a série com resolução suficiente. A ordem de chegada vem, então, do horário de recebimento de cada boletim (<code>DT_BU_RECEBIDO</code>).</p>
+    <p>Para cada seção, medimos a variação da fatia de Flávio entre os finalistas, do 1º para o 2º turno. Dessa variação, descontamos a média das outras seções <strong>da mesma escola</strong>. Assim, o perfil de quem vota naquela escola sai da conta, e sobra o que distingue uma seção das vizinhas.</p>
+  </div>
+
+  <div class="largo" data-kpis='[{"rotulo":"Seções dos nove casos","valor":2950,"formato":"num"},{"rotulo":"Escolas (locais de votação)","valor":462,"formato":"num"},{"rotulo":"Menor p entre os 6 testes dos casos","valor":"0,47"},{"rotulo":"Placebo do 1º turno em Campos (r)","valor":"0,96"}]'></div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <p>Definido antes de olhar os resultados, para os nove casos juntos, para Campos sozinho (o caso mais forte do capítulo 6) e para o resto do RJ como comparação, com o mesmo dia e a mesma pausa:</p>
+    <ol>
+      <li><strong>Fase do minuto.</strong> As seções que chegam numa mesma janela de 8 segundos de cada minuto perdem mais votos de Flávio do que as vizinhas da mesma escola? É o padrão alegado no vídeo do capítulo 10.</li>
+      <li><strong>Periodicidade.</strong> Há um ritmo regular, de 30 segundos a 20 minutos, nessa variação ao longo da chegada?</li>
+      <li><strong>Tendência.</strong> Flávio perde mais no começo ou no fim da chegada, como faria um algoritmo ligado só durante parte da noite?</li>
+      <li><strong>Placebo do 1º turno.</strong> Acumulamos a fatia de Flávio das mesmas seções com os votos do 1º turno, na ordem de chegada do 2º. Se as ondulações da noite reaparecerem, elas vêm de <em>quais escolas</em> chegaram, e não do momento.</li>
+    </ol>
+    <p>O valor-p dos três primeiros testes vem de um nulo que mantém os horários de chegada exatamente como foram e embaralha a variação só entre seções da mesma escola. No teste de fase, cada janela recebe um escore padronizado, porque em alguns segundos do minuto quase não chega boletim e a média dessas janelas oscila muito por acaso.</p>
+    <p>Para medir a sensibilidade, injetamos um “algoritmo” sintético que tira 2% ou 5% dos votos de Flávio das seções que chegam numa janela de 8 segundos de cada minuto, e contamos quantas vezes o teste o encontra.</p>
+  </aside>
+
+  <div class="capitulo__corpo graficos">
+    <h3>1. Nenhum rastro de fase, ritmo ou tendência nos nove casos</h3>
+    <div class="largo" data-tabela="ch06c-testes"></div>
+    <p>Nos nove casos, os três testes dão:</p>
+    <ul>
+      <li><strong>Fase do minuto:</strong> p = 0,48 nos nove e p = 0,80 em Campos.</li>
+      <li><strong>Periodicidade:</strong> p = 0,69 e 0,56.</li>
+      <li><strong>Tendência:</strong> p = 0,47 e 0,87.</li>
+    </ul>
+    <p>O teste de fase não é cego. Ele encontra a retirada de 2% dos votos de Flávio numa janela de 8 s em 95% das simulações nos nove casos, e em 79% em Campos.</p>
+    <p>É pouco perto do que estes municípios exigiriam. A oscilação de Campos (−5,94 p.p.) fica cerca de 3,6 pontos abaixo da mediana municipal nacional. Um algoritmo que agisse só em 8 de cada 60 segundos teria de tirar bem mais que 5% dos votos de Flávio nessas seções para produzi-la.</p>
+    <p>O único resultado limítrofe aparece no <em>resto</em> do RJ, e não nos nove casos. Uma janela, dos segundos 7 a 14, mostra −0,16 ponto para Flávio, com p = 0,031. Com nove testes nesta tabela, a correção de Holm leva esse p a 0,28. É do tamanho que se espera encontrar por acaso entre tantas janelas e testes. Registramos o resultado para quem quiser auditá-lo.</p>
+
+    <h3>2. As ondas da noite já estavam nos votos do 1º turno</h3>
+    <p>Em cada município, a curva da fatia acumulada de Flávio na ordem de chegada repete a curva das mesmas seções no 1º turno. A correlação por blocos vai de 0,85 (Araruama) a 0,98 (Silva Jardim), e é de 0,96 em Campos. A distância entre as duas linhas é a oscilação do município, que o capítulo 6 mostrou ser grande. A <em>forma</em> da curva é a mesma: quem chega primeiro são escolas mais ou menos bolsonaristas, e isso já era verdade em 4 de outubro.</p>
+    <figure class="grafico largo" data-grafico="ch06c-placebo" data-src="data/ch06c/series.json"
+            data-titulo="Campos dos Goytacazes: fatia acumulada de Flávio na ordem de chegada dos boletins"
+            data-subtitulo="Linha cheia = votos do 2º turno; tracejada = votos do 1º turno das mesmas seções, na mesma ordem"
+            data-fonte="TSE: boletins de urna 2026, 1º e 2º turnos (DT_BU_RECEBIDO do 2º turno)" data-altura="340"></figure>
+
+    <h3>3. A “estagnação” de Flávio não tem degraus</h3>
+    <p>Somando, seção a seção e na ordem de chegada, quanto cada candidato ganhou ou perdeu entre os turnos, o padrão é o mesmo nos dois municípios:</p>
+    <ul>
+      <li>Lula cresce de forma contínua, quase em linha reta.</li>
+      <li>O saldo de Flávio caminha para cima e para baixo, sem os degraus regulares que o algoritmo intermitente simulado deixaria.</li>
+    </ul>
+    <p>A reta de Lula merece uma observação honesta. Ela é o esperado quando se somam 1.190 seções que deram a Lula, em média, uns 21 votos a mais cada uma. A soma de muitas parcelas parecidas cresce como uma linha. Mas uma alteração que somasse o mesmo número de votos em todas as seções também desenharia uma reta. Uma curva lisa, portanto, não prova nem uma coisa nem outra. O que este gráfico enfraquece é a alteração <em>intermitente</em> em pulsos do tipo que simulamos, que apareceria como degraus; um mecanismo com outra forma poderia não deixá-los.</p>
+    <p>Em Campos, Flávio caiu em 594 seções e subiu em 533. O saldo de −1.389 se formou sobretudo na primeira metade das chegadas (−1.960, contra +571 na segunda). Mas a tendência dentro de cada escola é nula (p = 0,87). A diferença entre as metades vem de quais escolas chegaram primeiro, e não da hora. Em Silva Jardim, Flávio fez +24 na primeira metade e −23 na segunda; em Araruama, +501 e −490.</p>
+    <figure class="grafico largo" data-grafico="ch06c-delta-campos" data-src="data/ch06c/series.json"
+            data-titulo="Campos dos Goytacazes: variação de votos entre os turnos, acumulada na ordem de chegada"
+            data-subtitulo="Soma, seção a seção, de (2º turno − 1º turno). 1.190 seções, de 19h03 a 21h07."
+            data-fonte="TSE: boletins de urna 2026, 1º e 2º turnos" data-altura="340"></figure>
+    <figure class="grafico largo" data-grafico="ch06c-delta-sj" data-src="data/ch06c/series.json"
+            data-titulo="Silva Jardim: variação de votos entre os turnos, acumulada na ordem de chegada"
+            data-subtitulo="61 seções. O +1 final de Flávio é uma caminhada para cima e para baixo, não um teto."
+            data-fonte="TSE: boletins de urna 2026, 1º e 2º turnos" data-altura="300"></figure>
+    <div class="largo" data-tabela="ch06c-municipios"></div>
+  </div>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <p><strong>Nos nove municípios não encontramos o rastro do mecanismo intermitente simulado.</strong></p>
+    <ul>
+      <li>Nem fase do minuto, nem ritmo, nem tendência ao longo da chegada dos boletins (p de 0,47 a 0,87).</li>
+      <li>O teste de fase detectaria, na maioria das simulações, uma retirada de apenas 2% dos votos de Flávio.</li>
+      <li>As ondulações da noite se repetem com os votos do 1º turno das mesmas seções.</li>
+      <li>A estagnação de Flávio é a soma de centenas de seções que sobem e descem, sem degraus.</li>
+    </ul>
+    <p>Este capítulo <em>não</em> desfaz a anomalia do capítulo 6. Os casos continuam na cauda nacional, e o RJ continua sendo a UF mais desviada a favor de Lula. Ele mostra apenas que essa anomalia não tem a forma de um “serrote” no tempo da apuração.</p>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <ul>
+      <li><strong>Uma alteração constante,</strong> igual em todas as seções do município ou do estado, não deixa rastro no tempo nenhum. Esse caso é discutido nos capítulos <a href="#mapa-da-virada">4</a>, <a href="#poder-dos-detectores">5</a> e <a href="#casos-rj">6</a>.</li>
+      <li><strong>O tempo da votação, dentro da urna, não é testável.</strong> Estes testes cobrem o tempo da apuração, isto é, a chegada dos boletins. Uma alteração na urna que agisse em certos horários <em>da votação</em> não pode ser vista assim. O registro digital do voto (RDV) é embaralhado por lei, justamente para que a ordem dos votos não revele quem votou em quem. O log registra o horário de cada eleitor, mas não o voto.</li>
+      <li><strong>A ordem de chegada é uma aproximação.</strong> O horário de recebimento aproxima a ordem de totalização, mas não é idêntico a ela, e não localizamos o histórico bruto de totalização de 2026.</li>
+      <li><strong>Sensibilidade menor em Campos.</strong> Com 1.190 seções, uma retirada sintética de 2% numa janela de 8 s foi detectada em 79% das simulações. Efeitos menores, ou com outro formato, poderiam passar.</li>
+    </ul>
+  </aside>
+</section>

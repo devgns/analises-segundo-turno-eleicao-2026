@@ -1,0 +1,179 @@
+<section class="capitulo" id="prorrogacao-secoes-tardias" data-titulo-curto="Prorrogação e seções tardias">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 9 <span data-veredito-capitulo></span></div>
+    <h2>A prorrogação e as seções tardias</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">Redes sociais, após o 2º turno</span></div>
+    <p>Uma conta que circulou nas redes após o 2º turno afirma: "Flávio teve 52,39% nas seções encerradas até as 17h; Lula teve vantagem de mais de 6,1 milhões nas demais." A mesma conta registra 88.071.750 eleitores em seções que fecharam entre 17h01 e 17h15 e 1.856.306 nas que fecharam depois das 19h. A suspeita é que a prorrogação do horário, decidida depois das 17h, junto com a suspensão do recebimento dos boletins, abriu uma janela em que o resultado foi virado.</p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>Os capítulos anteriores olharam para os números finais. Este bloco olha para a noite da apuração, começando pela alegação mais citada: a de que a prorrogação do horário virou a eleição. Na tarde de 25 de outubro, a campanha de Lula pediu ao STF mais tempo de votação, alegando falhas no transporte público. O pedido chegou por volta das 16h30. O ministro Cristiano Zanin mandou prorrogar a votação em duas horas, e a decisão foi registrada às 17h02 de Brasília, quando a maioria das urnas já estava desligada<sup class="ref" data-ref="oliberal-34mil timesbrasil-pausa"></sup>. O TSE então orientou que só as seções ainda abertas continuassem até as 19h e interrompeu a divulgação logo após a primeira parcial, quando 0,25% das seções estavam apuradas. A recepção e a totalização foram retomadas às 19h<sup class="ref" data-ref="correio-retomada tse-balanco-2t"></sup>.</p>
+    <p>A sequência é incomum e merece auditoria. Mas ela mistura quatro relógios diferentes, e a conta que circulou depende de qual deles se usa:</p>
+    <ol>
+      <li><strong>Horário de cada voto.</strong> Vem do log da urna, que registra quando cada eleitor teve o voto computado. O log não diz em quem a pessoa votou.</li>
+      <li><strong>Encerramento da seção.</strong> É o horário em que o mesário fechou a urna (campo <code>DT_ENCERRAMENTO</code> do boletim).</li>
+      <li><strong>Emissão do boletim de urna (BU).</strong> É o momento em que a urna imprime o resultado, logo depois do encerramento.</li>
+      <li><strong>Recebimento do BU pelo TSE.</strong> É quando o boletim chega à totalização (<code>DT_BU_RECEBIDO</code>). Esse relógio define a curva da apuração vista na TV.</li>
+    </ol>
+    <p>Os três primeiros horários ficam gravados no <strong>relógio local da urna</strong>. O quarto está em horário de Brasília. Conferimos as duas coisas nos dados: no Acre, o boletim é emitido por volta das 15h e recebido depois das 17h, e nenhum BU do país aparece recebido antes de ser emitido, depois de convertido para Brasília. Desde 2022 a votação vai das 8h às 17h <em>de Brasília</em> em todo o país. Isso quer dizer 15h no Acre e 16h em Mato Grosso, Rondônia e boa parte do Amazonas. Uma seção do Acre que fechou às 15h05 locais fechou, na verdade, às 17h05.</p>
+  </div>
+
+  <div class="largo" data-kpis-src="data/ch06/kpis.json"></div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <p>Definimos tudo antes de olhar os resultados.</p>
+    <ol>
+      <li><strong>Reproduzir os números da conta que circulou</strong> com cada relógio e cada fuso, e repetir a mesma conta com o <strong>1º turno nas mesmas seções</strong>. Essa é a linha de base: se as seções que fecham cedo já eram mais bolsonaristas em 4 de outubro, o "52,39%" mede quem vota nelas, e não o que aconteceu depois das 17h.</li>
+      <li><strong>Contar os votos computados a partir das 17h00</strong> nos logs das 497 mil urnas e comparar com o número do TSE (34.393).</li>
+      <li><strong>Diferenças em diferenças</strong> nas mesmas seções. A medida é Δ = fatia de Lula entre os dois finalistas no 2º turno menos a mesma fatia no 1º. Comparamos o Δ por faixa de encerramento com o das seções que fecharam às 17h00, com efeitos fixos de UF, decis de tamanho e de fatia de Lula no 1º turno, um indicador de capital e erro-padrão agrupado por município. Há também um <strong>placebo</strong>: classificar as seções pelo encerramento do <em>1º turno</em>, quando não houve prorrogação. Se a prorrogação tivesse virado votos, as seções tardias do 2º turno deveriam mostrar um Δ maior, e esse excesso não deveria aparecer no placebo.</li>
+      <li><strong>Estudo de evento</strong> em torno das 17h02, minuto a minuto, e <strong>curva de apuração</strong> pelo horário oficial de recebimento, comparada com a do 1º turno e a do 2º turno de 2022. Nessa etapa também procuramos pausas no recebimento.</li>
+    </ol>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <h3>1. Os relógios separados</h3>
+    <p>No 2º turno, em <strong>96,5% das seções o último voto foi computado antes das 17h01</strong>. A mediana do encerramento é 17h01min44s, e 97,3% das seções fecharam antes das 17h10. A emissão do BU vem 2 a 3 minutos depois do encerramento. O <strong>recebimento</strong> é o relógio que se descola dos outros: nenhum BU chegou ao TSE entre 17h08 e 19h03, e a mediana do recebimento foi 20h26.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-relogios" data-src="data/ch06/relogios-histograma.json"
+          data-titulo="Quatro relógios da mesma noite (2º turno, horário de Brasília)"
+          data-subtitulo="Número de seções em cada janela de 5 minutos, em escala logarítmica. A faixa cinza marca o período sem recebimento de BUs."
+          data-fonte="TSE — bweb e logs das urnas, 2º turno 2026; cálculo em analises/06_horarios.py" data-altura="400"></figure>
+
+  <div class="capitulo__corpo">
+    <p>O encerramento do 2º turno foi muito mais concentrado que o do 1º. Em 4 de outubro havia seis cargos na cédula e filas maiores. Só 68% das seções tinham fechado às 17h10, e 1,7% fecharam depois das 19h, sem nenhuma prorrogação. Fechar depois das 17h é rotina: quem está na fila às 17h tem o direito de votar. No 2º turno, as 6.352 seções que fecharam depois das 19h (1,3%) são as que <em>cumpriram a prorrogação</em>, ficando abertas sem quase ninguém para votar. Juntas, elas computaram só 4.492 votos depois das 17h.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-encerramento-turnos" data-src="data/ch06/relogios-histograma.json"
+          data-titulo="Encerramento das seções: 1º × 2º turno"
+          data-subtitulo="Seções por janela de 5 minutos (horário de Brasília, escala log). No 1º turno, com cédula longa, as filas atrasaram o fechamento muito mais."
+          data-fonte="TSE — bweb, 1º e 2º turnos 2026" data-altura="320"></figure>
+
+  <div class="capitulo__corpo">
+    <h3>2. De onde vem o "52,39%"</h3>
+    <p>Reproduzimos <strong>todos</strong> os números da conta que circulou e encontramos a receita. Ela usa o <code>DT_ENCERRAMENTO</code> do boletim <strong>no relógio local, sem converter o fuso</strong>, e trunca no minuto (até 17h00min59s). Com isso, Flávio fica com <strong>52,39%</strong> em 150.771 seções e Lula com 6.177.830 votos de vantagem nas demais. Os 88.071.750 da conta são o <em>comparecimento</em>, e não o número de eleitores aptos, das seções que fecharam entre 17h01 e 17h15 no relógio local. O 1.856.306 corresponde, a cerca de 0,11%, ao comparecimento das seções que fecharam depois das 19h.</p>
+    <p>A escolha do relógio local muda o resultado: todas as seções do Acre, de Rondônia, de Roraima, de Mato Grosso, de Mato Grosso do Sul e de quase todo o Amazonas, regiões onde Flávio é forte, entram como "fechadas até as 17h" porque fecharam às 15h ou às 16h locais. Em Brasília, a mesma conta dá <strong>50,99%</strong>. E o ponto decisivo é que essas mesmas seções deram a Flávio <strong>55,20%</strong> no 1º turno (53,73% na versão de Brasília). As seções que fecham cedo são, por composição, mais bolsonaristas: menores, menos urbanas, com menos fila. Entre os turnos elas se moveram para Lula na mesma proporção que o restante do país.</p>
+  </div>
+
+  <div class="largo" data-tabela="ch06-alegacoes"></div>
+
+  <div class="largo" data-ch06-corte></div>
+
+  <div class="capitulo__corpo">
+    <p>No interativo acima, as diferenças entre as linhas variam conforme o relógio e o corte; elas comparam os dois turnos nas mesmas seções. Com o relógio de recebimento, as primeiras seções a chegar ao TSE já eram mais bolsonaristas em outubro. Com o relógio local, o corte das 17h captura o Norte e o Centro-Oeste inteiros.</p>
+
+    <h3>3. Quantos votaram depois das 17h</h3>
+    <p>Contamos os registros de voto, um por eleitor, nos logs de 497.880 urnas (127,7 milhões de votos). <strong>A partir das 17h00min00s de Brasília foram computados 34.330 votos</strong>: 32.337 entre 17h e 18h, 1.982 entre 18h e 19h e 11 depois das 19h. O último foi às 19h06. O TSE divulgou 34.393 (32.399, 1.981 e 13)<sup class="ref" data-ref="oliberal-34mil"></sup>, uma diferença de 63 votos, ou 0,18%. O log principal omite votos de algumas urnas substituídas, cujos logs anteriores estão nos pacotes disponíveis. A diferença de 63 ainda não foi conciliada seção a seção. O repositório externo urnas-tardias chega exatamente aos mesmos 34.330<sup class="ref" data-ref="urnas-tardias cnn-34mil"></sup>.</p>
+    <p>Desses votos, <strong>29.001 (84%) entraram nos primeiros cinco minutos</strong>, 13.961 deles no minuto das 17h00. São filas que terminavam, antes de a decisão das 17h02 chegar a qualquer seção. Só <strong>4.198 votos</strong> foram computados a partir das 17h10, em 2.962 seções. Mesmo que todos os 34.330 tivessem ido para o mesmo candidato, isso daria 0,77% da margem de 4.430.191 votos. O exterior, com horários locais de cada país, teve outros 417 votos depois das 17h locais.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-evento-votos" data-src="data/ch06/evento-minuto.json"
+          data-titulo="Votos computados por minuto, 16h30–19h10 (Brasília)"
+          data-subtitulo="Contagem dos logs, escala logarítmica. A decisão de prorrogar foi registrada às 17h02."
+          data-fonte="TSE — logs das urnas, 2º turno 2026" data-altura="320"></figure>
+
+  <div class="largo" data-tabela="ch06-uf"></div>
+
+  <div class="capitulo__corpo">
+    <p>As 29.854 seções que tiveram ao menos um voto depois das 17h eram mais lulistas desde o início: Lula tinha 50,81% entre os finalistas no 1º turno e foi a 53,98% no 2º (Δ de +3,17 pontos). Nas demais seções, ele passou de 48,86% para 51,63% (+2,77). Essa diferença bruta de 0,4 ponto vem de serem seções urbanas e de capitais, como São Paulo, Rio e Salvador. A seção abaixo mede o que sobra com controles.</p>
+    <p>A lista das seções com mais votos tardios tem casos estranhos que convém mostrar. Uma seção de Ouro Branco (AL) tem 44 votos no log, 39 deles depois das 17h. Uma de Bagé (RS) tem todos os 15 votos do log depois das 17h. Nos dois casos o log é bem menor que o comparecimento, o padrão de <strong>urna substituída</strong> durante o dia: o log público é o da urna de contingência. É assunto para o <a href="#logs-das-urnas">capítulo 13</a>, dos logs, e não tem peso no resultado.</p>
+  </div>
+
+  <div class="largo" data-tabela="ch06-secoes"></div>
+
+  <div class="capitulo__corpo">
+    <h3>4. O teste-chave: as mesmas seções nos dois turnos</h3>
+    <p>Se a prorrogação, ou qualquer coisa ligada ao fechamento tardio, tivesse acrescentado ou trocado votos, as seções que ficaram abertas até mais tarde deveriam ter se deslocado para Lula <em>mais</em> que as outras. O perfil por faixa de encerramento mostra que <strong>o Δ é praticamente o mesmo em todas as faixas</strong>, entre +2,3 e +3,3 pontos, embora o nível de partida varie de 46% a 56%.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-composicao" data-src="data/ch06/composicao-enc2.json"
+          data-titulo="Fatia de Lula entre os finalistas por faixa de encerramento no 2º turno"
+          data-subtitulo="Mesmas seções nos dois turnos. O rótulo é o deslocamento entre os turnos (Δ)."
+          data-fonte="TSE — bweb, 1º e 2º turnos 2026" data-altura="360"></figure>
+
+  <div class="capitulo__corpo">
+    <p>Com controles, aparece um gradiente <strong>pequeno, mas estatisticamente real</strong>. Em relação às seções que fecharam às 17h00, as que fecharam entre 17h05 e 17h29 se deslocaram de 0,16 a 0,26 ponto a mais para Lula, um efeito significativo mesmo após a correção de Holm. Este é o ponto que mais se aproxima de uma anomalia neste capítulo, e por isso ele aparece em destaque. Antes de qualquer conclusão, porém, há dois controles a considerar:</p>
+    <ul>
+      <li><strong>O placebo dá o mesmo resultado.</strong> Classificando as seções pelo encerramento do <em>1º turno</em>, quando não houve prorrogação, o gradiente tem o mesmo tamanho: +0,21 a +0,29 ponto nas faixas de 17h05 a 17h59. As seções "lentas" são as mesmas nos dois turnos: 60% das que fecharam depois das 17h10 no 2º turno também fecharam tarde no 1º, contra 32% na média. O fechamento tardio indica um tipo de seção, grande, urbana e com fila, cujo eleitorado se moveu um pouco mais para Lula. Não é a assinatura da prorrogação.</li>
+      <li><strong>As seções que efetivamente usaram a prorrogação não se destacam.</strong> As 6.352 que fecharam depois das 19h têm Δ de +0,05 ponto em relação às de 17h00 (IC 95%: −0,14 a +0,25). As de 18h00–18h59 têm −0,04 ponto. Se existe uma janela suspeita, é essa, e ela é nula.</li>
+    </ul>
+    <p>Fizemos ainda uma versão com <em>dose</em>: o Δ da seção explicado pela fração de seus votos dados depois das 17h, com os mesmos controles. O coeficiente é +0,79 ponto para uma seção hipotética com 100% de votos tardios (p = 0,08). Em média, a fração tardia é de 0,03% dos votos, o que torna o efeito irrelevante. A partir das 17h10, o coeficiente é −0,30 ponto (p = 0,44).</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-did" data-src="data/ch06/did-faixas.json"
+          data-titulo="Diferenças em diferenças: deslocamento extra para Lula por faixa de encerramento"
+          data-subtitulo="Δ (2º − 1º turno) de cada faixa menos o Δ das seções que fecharam às 17h00, com IC de 95% (erro-padrão agrupado por município). Ajustado: efeitos fixos de UF, decis de tamanho e de fatia de Lula no 1º turno, capital."
+          data-fonte="TSE — bweb, 1º e 2º turnos 2026; regressão WLS em analises/06_horarios.py" data-altura="400"></figure>
+
+  <div class="capitulo__corpo">
+    <p>O estudo de evento minuto a minuto mostra o mesmo. A composição das seções ainda ativas muda depois das 17h, com mais seções urbanas e mais lulistas, mas o deslocamento entre turnos dessas seções fica em torno de +3,1 pontos antes e depois das 17h02, sem quebra no momento da decisão. As curvas abaixo mostram a fatia <em>estimada</em> pela proporção de cada seção, porque o log não revela o voto de ninguém.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-evento-delta" data-src="data/ch06/evento-minuto.json"
+          data-titulo="Seções votando em cada minuto: fatia de Lula estimada no 2º turno e no 1º"
+          data-subtitulo="Média da fatia de Lula entre os finalistas das seções, ponderada pelos votos daquele minuto. Só minutos com pelo menos 20 votos."
+          data-fonte="TSE — logs das urnas e bweb, 2026" data-altura="340"></figure>
+
+  <div class="capitulo__corpo">
+    <h3>5. A curva da apuração e a pausa de 115 minutos</h3>
+    <p>A pausa no recebimento existiu e está nos dados oficiais. Os primeiros BUs chegaram às 17h05. <strong>Entre 17h08 e 19h03 nenhum boletim foi recebido</strong>, e a partir daí os BUs voltaram a entrar às centenas e depois aos milhares por minuto. No 1º turno de 2026, o maior intervalo sem chegadas durante a apuração foi de 27 minutos (às 19h32). No 2º turno de 2022, foi de 80 minutos, já no fim da apuração. A pausa de 2026 é compatível em termos gerais com a suspensão anunciada pelo TSE, mas os horários não coincidem exatamente.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-chegadas" data-src="data/ch06/chegadas-minuto.json"
+          data-titulo="Boletins recebidos pelo TSE por minuto (Brasília)"
+          data-subtitulo="O 1º turno de 2026 se estende além da meia-noite. A faixa cinza marca o intervalo sem chegadas no 2º turno de 2026."
+          data-fonte="TSE — bweb (DT_BU_RECEBIDO), 2022 e 2026" data-altura="340"></figure>
+
+  <div class="capitulo__corpo">
+    <p>A pausa mudou o ritmo da apuração, mas não mudou o padrão de quem chega primeiro. Na curva acumulada, Flávio abriu até 342.531 votos de vantagem e Lula assumiu a liderança às <strong>20h23, com 47,3% dos BUs recebidos</strong>, e não a perdeu mais. Em 2022, Lula passou Bolsonaro às 18h43, com 68,2% dos BUs, depois de estar até 752.011 votos atrás. A virada tardia é um padrão conhecido: os BUs das grandes cidades demoram mais a chegar. Em 2026 esse viés de chegada foi <em>menor</em> que em 2022. Lula teve 53,7% no último décimo de BUs contra 50,5% no primeiro (3,2 pontos de gradiente), enquanto em 2022 foram 54,3% contra 48,0% (6,3 pontos).</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-curvas" data-src="data/ch06/curvas-apuracao.json"
+          data-titulo="Curva da apuração: vantagem acumulada de Lula sobre o adversário"
+          data-subtitulo="Pelo horário oficial de recebimento do BU (Brasília). No 1º turno de 2026 Flávio lidera do começo ao fim. O ponto marca a virada definitiva."
+          data-fonte="TSE — bweb (DT_BU_RECEBIDO), 2º turno 2022 e 1º e 2º turnos 2026" data-altura="400"></figure>
+
+  <div class="capitulo__corpo">
+    <p>A melhor checagem da curva usa as mesmas seções: ordenamos os BUs do 2º turno pela hora de chegada e calculamos, para cada décimo, a fatia de Lula que <em>essas mesmas seções</em> tinham dado no 1º turno. O gradiente já estava lá em outubro (47,9% no primeiro décimo, 50,6% no último). Os BUs que chegaram tarde em 25 de outubro vinham de seções que já eram mais lulistas. A regressão por décimo de chegada, com os mesmos controles, não encontra nenhum décimo significativo após a correção de Holm (todos os efeitos ficam abaixo de 0,13 ponto). No placebo com a ordem de chegada do 1º turno, os efeitos são do mesmo tamanho ou maiores.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-decis" data-src="data/ch06/decis-chegada.json"
+          data-titulo="Fatia de Lula entre os finalistas por décimo da ordem de chegada dos BUs"
+          data-subtitulo="A linha tracejada azul usa as mesmas seções e a mesma ordem do 2º turno de 2026, com os votos do 1º turno."
+          data-fonte="TSE — bweb, 2022 e 2026" data-altura="360"></figure>
+
+  <div class="capitulo__corpo">
+    <h3>6. A que horas o país votou</h3>
+    <p>60% dos votos do 2º turno foram computados antes do meio-dia. A divisão por candidato abaixo é uma <strong>estimativa</strong>: cada voto recebe a proporção de votos da sua seção, porque o log não registra em quem a pessoa votou. Ela mostra quais seções estavam votando em cada horário. Não mostra se a manhã votou diferente da tarde dentro da mesma seção. Com essa ressalva, o deslocamento entre turnos das seções que votavam em cada horário fica entre +2,8 e +3,1 pontos ao longo do dia todo.</p>
+  </div>
+
+  <figure class="grafico largo" data-grafico="ch06-horario" data-src="data/ch06/horario-nacional.json"
+          data-titulo="Votos por faixa de 20 minutos, com divisão por candidato ESTIMADA"
+          data-subtitulo="O total vem do log das urnas. A divisão aplica a cada voto a proporção da sua seção (exterior excluído)."
+          data-fonte="TSE — logs das urnas e bweb, 2º turno 2026" data-altura="380"></figure>
+
+  <figure class="grafico largo" data-grafico="ch06-calor" data-src="data/ch06/horario-regiao.json"
+          data-titulo="Quando cada região votou"
+          data-subtitulo="Parcela dos votos de cada região computada em cada hora (Brasília). No tooltip, a fatia estimada de Lula e o Δ entre turnos."
+          data-fonte="TSE — logs das urnas, 2º turno 2026" data-altura="300"></figure>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <p><strong>Os fatos operacionais da alegação são verdadeiros. A inferência eleitoral não se sustenta.</strong> A prorrogação foi decidida às 17h02 e houve 115 minutos sem recebimento de BUs, coincidindo com a suspensão anunciada. Os números da conta que circulou são reproduzíveis, mas só com o relógio local sem conversão de fuso, e medem a composição das seções: as mesmas seções "encerradas até as 17h" deram a Flávio 55,20% no 1º turno. Votaram depois das 17h 34.330 pessoas, segundo os logs (o TSE divulgou 34.393), o equivalente a 0,77% da margem, e 84% delas nos primeiros cinco minutos. Nas mesmas seções, o deslocamento para Lula entre os turnos foi de 2,3 a 3,3 pontos em todas as faixas de encerramento. O pequeno gradiente que sobra após os controles, de até 0,26 ponto, aparece igual no placebo do 1º turno e é nulo nas seções que realmente cumpriram a prorrogação.</p>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <ul>
+      <li><strong>Um deslocamento uniforme nacional.</strong> Este capítulo testa se o horário de fechamento ou de recebimento se associa a um deslocamento <em>extra</em>. Um deslocamento igual em todas as seções, a hipótese mais forte por trás das alegações, passa por esses testes sem deixar marca: o Δ de cerca de 2,8 pontos em todas as faixas é compatível tanto com comportamento real quanto com uma alteração uniforme. Distinguir as duas coisas exige dados fora de 2026 e fica para os capítulos <a href="#transferencia-de-votos">2</a>, <a href="#mapa-da-virada">4</a> e <a href="#poder-dos-detectores">5</a>.</li>
+      <li><strong>O que aconteceu durante a pausa.</strong> Os dados mostram <em>quando</em> cada BU foi recebido, não o que o sistema de totalização fez nesse intervalo. Os BUs têm assinatura e hash conferíveis, e a conferência de assinaturas de amostras é o teste adequado para isso. Ela não foi feita neste capítulo.</li>
+      <li><strong>Relógios das urnas.</strong> Os horários de voto e de encerramento vêm do relógio interno de cada urna, sem correção além do fuso. No Amazonas, que tem municípios em UTC−4 e UTC−5, 556 seções, em 11 municípios do sudoeste do estado, ficam a duas horas de Brasília. A classificação por município foi conferida contra a hora em que cada urna ficou pronta: nenhum município tem seções nos dois grupos, e nenhuma urna dos municípios em UTC−5 abriu com atraso suficiente para ser mal classificada.</li>
+      <li><strong>Divisão por candidato ao longo do dia.</strong> É estimada pela seção. O sigilo do voto impede saber o voto de quem votou depois das 17h. O que se pode dizer é que esses eleitores são tão poucos que não decidiriam o resultado.</li>
+      <li><strong>Diferença de 63 votos com o TSE.</strong> Atribuímos a diferença à cobertura dos logs públicos: o log principal de cada pacote é o da última urna usada, e os votos anteriores a uma substituição ficam nos logs internos (ver <a href="#logs-das-urnas">capítulo 13</a>). Não a conciliamos seção por seção.</li>
+    </ul>
+  </aside>
+</section>

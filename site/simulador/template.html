@@ -1,0 +1,685 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador do segundo turno presidencial de 2026</title>
+<meta name="description" content="Simule como os votos do 1º turno presidencial de 2026 migram para Lula ou Flávio Bolsonaro no 2º turno.">
+<style>
+:root {
+  --bg: #f4f2ee;
+  --surface: #ffffff;
+  --surface-2: #f8f7f4;
+  --border: #e4e0d8;
+  --text: #1d1b18;
+  --muted: #6b665d;
+  --lula: #c8102e;
+  --lula-soft: #f9e3e6;
+  --flavio: #1f4e9c;
+  --flavio-soft: #e2eaf7;
+  --neutral: #8a857b;
+  --shadow: 0 1px 2px rgba(30, 25, 15, .06), 0 4px 16px rgba(30, 25, 15, .06);
+  --radius: 14px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15140f;
+    --surface: #1f1d18;
+    --surface-2: #26241e;
+    --border: #36332b;
+    --text: #f1eee7;
+    --muted: #a49e92;
+    --lula: #ef4058;
+    --lula-soft: #3a1c21;
+    --flavio: #5b8fe0;
+    --flavio-soft: #1b2638;
+    --neutral: #8f897d;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3), 0 4px 16px rgba(0, 0, 0, .25);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15140f; --surface: #1f1d18; --surface-2: #26241e; --border: #36332b; --text: #f1eee7;
+  --muted: #a49e92; --lula: #ef4058; --lula-soft: #3a1c21; --flavio: #5b8fe0; --flavio-soft: #1b2638;
+  --neutral: #8f897d; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.wrap { max-width: 1240px; margin: 0 auto; padding: 28px 16px 96px; }
+header { margin-bottom: 22px; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+h1 { font-size: clamp(24px, 3.4vw, 34px); line-height: 1.15; margin: 6px 0 8px; letter-spacing: -.01em; }
+.lede { color: var(--muted); max-width: 760px; margin: 0; }
+.fonte { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 22px; align-items: start; }
+@media (max-width: 980px) { .layout { grid-template-columns: minmax(0, 1fr); } .resultado { grid-row: 1; } }
+
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 26px 0 10px; font-weight: 650; }
+h2:first-child { margin-top: 0; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 16px;
+}
+.finalistas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .finalistas { grid-template-columns: 1fr; } }
+.finalista { display: flex; gap: 14px; align-items: center; border-top: 4px solid var(--c); }
+.finalista .tag { font-size: 12px; color: var(--muted); }
+.finalista .votos { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+
+.foto {
+  width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: none;
+  background: var(--surface-2); border: 2px solid var(--surface); box-shadow: 0 0 0 2px var(--c, var(--border));
+}
+.foto.grupo { display: grid; place-items: center; font-weight: 700; color: var(--muted); font-size: 18px; }
+.nome { font-weight: 650; font-size: 16px; line-height: 1.2; }
+.partido { font-size: 12.5px; color: var(--muted); }
+
+.lista { display: grid; gap: 12px; }
+.transf { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; align-items: center; }
+.transf .topo { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.transf .qtd { font-weight: 650; }
+.transf .qtd small { font-weight: 400; color: var(--muted); }
+
+.slider-row { margin-top: 10px; }
+.slider-labels { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+.slider-labels .l { color: var(--lula); font-weight: 650; }
+.slider-labels .f { color: var(--flavio); font-weight: 650; }
+.slider-labels span small { color: var(--muted); font-weight: 400; }
+
+input[type=range] {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 26px; background: transparent; margin: 0; cursor: pointer;
+  --p: 50%;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 10px; border-radius: 99px;
+  background: linear-gradient(to right, var(--lula) 0 var(--p), var(--flavio) var(--p) 100%);
+}
+input[type=range]::-moz-range-track {
+  height: 10px; border-radius: 99px;
+  background: linear-gradient(to right, var(--lula) 0 var(--p), var(--flavio) var(--p) 100%);
+}
+input[type=range].neutro::-webkit-slider-runnable-track { background: linear-gradient(to right, var(--neutral) 0 var(--p), var(--border) var(--p) 100%); }
+input[type=range].neutro::-moz-range-track { background: linear-gradient(to right, var(--neutral) 0 var(--p), var(--border) var(--p) 100%); }
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 24px; height: 24px; margin-top: -7px; border-radius: 50%;
+  background: var(--surface); border: 2px solid var(--text); box-shadow: 0 1px 4px rgba(0,0,0,.25);
+}
+input[type=range]::-moz-range-thumb {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--surface); border: 2px solid var(--text);
+}
+a { color: var(--flavio); }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--flavio); outline-offset: 3px; }
+input[type=range]:focus-visible { outline: 2px solid var(--flavio); outline-offset: 4px; border-radius: 99px; }
+
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.chip {
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text); border-radius: 99px;
+  padding: 3px 10px; font-size: 12px; cursor: pointer; font: inherit; font-size: 12px;
+}
+.chip:hover { border-color: var(--muted); }
+@media (max-width: 560px) {
+  .transf { grid-template-columns: 44px minmax(0, 1fr); gap: 10px; }
+  .transf .foto { width: 44px; height: 44px; }
+  .finalista .foto { width: 52px; height: 52px; }
+  .chip { padding: 3px 8px; }
+  .lado .pct { font-size: 28px; }
+}
+
+details.demais-lista { margin-top: 8px; font-size: 13px; color: var(--muted); }
+details.demais-lista summary { cursor: pointer; }
+details.demais-lista ul { margin: 6px 0 0; padding-left: 18px; }
+
+.saldo-valor { font-size: 20px; font-weight: 700; }
+.part { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; font-size: 13px; color: var(--muted); }
+.part label { color: var(--text); font-weight: 600; }
+.part .inp { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); padding: 0 8px 0 0; }
+.part input[type=number] { width: 64px; border: 0; background: transparent; padding: 5px 4px 5px 8px; font-size: 14px; font-weight: 650; text-align: right; }
+.part input[type=number]:focus { outline: none; }
+#a-fora { width: 80px; }
+.part .inp:focus-within { border-color: var(--flavio); }
+.part .saem { margin-left: auto; color: var(--lula); cursor: help; }
+.finalista .part { margin-top: 8px; }
+.nota { font-size: 12.5px; color: var(--muted); margin: 6px 0 0; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .grid-2 { grid-template-columns: 1fr; } }
+.campo label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+.campo .valor { font-size: 20px; font-weight: 700; }
+input[type=number] {
+  width: 100%; font: inherit; font-size: 16px; padding: 8px 10px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+}
+.link { background: none; border: 0; padding: 0; color: var(--flavio); cursor: pointer; font: inherit; font-size: 12.5px; text-decoration: underline; }
+
+.funil { display: grid; gap: 4px; }
+.passo { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; padding: 8px 0; }
+.passo + .passo { border-top: 1px dashed var(--border); }
+.passo .op { font-size: 22px; font-weight: 700; color: var(--muted); text-align: center; line-height: 1.4; }
+.linha-conta { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; padding-top: 4px; }
+.linha-conta b { font-size: 18px; }
+.passo.total .linha-conta b { font-size: 20px; }
+.aviso { margin-top: 10px; font-size: 13px; line-height: 1.5; background: var(--surface-2); border-left: 3px solid var(--neutral);
+  padding: 10px 12px; border-radius: 8px; color: var(--muted); }
+.aviso b { color: var(--text); }
+
+.funil .linha-conta { padding: 8px 0; border-bottom: 1px dashed var(--border); }
+.funil .num { text-align: right; }
+.funil .num small.real { display: block; font-size: 12px; color: var(--muted); font-weight: 400; }
+.funil .q-campo { padding: 10px 0; border-bottom: 1px dashed var(--border); }
+
+/* Painel de resultado */
+.resultado { position: sticky; top: 16px; }
+@media (max-width: 980px) { .resultado { position: static; } }
+.placar { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lado { border-radius: 12px; padding: 12px; background: var(--surface-2); border: 2px solid transparent; transition: border-color .2s, background .2s; }
+.lado.vence { border-color: var(--c); background: var(--soft); }
+.lado .quem { display: flex; gap: 8px; align-items: center; font-weight: 650; }
+.lado .quem img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+.lado .pct { font-size: 34px; font-weight: 750; letter-spacing: -.02em; color: var(--c); line-height: 1.1; margin-top: 6px; }
+.lado .abs { font-size: 13px; color: var(--muted); }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 99px; background: var(--c); color: #fff; margin-left: auto; visibility: hidden; }
+.lado.vence .badge { visibility: visible; }
+
+.barra { position: relative; height: 18px; border-radius: 99px; overflow: hidden; display: flex; margin: 16px 0 4px; background: var(--border); }
+.barra > div { height: 100%; transition: width .25s ease; }
+.marca { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--text); }
+.marca.meio { left: 50%; opacity: .35; }
+.marca.real { background: none; border-left: 2px dashed var(--text); }
+.barra-wrap { position: relative; }
+.legenda-barra { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+.margem { text-align: center; font-size: 14px; margin-top: 10px; }
+.margem b { font-size: 16px; }
+
+.composicao { margin-top: 18px; display: grid; gap: 10px; }
+.comp-linha .rot { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px; }
+.comp-bar { display: flex; height: 14px; border-radius: 6px; overflow: hidden; background: var(--surface-2); }
+.comp-bar > div { height: 100%; transition: width .25s ease; border-right: 1px solid var(--surface); }
+.comp-legenda { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.comp-legenda i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 4px; vertical-align: -1px; }
+
+table.comp { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 13px; }
+table.comp th, table.comp td { padding: 6px 4px; text-align: right; border-bottom: 1px solid var(--border); }
+table.comp th:first-child, table.comp td:first-child { text-align: left; }
+table.comp th { color: var(--muted); font-weight: 600; font-size: 12px; }
+.tabela-wrap { overflow-x: auto; }
+@media (max-width: 560px) { table.comp { font-size: 12px; } table.comp th, table.comp td { padding: 6px 2px; } }
+.pos { color: #2b8a3e; } .neg { color: var(--lula); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pos { color: #69db7c; } }
+
+.acoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.btn {
+  font: inherit; font-size: 13.5px; padding: 8px 12px; border-radius: 10px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+}
+.btn:hover { border-color: var(--muted); }
+.btn[aria-pressed="true"], .chip[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.btn[aria-pressed="true"]::before, .chip[aria-pressed="true"]::before { content: "✓ "; }
+
+/* Barra fixa no celular */
+.mini {
+  position: fixed; left: 0; right: 0; bottom: 0; display: none; z-index: 10;
+  background: var(--surface); border-top: 1px solid var(--border); box-shadow: 0 -4px 16px rgba(0,0,0,.08);
+  padding: 10px 16px; font-weight: 650;
+}
+.mini .linha { display: flex; justify-content: space-between; font-size: 15px; }
+.mini .barra { margin: 6px 0 0; height: 8px; }
+@media (max-width: 980px) { .mini { display: block; } }
+
+.metodo { margin-top: 28px; font-size: 13.5px; color: var(--muted); max-width: 860px; }
+.metodo h3 { font-size: 14px; color: var(--text); margin: 0 0 6px; }
+.metodo code { font-size: 12.5px; background: var(--surface-2); padding: 1px 5px; border-radius: 5px; }
+.toast { position: fixed; left: 50%; bottom: 80px; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 8px 14px; border-radius: 10px; font-size: 13px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.toast.on { opacity: 1; }
+</style>
+<!--__SITE_CABECA__-->
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Presidente · Eleições 2026</div>
+    <h1>Para onde vão os votos do 1º turno?</h1>
+    <p class="lede">Explore cenários: ajuste os controles para escolher como os eleitores de cada candidato eliminado se dividiriam entre
+      <b style="color:var(--lula)">Lula</b> e <b style="color:var(--flavio)">Flávio Bolsonaro</b> no 2º turno.
+      O placar muda na hora e pode ser comparado com o resultado oficial. Nenhum cenário revela como as pessoas realmente votaram.</p>
+    <div class="aviso"><b>Uma hipótese, não uma descoberta.</b> Os totais dos turnos são oficiais; as transferências entre grupos são escolhas suas. A votação é secreta, então a apuração não mostra como cada pessoa mudou seu voto.</div>
+    <p class="fonte" id="fonte"></p>
+    <p class="nota"><a href="https://resultados.tse.jus.br/" target="_blank" rel="noopener noreferrer">Consultar resultados no TSE</a> · <a href="#metodologia">Entenda as premissas</a></p>
+  </header>
+
+  <div class="layout">
+    <main>
+      <h2>1. Eleitores dos finalistas</h2>
+      <p class="nota">Escolha quantos continuam votando no mesmo candidato. Neste modelo, os demais se abstêm ou votam branco ou nulo; não há troca direta entre os finalistas.</p>
+      <div class="finalistas" id="finalistas"></div>
+
+      <h2>2. Eleitores dos candidatos eliminados</h2>
+      <p class="nota">Em cada grupo, escolha primeiro quantos votam em um finalista e depois divida apenas esses votos entre os dois.</p>
+      <div class="lista" id="eliminados"></div>
+
+      <h2>3. Quem não votou em candidato no 1º turno</h2>
+      <div class="card" id="foraCard">
+        <div class="transf">
+          <div class="foto grupo" aria-hidden="true">∅</div>
+          <div>
+            <div class="topo">
+              <div><div class="nome">Abstenção, brancos e nulos do 1º turno</div>
+                <div class="partido" id="foraSub"></div></div>
+              <div class="qtd" id="foraTot"></div>
+            </div>
+            <div class="part">
+              <label for="a-fora">Votam validamente no 2º turno:</label>
+              <span class="inp"><input type="number" id="a-fora" min="0" max="100" step="0.1"
+                aria-label="Porcentagem de quem não votou validamente no 1º turno que vota em Lula ou Flávio no 2º">%</span>
+              <span id="ai-fora"></span>
+              <button class="link" id="foraReset">padrão: <span id="foraPadrao"></span></button>
+            </div>
+            <div class="slider-row">
+              <div class="slider-labels"><span class="l" id="l-fora"></span><span class="f" id="f-fora"></span></div>
+              <input type="range" id="s-fora" min="0" max="100" step="any" aria-label="Porcentagem dos votos válidos desse grupo que vai para Lula">
+              <div class="chips" data-alvo="fora"></div>
+            </div>
+            <p class="nota">O padrão é a fração que, com todos os demais votando 100%, reproduz o total real de votos
+              válidos do 2º turno. Abstenções, brancos e nulos são conhecidos separadamente, mas não se sabe como cada pessoa desse grupo votou no segundo turno.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2>4. Abstenção, brancos e nulos no cenário</h2>
+      <div class="card funil">
+        <div class="linha-conta"><span>Votos válidos <small>(soma de todos os destinos acima)</small></span>
+          <span class="num"><b id="v2"></b><small class="real" id="v2r"></small></span></div>
+        <div class="campo q-campo">
+          <label for="q">Dos <b id="naoValidos"></b> eleitores que <b>não</b> votam em Lula nem Flávio no 2º turno
+            (aptos − válidos), % que comparece e vota branco ou nulo</label>
+          <div class="valor" id="qValor"></div>
+          <p class="nota" id="qDivisao"></p>
+          <input type="range" id="q" class="neutro" min="0" max="100" step="0.1">
+          <p class="nota">Esse grupo encolhe quando mais gente passa a votar validamente nos cards acima; esta % só
+            decide como ele se divide. Padrão: <span id="qPadrao"></span> (mistura real do 2º turno).
+            · <button class="link" id="qReset">usar o padrão</button></p>
+        </div>
+        <div class="linha-conta"><span>Brancos + nulos</span>
+          <span class="num"><b id="bn2"></b><small class="real" id="bn2r"></small></span></div>
+        <div class="linha-conta"><span>Comparecimento</span>
+          <span class="num"><b id="c2"></b><small class="real" id="c2r"></small></span></div>
+        <div class="linha-conta"><span>Abstenção</span>
+          <span class="num"><b id="ab2"></b><small class="real" id="ab2r"></small></span></div>
+        <div class="aviso">
+          <b>Branco não vai para quem está ganhando.</b> Isso é um mito. Pela Constituição (art. 77, § 2º) e pela
+          Lei 9.504/97 (art. 2º), vence quem tem a maioria absoluta dos votos válidos, “não computados os em branco e os
+          nulos”. Aqui, quem não escolhe Lula nem Flávio simplesmente não entra no placar: a margem muda porque o eleitor
+          deixou de escolher, não porque o branco foi para alguém. A proporção escolhida neste controle divide os demais entre abstenção e votos brancos ou nulos.
+        </div>
+      </div>
+    </main>
+
+    <aside class="resultado">
+      <div class="card">
+        <h2>Resultado do seu cenário</h2>
+        <p class="nota">Percentuais sobre os votos válidos simulados. O cenário inicial reproduz o resultado oficial, mas a divisão dos votos entre os grupos é apenas uma possibilidade. Como o voto é secreto, não é possível saber pela apuração exatamente como cada pessoa votou nos dois turnos.</p>
+        <div class="placar">
+          <div class="lado" id="ladoL" style="--c:var(--lula);--soft:var(--lula-soft)">
+            <div class="quem"><img id="imgL" alt=""><span>Lula</span><span class="badge">VENCE</span></div>
+            <div class="pct" id="pctL"></div>
+            <div class="abs" id="absL"></div>
+          </div>
+          <div class="lado" id="ladoF" style="--c:var(--flavio);--soft:var(--flavio-soft)">
+            <div class="quem"><img id="imgF" alt=""><span>Flávio</span><span class="badge">VENCE</span></div>
+            <div class="pct" id="pctF"></div>
+            <div class="abs" id="absF"></div>
+          </div>
+        </div>
+        <div class="barra-wrap">
+          <div class="barra" id="barra"><div id="barL" style="background:var(--lula)"></div><div id="barF" style="background:var(--flavio)"></div></div>
+          <div class="marca meio"></div>
+          <div class="marca real" id="marcaReal" title="Resultado real"></div>
+        </div>
+        <div class="legenda-barra"><span>% dos votos válidos</span><span>┊ linha tracejada = resultado real</span></div>
+        <div class="margem" id="margem"></div>
+
+        <div class="composicao">
+          <div class="comp-linha"><div class="rot"><span>De onde vêm os votos de <b>Lula</b></span><span id="compLTot"></span></div><div class="comp-bar" id="compL"></div></div>
+          <div class="comp-linha"><div class="rot"><span>De onde vêm os votos de <b>Flávio</b></span><span id="compFTot"></span></div><div class="comp-bar" id="compF"></div></div>
+          <div class="comp-legenda" id="compLeg"></div>
+        </div>
+
+        <div class="tabela-wrap"><table class="comp">
+          <thead><tr><th></th><th>Simulado</th><th>Real</th><th>Diferença</th></tr></thead>
+          <tbody id="tabela"></tbody>
+        </table></div>
+
+        <p class="nota">Atalhos para ajustar o cenário. O último atalho aplicado aparece com ✓; ao alterar um controle, ele é desmarcado.</p>
+        <div class="acoes">
+          <button class="btn" aria-pressed="false" id="calibrar" title="Acha a participação do grupo de fora que reproduz os válidos reais e a divisão única que reproduz o placar real">Criar cenário compatível com o resultado</button>
+          <button class="btn" aria-pressed="false" id="meio">Tudo 50 / 50</button>
+          <button class="btn" aria-pressed="false" id="part100">Restaurar participação dos candidatos</button>
+          <button class="btn" aria-pressed="false" id="padrao">Restaurar padrão</button>
+          <button class="btn" id="copiar">Copiar link do cenário</button>
+        </div>
+        <p class="nota" id="calibNota"></p>
+      </div>
+    </aside>
+  </div>
+
+  <section class="metodo" id="metodologia">
+    <h3>Como a conta é feita</h3>
+    <p>Começamos com os <b>158.745.502 eleitores aptos</b> do arquivo nacional do TSE e os dividimos conforme o primeiro turno: quem votou em cada candidato e quem não votou em candidato (porque se absteve, votou em branco ou anulou o voto).</p>
+    <p><b>Para cada grupo</b>, você escolhe quantos votam em um dos finalistas no segundo turno. Entre os eleitores de candidatos eliminados e os que não votaram em candidato no primeiro turno, você também escolhe como esses votos se dividem entre Lula e Flávio Bolsonaro. Por exemplo: se um grupo tem 100 eleitores, 80% votam em um finalista e 25% desses votos vão para Lula, o grupo acrescenta 20 votos para Lula e 60 para Flávio.</p>
+    <p><b>Eleitores dos finalistas:</b> o percentual escolhido representa quem continua votando no mesmo candidato. O modelo considera que os demais se abstêm ou votam branco ou nulo; ele não permite que mudem diretamente para o outro finalista.</p>
+    <p><b>Placar e comparecimento:</b> somamos os votos recebidos por cada finalista e calculamos a porcentagem de cada um sobre o total dos votos nos dois. Quem não escolhe um finalista é dividido entre abstenção e votos brancos ou nulos conforme o último controle. O comparecimento simulado soma os votos nos finalistas aos votos brancos e nulos.</p>
+    <p><b>Cenário inicial:</b> considera que todos os eleitores que votaram em candidato no primeiro turno voltam a votar em um finalista. A participação de quem não votou em candidato e a divisão entre abstenção e votos brancos ou nulos são ajustadas para reproduzir os totais oficiais. Para os eleitores dos candidatos eliminados e para quem não votou em candidato no primeiro turno, o cenário inicial aplica a mesma divisão entre os finalistas, calculada para reproduzir o placar oficial. Essa distribuição é uma hipótese matemática, não uma medição das escolhas individuais. Muitas combinações diferentes podem produzir o mesmo resultado.</p>
+    <p>O modelo usa todos os eleitores aptos do arquivo nacional do Tribunal Superior Eleitoral (TSE). Nesse arquivo, aptos menos comparecimento menos abstenção dá 423 eleitores nos dois turnos: são contados como aptos, mas não entram na abstenção oficial (o mais provável é que sejam de seções não instaladas). O simulador os inclui na abstenção simulada, que por isso difere da oficial em 423 mesmo quando os demais totais coincidem. O relatório usa outra base, a soma dos boletins seção a seção, com 158.745.007 aptos no 1º turno e 158.744.977 no 2º: além dos 423, há 72 eleitores no total nacional sem linha correspondente nos boletins, e uma seção do exterior com 30 aptos não tem boletim do 2º turno. Votos e comparecimento são idênticos nas duas bases; só aptos e abstenção diferem, em algumas centenas de eleitores. Os valores são arredondados para exibição, então somas exibidas podem variar em um voto.</p>
+    <p>Fonte: arquivos nacionais de resultados do TSE, <a href="https://resultados.tse.jus.br/oficial/ele2026/6257/dados/br/br-c0001-e006257-u.json">primeiro turno</a> e <a href="https://resultados.tse.jus.br/oficial/ele2026/6258/dados/br/br-c0001-e006258-u.json">segundo turno</a>.</p>
+  </section>
+</div>
+
+<div class="mini" aria-hidden="true">
+  <div class="linha"><span style="color:var(--lula)" id="miniL"></span><span style="color:var(--flavio)" id="miniF"></span></div>
+  <div class="barra"><div id="miniBarL" style="background:var(--lula)"></div><div id="miniBarF" style="background:var(--flavio)"></div></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const DADOS = /*__DADOS__*/{};
+
+const nf = new Intl.NumberFormat("pt-BR");
+const pf = (x, d = 2) => x.toLocaleString("pt-BR", { minimumFractionDigits: d, maximumFractionDigits: d });
+const fmt = n => nf.format(Math.round(n));
+const pp = x => Number.isInteger(x) ? String(x) : pf(x, 1);
+const sinal = x => { const n = Math.round(x); return (n > 0 ? "+" : n < 0 ? "−" : "") + fmt(Math.abs(n)); };
+const $ = id => document.getElementById(id);
+
+const T1 = DADOS.t1, T2 = DADOS.t2;
+const APTOS = T1.aptos;
+const fin = { lula: DADOS.candidatos.find(c => c.id === "13"), flavio: DADOS.candidatos.find(c => c.id === "22") };
+const votosDemais = DADOS.demais.reduce((s, c) => s + c.votos, 0);
+const FORA = APTOS - T1.validos;                         // abstenção + brancos + nulos do 1º turno
+const ABST1 = APTOS - T1.comparecimento, BN1 = T1.brancos + T1.nulos;
+
+// Grupos com divisão Lula/Flávio: eliminados, "demais" e o grupo de fora. Cores das fatias na composição.
+const ELIM = [
+  ...DADOS.candidatos.filter(c => !c.finalista).map(c => ({ id: c.id, nome: c.nome, curto: c.nome.split(" ").pop(), partido: c.partido, votos: c.votos, foto: c.foto })),
+  { id: "demais", nome: "Demais candidatos", curto: "Demais", partido: DADOS.demais.length + " candidatos somados", votos: votosDemais, foto: null },
+];
+const GRUPOS = [...ELIM, { id: "fora", nome: "Não votaram válido no 1º", curto: "Fora (1º turno)", votos: FORA }];
+const CORES = { fora: "#9a948a" };
+["#e8a33d", "#8e5cc2", "#2f9e8f", "#e06c9f", "#b5a27e"].forEach((c, i) => ELIM[i] && (CORES[ELIM[i].id] = c));
+
+// Padrões que reproduzem os totais reais: participação do grupo de fora e mistura branco/nulo × abstenção
+const PART_FORA0 = (T2.validos - T1.validos) / FORA * 100;
+const Q0 = (T2.brancos + T2.nulos) / (APTOS - T2.validos) * 100;
+
+// p: % para Lula de cada grupo; part: % que vota validamente no 2º (finalistas = retenção); q: % dos não válidos que votam branco/nulo
+const estado = { p: {}, part: {}, q: Q0 };
+function padrao() {
+  GRUPOS.forEach(g => { estado.p[g.id] = 50; estado.part[g.id] = 100; });
+  estado.part["13"] = 100; estado.part["22"] = 100;
+  estado.part.fora = PART_FORA0;
+  estado.q = Q0;
+}
+padrao();
+const IDS_PART = ["13", "22", ...GRUPOS.map(g => g.id)];
+const votosDe = id => id === "13" ? fin.lula.votos : id === "22" ? fin.flavio.votos : GRUPOS.find(g => g.id === id).votos;
+
+function campoPart(id, nome) {
+  return `<div class="part">
+    <label for="a-${id}">Votam em um finalista:</label>
+    <span class="inp"><input type="number" id="a-${id}" min="0" max="100" step="1"
+      aria-label="Porcentagem dos eleitores de ${nome} no 1º turno que votam validamente no 2º turno">%</span>
+    <span id="ai-${id}"></span><span class="saem" id="as-${id}"></span></div>`;
+}
+
+function card(c, cor) {
+  return `<div class="card finalista" style="--c:${cor}">
+    <img class="foto" src="${c.foto}" alt="Foto de ${c.nome}" style="--c:${cor}">
+    <div><div class="nome">${c.nome}</div><div class="partido">${c.partido} · ${c.id}</div>
+      <div class="votos">${fmt(c.votos)}</div>
+      <div class="tag">${pf(c.votos / T1.validos * 100)}% dos válidos no 1º turno</div>
+      ${campoPart(c.id, c.nome)}</div></div>`;
+}
+
+function montar() {
+  $("fonte").textContent = `Fonte: TSE — 1º turno (${T1.secoes_pct}% das seções, ${T1.atualizado}) e 2º turno (${T2.secoes_pct}% das seções, ${T2.atualizado}).`;
+  $("finalistas").innerHTML = card(fin.lula, "var(--lula)") + card(fin.flavio, "var(--flavio)");
+  $("imgL").src = fin.lula.foto; $("imgF").src = fin.flavio.foto;
+
+  $("eliminados").innerHTML = ELIM.map(o => `
+    <div class="card transf">
+      ${o.foto ? `<img class="foto" src="${o.foto}" alt="Foto de ${o.nome}">` : `<div class="foto grupo" aria-hidden="true">+${DADOS.demais.length}</div>`}
+      <div>
+        <div class="topo">
+          <div><div class="nome">${o.nome}</div><div class="partido">${o.partido}</div></div>
+          <div class="qtd">${fmt(o.votos)} <small>(${pf(o.votos / T1.validos * 100)}%)</small></div>
+        </div>
+        ${campoPart(o.id, o.nome)}
+        <div class="slider-row">
+          <div class="slider-labels"><span class="l" id="l-${o.id}"></span><span class="f" id="f-${o.id}"></span></div>
+          <input type="range" id="s-${o.id}" min="0" max="100" step="any" aria-label="Porcentagem dos votos válidos do grupo de ${o.nome} que vão para Lula">
+          <div class="chips" data-alvo="${o.id}"></div>
+        </div>
+        ${o.id === "demais" ? `<details class="demais-lista"><summary>Ver candidatos</summary><ul>${DADOS.demais.map(d => `<li>${d.nome} (${d.partido}) — ${fmt(d.votos)}</li>`).join("")}</ul></details>` : ""}
+      </div>
+    </div>`).join("");
+
+  $("foraTot").textContent = fmt(FORA);
+  $("foraSub").textContent = `${fmt(ABST1)} sem comparecimento registrado + ${fmt(BN1)} brancos e nulos`;
+  $("foraPadrao").textContent = pf(PART_FORA0, 1) + "%";
+  $("qPadrao").textContent = pf(Q0, 1) + "%";
+  $("v2r").textContent = "real " + fmt(T2.validos);
+  $("bn2r").textContent = "real " + fmt(T2.brancos + T2.nulos);
+  $("c2r").textContent = "real " + fmt(T2.comparecimento);
+  $("ab2r").textContent = "real " + fmt(T2.abstencao);
+
+  // Atalhos de divisão (percentual para Lula)
+  document.querySelectorAll(".chips").forEach(el => {
+    el.innerHTML = [[100, "Tudo Lula"], [70, "70/30"], [50, "50/50"], [30, "30/70"], [0, "Tudo Flávio"]]
+      .map(([v, r]) => `<button class="chip" aria-pressed="false" data-v="${v}">${r}</button>`).join("");
+    el.addEventListener("click", e => {
+      const v = e.target.dataset.v;
+      if (v === undefined) return;
+      estado.p[el.dataset.alvo] = +v;
+      selecionarAtalho(e.target); sincronizar(); calcular();
+    });
+  });
+
+  // Valor do slider = % para Lula; a bolinha é a divisa entre a parte de Lula (vermelho) e a de Flávio (azul)
+  GRUPOS.forEach(g => $("s-" + g.id).addEventListener("input", e => { estado.p[g.id] = +e.target.value; selecionarAtalho(); calcular(); }));
+  IDS_PART.forEach(id => {
+    const el = $("a-" + id);
+    el.addEventListener("input", e => {
+      const v = parseFloat(e.target.value);
+      if (Number.isFinite(v)) { estado.part[id] = Math.min(100, Math.max(0, v)); selecionarAtalho(); calcular(); }
+    });
+    el.addEventListener("change", sincronizar);
+  });
+  $("q").addEventListener("input", e => { estado.q = +e.target.value; selecionarAtalho(); calcular(); });
+  $("qReset").onclick = () => { estado.q = Q0; selecionarAtalho(); sincronizar(); calcular(); };
+  $("foraReset").onclick = () => { estado.part.fora = PART_FORA0; selecionarAtalho(); sincronizar(); calcular(); };
+  $("meio").onclick = () => { GRUPOS.forEach(g => estado.p[g.id] = 50); selecionarAtalho($("meio")); sincronizar(); calcular(); };
+  $("part100").onclick = () => { ["13", "22", ...ELIM.map(o => o.id)].forEach(id => estado.part[id] = 100); selecionarAtalho($("part100")); sincronizar(); calcular(); };
+  $("padrao").onclick = () => { padrao(); selecionarAtalho(); if (calibrar()) selecionarAtalho($("padrao"), false); };
+  $("calibrar").onclick = () => { selecionarAtalho(); if (calibrar()) selecionarAtalho($("calibrar"), false); };
+  $("copiar").onclick = copiarLink;
+
+  $("compLeg").innerHTML = `<span><i style="background:var(--text);opacity:.55"></i>Base do 1º turno</span>` +
+    GRUPOS.map(g => `<span><i style="background:${CORES[g.id]}"></i>${g.curto}</span>`).join("");
+}
+
+function selecionarAtalho(botao = null, limparNota = true) {
+  document.querySelectorAll(".acoes [aria-pressed], .chip[aria-pressed]").forEach(el => el.setAttribute("aria-pressed", "false"));
+  if (botao) botao.setAttribute("aria-pressed", "true");
+  if (limparNota) $("calibNota").textContent = "";
+}
+
+function sincronizar() {
+  GRUPOS.forEach(g => $("s-" + g.id).value = estado.p[g.id]);
+  IDS_PART.forEach(id => $("a-" + id).value = +estado.part[id].toFixed(id === "fora" ? 2 : 1));
+  $("q").value = estado.q;
+}
+
+// Cada eleitor apto está em um grupo só e tem um destino: Lula, Flávio ou não votar validamente.
+function simular() {
+  const ficam = id => votosDe(id) * estado.part[id] / 100;
+  const parcelas = { lula: [{ k: "t1", v: ficam("13") }], flavio: [{ k: "t1", v: ficam("22") }] };
+  GRUPOS.forEach(g => {
+    const v = ficam(g.id), p = estado.p[g.id] / 100;
+    parcelas.lula.push({ k: g.id, v: v * p });
+    parcelas.flavio.push({ k: g.id, v: v * (1 - p) });
+  });
+  const lula = parcelas.lula.reduce((s, x) => s + x.v, 0);
+  const flavio = parcelas.flavio.reduce((s, x) => s + x.v, 0);
+  const validos2 = lula + flavio;
+  const naoValidos = APTOS - validos2;
+  const bn2 = naoValidos * estado.q / 100;
+  return { lula, flavio, validos2, bn2, comp2: validos2 + bn2, abst2: naoValidos - bn2, parcelas };
+}
+
+function setRange(el, pctLula) { el.style.setProperty("--p", pctLula + "%"); }
+
+function calcular() {
+  const r = simular();
+  const tot = r.lula + r.flavio;
+  const pl = tot ? r.lula / tot * 100 : 0, pfv = tot ? 100 - pl : 0;
+
+  GRUPOS.forEach(g => {
+    const p = estado.p[g.id], v = votosDe(g.id) * estado.part[g.id] / 100;
+    $("l-" + g.id).innerHTML = `Lula ${pp(p)}% <small>${fmt(v * p / 100)}</small>`;
+    $("f-" + g.id).innerHTML = `<small>${fmt(v * (100 - p) / 100)}</small> ${pp(100 - p)}% Flávio`;
+    setRange($("s-" + g.id), p);
+  });
+  IDS_PART.forEach(id => {
+    const a = estado.part[id], v = votosDe(id);
+    $("ai-" + id).textContent = `${fmt(v * a / 100)} votos`;
+    const as = $("as-" + id);
+    if (as) {
+      as.textContent = a < 100 ? `${fmt(v * (100 - a) / 100)} não votam em finalista` : "";
+      as.title = a < 100 ? "Abstêm-se, votam branco ou anulam no 2º turno (saem do placar)" : "";
+    }
+  });
+
+  // Resultado derivado: válidos, brancos/nulos, comparecimento e abstenção
+  setRange($("q"), estado.q);
+  $("qValor").textContent = pf(estado.q, 1) + "%";
+  $("naoValidos").textContent = fmt(APTOS - r.validos2);
+  $("qDivisao").innerHTML = `${fmt(APTOS - r.validos2)} = <b>${fmt(r.bn2)}</b> votam branco ou nulo + <b>${fmt(r.abst2)}</b> se abstêm`;
+  $("v2").textContent = fmt(r.validos2);
+  $("bn2").innerHTML = `${fmt(r.bn2)} <small style="font-weight:400">(${pf(r.comp2 ? r.bn2 / r.comp2 * 100 : 0)}% do comparecimento)</small>`;
+  $("c2").textContent = fmt(r.comp2);
+  $("ab2").textContent = fmt(r.abst2);
+
+  $("pctL").textContent = tot ? pf(pl) + "%" : "—";
+  $("pctF").textContent = tot ? pf(pfv) + "%" : "—";
+  $("absL").textContent = fmt(r.lula) + " votos";
+  $("absF").textContent = fmt(r.flavio) + " votos";
+  $("ladoL").classList.toggle("vence", r.lula > r.flavio);
+  $("ladoF").classList.toggle("vence", r.flavio > r.lula);
+  $("barL").style.width = pl + "%"; $("barF").style.width = pfv + "%";
+  $("miniBarL").style.width = pl + "%"; $("miniBarF").style.width = pfv + "%";
+  $("miniL").textContent = `Lula ${tot ? pf(pl) + "%" : "—"}`; $("miniF").textContent = `${tot ? pf(pfv) + "%" : "—"} Flávio`;
+  const realPct = T2.lula / (T2.lula + T2.flavio) * 100;
+  $("marcaReal").style.left = `calc(${realPct}% - 1px)`;
+  const dif = Math.abs(r.lula - r.flavio);
+  const quem = r.lula > r.flavio ? "Lula" : r.flavio > r.lula ? "Flávio" : null;
+  $("margem").innerHTML = !tot ? "Sem votos válidos: não há percentuais nem vencedor neste cenário." : quem
+    ? `<b style="color:var(--${quem === "Lula" ? "lula" : "flavio"})">${quem}</b> venceria por <b>${fmt(dif)}</b> votos (${pf(Math.abs(pl - pfv))} p.p.)`
+    : "Empate";
+
+  // Composição dos votos de cada finalista
+  const maxTot = Math.max(r.lula, r.flavio, 1);
+  for (const [lado, el, tot] of [["lula", "compL", r.lula], ["flavio", "compF", r.flavio]]) {
+    $(el).innerHTML = r.parcelas[lado].filter(x => x.v > 0).map(x => {
+      const bg = x.k === "t1" ? `background:var(--${lado === "lula" ? "lula" : "flavio"})` : `background:${CORES[x.k]}`;
+      const nome = x.k === "t1" ? "Base do 1º turno" : GRUPOS.find(g => g.id === x.k).nome;
+      return `<div style="width:${x.v / maxTot * 100}%;${bg}" title="${nome}: ${fmt(x.v)}"></div>`;
+    }).join("");
+    $(el + "Tot").textContent = fmt(tot);
+  }
+
+  const linhas = [
+    ["Lula", r.lula, T2.lula],
+    ["Flávio", r.flavio, T2.flavio],
+    ["% Lula (válidos)", tot ? pl : null, realPct, true],
+    ["Votos válidos", r.validos2, T2.validos],
+    ["Brancos + nulos", r.bn2, T2.brancos + T2.nulos],
+    ["Comparecimento", r.comp2, T2.comparecimento],
+    ["Abstenção", r.abst2, T2.abstencao],
+  ];
+  $("tabela").innerHTML = linhas.map(([n, s, re, pct]) => {
+    if (s === null) return `<tr><td>${n}</td><td>—</td><td>${pf(re)}%</td><td>—</td></tr>`;
+    const d = s - re;
+    const cls = Math.abs(d) < (pct ? 0.005 : 0.5) ? "" : d > 0 ? "pos" : "neg";
+    return `<tr><td>${n}</td><td>${pct ? pf(s) + "%" : fmt(s)}</td><td>${pct ? pf(re) + "%" : fmt(re)}</td>
+      <td class="${cls}">${pct ? (Math.abs(d) < 0.005 ? "" : d > 0 ? "+" : "−") + pf(Math.abs(d)) + " p.p." : sinal(d)}</td></tr>`;
+  }).join("");
+
+  salvarHash();
+}
+
+// Mantém retenções/participações dos candidatos; ajusta (1) a participação do grupo de fora para os válidos
+// baterem com o real e (2) uma divisão única p (eliminados + fora) para o placar bater.
+function calibrar() {
+  const ficam = id => votosDe(id) * estado.part[id] / 100;
+  const base = ficam("13") + ficam("22") + ELIM.reduce((s, o) => s + ficam(o.id), 0);
+  const partFora = (T2.validos - base) / FORA * 100;
+  const msgs = [];
+  if (partFora < 0 || partFora > 100) {
+    msgs.push(`Com as participações atuais, o grupo de fora precisaria votar ${pf(partFora, 1)}%, o que é impossível; ficou em ${partFora < 0 ? 0 : 100}%.`);
+  }
+  estado.part.fora = Math.min(100, Math.max(0, partFora));
+  estado.q = Q0;
+  const pool = ELIM.reduce((s, o) => s + ficam(o.id), 0) + ficam("fora");
+  if (pool <= 0) {
+    $("calibNota").textContent = "Não é possível ajustar a divisão: não há votos disponíveis nos grupos de eliminados e de quem não votou em candidato no primeiro turno.";
+    sincronizar(); calcular(); return false;
+  }
+  const p = (T2.lula - ficam("13")) / pool * 100;
+  const pc = Math.min(100, Math.max(0, p));
+  GRUPOS.forEach(g => estado.p[g.id] = pc);
+  if (p !== pc) msgs.push(`Nenhuma divisão única reproduz o placar real (seria ${pf(p, 1)}% para Lula).`);
+  else if (partFora >= 0 && partFora <= 100) msgs.push(`Lula precisa de ${pf(p, 1)}% dos ${fmt(pool)} votos em disputa (eliminados + quem não votou válido no 1º turno), ` +
+    `com ${pf(estado.part.fora, 2)}% do grupo de fora votando. É um cenário compatível com a urna, não a transferência que de fato ocorreu: outras combinações chegam ao mesmo placar.`);
+  $("calibNota").textContent = msgs.join(" ");
+  sincronizar(); calcular();
+  return partFora >= 0 && partFora <= 100 && p === pc;
+}
+
+function salvarHash() {
+  const q = new URLSearchParams();
+  const r4 = x => +x.toFixed(4);
+  GRUPOS.forEach(g => q.set("p" + g.id, r4(estado.p[g.id])));
+  IDS_PART.forEach(id => { const pad = id === "fora" ? PART_FORA0 : 100; Math.abs(estado.part[id] - pad) > 1e-9 && q.set("a" + id, r4(estado.part[id])); });
+  if (Math.abs(estado.q - Q0) > 1e-9) q.set("q", r4(estado.q));
+  history.replaceState(null, "", "#" + q.toString());
+}
+
+function lerHash() {
+  const q = new URLSearchParams(location.hash.slice(1));
+  const n = (k, min, max) => { const v = parseFloat(q.get(k)); return Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : null; };
+  GRUPOS.forEach(g => { const v = n("p" + g.id, 0, 100); if (v !== null) estado.p[g.id] = v; });
+  IDS_PART.forEach(id => { const v = n("a" + id, 0, 100); if (v !== null) estado.part[id] = v; });
+  const v = n("q", 0, 100); if (v !== null) estado.q = v;
+}
+
+async function copiarLink() {
+  try { await navigator.clipboard.writeText(location.href); toast("Link copiado"); }
+  catch { toast("Copie o endereço da barra do navegador"); }
+}
+function toast(msg) { const t = $("toast"); t.textContent = msg; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 1800); }
+
+montar();
+if (location.hash && new URLSearchParams(location.hash.slice(1)).has("pfora")) {
+  lerHash(); sincronizar(); calcular();
+} else {
+  if (calibrar()) selecionarAtalho($("calibrar"), false);
+}
+</script>
+</body>
+</html>

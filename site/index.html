@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Segundo turno de 2026: o que os dados das urnas mostram — e o que não mostram</title>
+  <meta name="description" content="Relatório independente que testa, uma a uma, as principais alegações sobre o 2º turno da eleição presidencial de 2026 com dados oficiais do TSE.">
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="Segundo turno de 2026: o que os dados das urnas mostram — e o que não mostram">
+  <meta property="og:description" content="Cada alegação testada com dados oficiais do TSE, com veredito e limites declarados.">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%2316150f'/%3E%3Crect x='3' y='8' width='3' height='5' rx='1' fill='%23c8102e'/%3E%3Crect x='8' y='4' width='3' height='9' rx='1' fill='%235b8fe0'/%3E%3C/svg%3E">
+  <script>
+    // aplica o tema salvo antes da pintura (evita piscar)
+    try { const t = localStorage.getItem('tema-relatorio'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topo">
+    <details class="sumario sumario--movel" id="sumario-movel">
+      <summary class="botao" aria-label="Abrir sumário">☰ <span>Sumário</span></summary>
+      <nav class="sumario__painel" aria-label="Sumário">
+        <ol></ol>
+      </nav>
+    </details>
+    <a class="topo__marca" href="#capa">Urnas 2026 <span>· relatório</span></a>
+    <button class="botao" id="botao-tema" type="button"></button>
+  </header>
+
+  <div class="layout">
+    <nav class="sumario sumario--lateral" id="sumario-lateral" aria-label="Sumário">
+      <p class="sumario__titulo">Sumário</p>
+      <ol></ol>
+    </nav>
+
+    <main class="conteudo" id="conteudo">
+      <div id="estrela-topo"></div>
+      <!-- ============ CAPA ============ -->
+      <section class="secao capa" id="capa">
+        <p class="capa__selo">Relatório independente · Eleição presidencial 2026 · 2º turno</p>
+        <h1>Segundo turno de 2026: o que os dados das urnas mostram — e o que não mostram</h1>
+        <p class="capa__sub">As principais alegações que circulam sobre o resultado — votos que “não fecham”, eleitores que “não poderiam” ter migrado, pesquisas, seções tardias, um “algoritmo” na curva da apuração, biometria, logs e modelos de urna — testadas uma a uma com os dados oficiais do TSE: o boletim de cada uma das 499.205 seções e o log de cada urna. Cada alegação recebe um teste e um veredito, inclusive quando o veredito é “os dados não permitem saber”.</p>
+        <aside class="caixa caixa--limites aviso" aria-label="Aviso">
+          <div class="caixa__rotulo">Aviso</div>
+          <p>Esta página é uma análise independente dos dados públicos do 2º turno da eleição presidencial de 2026. Ela examina as principais alegações que circulam nas redes sociais. O autor não expressa aqui opinião política própria e não afirma, nem sugere, que tenha havido fraude no processo eleitoral. Um número fora do esperado, ou uma pergunta que os arquivos não respondem, não é uma acusação.</p>
+          <p>O caminho adotado para tratar essas desconfianças é publicar os dados e testar, com o rigor que a estatística permite, tudo o que esses arquivos conseguem verificar. O texto e os cálculos foram produzidos com apoio de vários sistemas de inteligência artificial e podem conter erros. Os scripts estão no repositório, para quem quiser conferir.</p>
+        </aside>
+        <div class="kpis capa__placar" data-kpis='[
+          {"rotulo":"Lula, 2º turno","valor":0.5179,"formato":"pct","detalhe":"64.256.232 votos · 45,16% no 1º turno","cor":"lula"},
+          {"rotulo":"Flávio Bolsonaro, 2º turno","valor":0.4821,"formato":"pct","detalhe":"59.826.041 votos · 47,03% no 1º turno","cor":"flavio"},
+          {"rotulo":"Margem","valor":4430191,"formato":"num","detalhe":"3,58 p.p. dos votos válidos"},
+          {"rotulo":"Boletins conferidos","valor":1942467,"formato":"num","detalhe":"2022 e 2026, dois turnos; zero inconsistências"}
+        ]'></div>
+        <p class="capa__meta">Percentuais de votos válidos. Dados do TSE baixados até 31/10/2026; versão de 31/10/2026. <a href="#metodologia">Método e limitações</a> · <a href="https://github.com/devgns/analises-segundo-turno-eleicao-2026">Código e reprodução no GitHub</a>.</p>
+      </section>
+
+      <!-- ============ RESUMO ============ -->
+      <section class="secao" id="resumo">
+        <h2>Resumo em 1 minuto</h2>
+        <ul>
+          <li><strong>Várias alegações específicas não se sustentaram nos testes realizados.</strong> A conta dos votos fecha seção a seção; os “157 mil votos sem rastro” foram em sua maior parte encontrados nos logs das urnas substituídas; o “52,39% até as 17h” depende de um erro de fuso horário; as seções com 100% para Lula também aparecem em 2022. Os testes têm limites e não decidem, por si só, a integridade da eleição.</li>
+          <li><strong>Alguns resultados merecem análise adicional.</strong> As pesquisas finais subestimaram Lula (+2,73 p.p. em média); o RJ se desviou das estimativas do modelo; em <a href="#maues-zero">Maués, Flávio passou de 16 votos a zero</a>; houve 115 minutos sem recebimento de boletins; uma seção do ES tem dois logs completos de urnas diferentes. Esses resultados têm explicações possíveis e os dados analisados não estabelecem suas causas.</li>
+          <li><strong>Os testes têm limites.</strong> Modelos estatísticos dependem das hipóteses adotadas e não permitem observar como cada eleitor votou nos dois turnos. Resultados atípicos em um modelo não estabelecem, por si, irregularidade.</li>
+          <li><strong>Outras fontes podem complementar a análise:</strong> boletins impressos, atas, registros e documentação dos procedimentos eleitorais.</li>
+        </ul>
+        <p><a href="#conclusoes">Ler as conclusões completas →</a></p>
+      </section>
+
+      <!-- ============ COMO LER ============ -->
+      <section class="secao" id="como-ler">
+        <h2>Como ler este relatório</h2>
+        <p>Os capítulos apresentam perguntas sobre os dados, os testes aplicados, seus resultados e limitações. Análises exploratórias realizadas depois da observação dos dados são identificadas. Os selos resumem o resultado da avaliação de cada alegação específica:</p>
+        <ul class="legenda-vereditos" id="legenda-vereditos"></ul>
+        <p>Os vereditos se referem à <em>alegação</em> testada. “Refutada” quer dizer que os dados contradizem aquela afirmação específica — não que a eleição esteja provada limpa. “Inconclusiva” e “não testável” querem dizer exatamente isso: os dados públicos não permitem responder.</p>
+        <h3>A sequência</h3>
+        <ol>
+          <li><strong>Os números fecham?</strong> De onde vieram os votos a mais de Lula, para onde foram os eleitores dos eliminados e o que as pesquisas diziam (capítulos 1 a 3).</li>
+          <li><strong>Padrões estranhos nos números.</strong> Uma virada uniforme no país, o que os detectores conseguem ver, os municípios do RJ, as seções com 100% e a lei de Benford (capítulos 4 a 8).</li>
+          <li><strong>A noite da apuração.</strong> A prorrogação, as seções tardias e o “serrote” na curva da totalização (capítulos 9 a 11).</li>
+          <li><strong>As urnas e os eleitores.</strong> Biometria, logs, substituições e modelos de urna (capítulos 12 a 14).</li>
+        </ol>
+        <h3>A postura</h3>
+        <p>Este relatório independente examina dados públicos e apresenta resultados, hipóteses e limitações. Diferenças estatísticas e situações atípicas podem ter várias explicações; sua identificação não estabelece a causa nem demonstra irregularidade.</p>
+        <h3>Fontes de dados</h3>
+        <p>Fontes públicas: boletins de urna do TSE de 2022 e 2026, registros das urnas, histórico de totalização, dados do IBGE e pesquisas registradas. Os downloads dos boletins são conferidos por SHA-512 quando o hash está disponível. Veja a descrição e as ressalvas no <a href="#fontes">capítulo 17</a>.</p>
+        <h3>Método</h3>
+        <p>Os scripts e dados derivados utilizados pelo site estão no <a href="https://github.com/devgns/analises-segundo-turno-eleicao-2026">repositório público</a>; as bases maiores são obtidas das fontes originais. O primeiro turno e a eleição de 2022 servem como referências em várias comparações. Detalhes e limitações estão no <a href="#metodologia">capítulo 16</a> e no README do repositório.</p>
+      </section>
+
+      <!-- ============ PLACAR ============ -->
+      <section class="secao" id="placar">
+        <h2>Placar das alegações</h2>
+        <p>Resumo de todos os testes. Clique num cartão para ir ao capítulo. O balanço está nas <a href="#conclusoes">conclusões</a>.</p>
+        <div class="largo" id="placar-grade"><p class="carregando">Carregando placar…</p></div>
+      </section>
+
+      <!-- ============ CAPÍTULOS (src/capitulos/*.html) ============ -->
+      <div id="capitulos"></div>
+    </main>
+  </div>
+
+  <footer class="rodape">
+    <p>Relatório independente baseado em dados públicos. Não afirma nem sugere fraude. <a href="https://github.com/devgns/analises-segundo-turno-eleicao-2026">Código, dados derivados e instruções no GitHub</a>.</p>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

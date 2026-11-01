@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "titulo": "Quanto da margem cada mecanismo suspeito poderia mover, no máximo",
+    "fonte": "TSE — boletins de urna e logs, 2º turno 2026; números dos capítulos 1, 4, 5, 7, 9, 12 e 13",
+    "descricao": "efeito_max = efeito máximo sobre a margem de Lula (4.430.191 votos) se TODOS os votos envolvidos no mecanismo tivessem sido alterados a favor de Lula. Votos acrescentados contam 1×; votos trocados de Flávio para Lula contam 2×. situacao: 'descartado' = os votos foram localizados ou o teste específico deu negativo; 'sem pegadas' = as pegadas que o mecanismo deixaria foram procuradas e não apareceram, sem que isso o exclua por completo; 'aberto' = os dados de contagem não distinguem o mecanismo de comportamento real. Valores copiados das saídas dos scripts indicados em 'script_origem'. Valores são referências de escala, não estimativas de irregularidade; categorias se sobrepõem e não devem ser somadas.",
+    "gerado_em": "2026-10-30",
+    "script": "analises/12_limites_e_escala.py",
+    "margem": 4430191
+  },
+  "dados": [
+    {
+      "mecanismo": "Seções com 100% para Lula (margem total nelas)",
+      "votos": 14860,
+      "multiplicador": 1,
+      "efeito_max": 14860,
+      "situacao": "descartado",
+      "capitulo": 7,
+      "script_origem": "analises/09_extremos.py"
+    },
+    {
+      "mecanismo": "Votos computados depois das 17h",
+      "votos": 34330,
+      "multiplicador": 1,
+      "efeito_max": 34330,
+      "situacao": "descartado",
+      "capitulo": 9,
+      "script_origem": "analises/06_horarios.py"
+    },
+    {
+      "mecanismo": "Piso de troca Flávio→Lula supondo o mesmo eleitorado em cada seção (sem essa hipótese, 20 votos)",
+      "votos": 147362,
+      "multiplicador": 2,
+      "efeito_max": 294724,
+      "situacao": "aberto",
+      "capitulo": 1,
+      "script_origem": "analises/01_conta_nacional.py"
+    },
+    {
+      "mecanismo": "Votos ausentes do log principal (urnas substituídas)",
+      "votos": 157290,
+      "multiplicador": 1,
+      "efeito_max": 157290,
+      "situacao": "descartado",
+      "capitulo": 13,
+      "script_origem": "analises/08_logs.py"
+    },
+    {
+      "mecanismo": "Variação líquida de habilitações sem biometria entre turnos (não é um teto)",
+      "votos": 290239,
+      "multiplicador": 1,
+      "efeito_max": 290239,
+      "situacao": "sem pegadas",
+      "capitulo": 12,
+      "script_origem": "analises/07_biometria.py"
+    },
+    {
+      "mecanismo": "Queda de brancos e nulos entre turnos",
+      "votos": 1821246,
+      "multiplicador": 1,
+      "efeito_max": 1821246,
+      "situacao": "aberto",
+      "capitulo": 1,
+      "script_origem": "analises/01_conta_nacional.py"
+    },
+    {
+      "mecanismo": "Aumento do comparecimento entre turnos",
+      "votos": 2960239,
+      "multiplicador": 1,
+      "efeito_max": 2960239,
+      "situacao": "aberto",
+      "capitulo": 1,
+      "script_origem": "analises/01_conta_nacional.py"
+    },
+    {
+      "mecanismo": "Virada uniforme de 3,70% dos votos de Flávio (mínimo para inverter o vencedor)",
+      "votos": 2215096,
+      "multiplicador": 2,
+      "efeito_max": 4430192,
+      "situacao": "aberto",
+      "capitulo": 5,
+      "script_origem": "analises/05_poder_detectores.py"
+    },
+    {
+      "mecanismo": "Total de habilitações sem biometria (estoque)",
+      "votos": 8632488,
+      "multiplicador": 1,
+      "efeito_max": 8632488,
+      "situacao": "sem pegadas",
+      "capitulo": 12,
+      "script_origem": "analises/12_limites_e_escala.py"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+<section class="capitulo" id="biometria" data-titulo-curto="Biometria">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 12 <span data-veredito-capitulo></span></div>
+    <h2>Biometria: eleitores habilitados sem digital</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">Redes sociais, após o 2º turno</span></div>
+    <p>Um relatório que circulou nas redes depois do 2º turno aponta <strong>8.632.488</strong> eleitores habilitados sem biometria no 2º turno. A auditoria independente Apuração Aberta registra <strong>8.619.842</strong><sup class="ref" data-ref="apuracao-aberta-2t"></sup>. A alegação é que parte desses votos tenha sido “inserida” por mesários, que liberariam a urna em nome de eleitores ausentes, e que isso tenha favorecido Lula. Pela conta que acompanha a alegação, bastariam cerca de 51% desses votos, se fossem acrescentados, ou cerca de 26%, se fossem trocados, para inverter o resultado. O mesmo relatório afirma ainda que haveria uma correlação “Pearson/Spearman &lt; 0,1%”, mas não mostra números.</p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>Os capítulos anteriores olharam os números e a noite da apuração. Este bloco desce ao nível da urna e do eleitor, começando pela alegação mais citada: a dos votos liberados sem digital.</p>
+    <p>Desde que a identificação biométrica virou regra, o eleitor põe o dedo no leitor da urna e o sistema compara a digital com a do cadastro. Quando ela não é reconhecida, o que acontece com idosos, trabalhadores braçais e leitores sujos ou defeituosos, o mesário pode habilitar o eleitor <em>sem</em> a digital, depois de conferir o documento<sup class="ref" data-ref="tse-manual-biometria tse-res-23751"></sup>. Essa válvula de escape é necessária, porque sem ela milhões de pessoas não votariam. Ela também é o ponto em que a urna confia no mesário em vez de confiar na digital. A análise compara os registros de habilitação e os resultados agregados, sem observar o voto individual.</p>
+    <p><strong>O que o número mede.</strong> O campo do boletim de urna é <code>QT_ELEI_BIOM_SEM_HABILITACAO</code>. Ele conta os eleitores <em>que têm biometria cadastrada</em> e acabaram habilitados sem ela. Reconstruímos esse número eleitor a eleitor a partir dos 128.077.685 registros de voto dos logs das urnas do 2º turno<sup class="ref" data-ref="tse-logs"></sup>. A conta bate quando se consideram os eleitores habilitados sem digital <em>depois de pelo menos uma tentativa de captura</em>: são 8.424.781 no log. Seção a seção, a correlação com o boletim é de 0,996, e em 96,8% das seções a diferença é de no máximo 2 eleitores. O log revela um segundo grupo, que o boletim não conta: <strong>7.813.905</strong> eleitores habilitados sem nenhuma tentativa de digital, quase todos sem biometria cadastrada. Somando os dois grupos, <strong>16.238.686 votos (12,7%)</strong> foram dados sem digital. É sobre esse universo maior que a suspeita teria de operar.</p>
+    <p><strong>A divergência entre 8.632.488 e 8.619.842.</strong> Nossa soma do boletim (bweb), que confere exatamente com o painel do TSE, dá <strong>8.632.488</strong> no 2º turno. No 1º turno, o mesmo indicador deu 8.342.249. A diferença para o número da Apuração Aberta é de 12.646, que é exatamente o total de Roraima (RR) no 2º turno. O mais provável, portanto, é que a auditoria externa tenha deixado de fora uma UF. A Apuração Aberta não publica a soma por UF, e por isso isto é uma inferência, não um fato verificado.</p>
+    <div class="largo" data-kpis-src="data/ch07/kpis.json"></div>
+  </div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <p>Definimos cinco testes antes de olhar os resultados. Cada um parte do que <em>deveria</em> aparecer se a suspeita fosse verdadeira.</p>
+    <ol>
+      <li><strong>Correlação com controles.</strong> Se votos sem digital fossem votos inventados para Lula, as seções com mais habilitações sem digital deveriam dar mais votos a ele <em>do que davam no 1º turno</em>. Medimos isso de duas formas, nas 497.896 seções pareadas: o nível do 2º turno e a variação entre turnos. As comparações são feitas dentro da mesma UF, dentro do mesmo município e dentro do mesmo local de votação. Controlamos ainda o tamanho da seção, as fatias de Lula e de Flávio no 1º turno e o modelo da urna. O erro-padrão é agrupado por município.</li>
+      <li><strong>Teto do efeito.</strong> Quanto da margem caberia nesses votos no pior caso, comparado com o que os dados efetivamente indicam.</li>
+      <li><strong>Rajadas.</strong> Uma inserção manual tende a deixar marcas na ordem dos eleitores: sequências longas de habilitações sem digital, concentração no fim do dia ou logo depois de longos períodos sem ninguém votando. Para cada seção calculamos a maior sequência de habilitações sem digital. Calculamos também quantas aconteceram na última meia hora (a partir das 16h30, horário de Brasília) e quantas logo depois de 15 minutos ou mais de ociosidade. Para cada estatística, calculamos a probabilidade <em>exata</em> de ela surgir se a ordem dos eleitores da seção fosse embaralhada ao acaso, um teste de permutação. Para 499 mil seções corrigimos por buscas múltiplas (Benjamini–Hochberg), separadamente em cada uma das três famílias de teste (maior sequência, última meia hora, após ociosidade). O “q” que mostramos para cada seção é o menor dos três q por família; ele não é um q conjunto, e a união das três famílias não tem FDR garantido de 5%. Por fim verificamos se as seções sinalizadas pendem para Lula mais do que no 1º turno, e se pendem para Flávio, já que o teste é simétrico.</li>
+      <li><strong>Votos-relâmpago.</strong> Um voto “inserido” por quem já sabe em quem votar tende a ser rápido. Comparamos o tempo entre a habilitação e o voto computado dos eleitores sem digital com o dos habilitados por biometria.</li>
+      <li><strong>Saltos entre turnos.</strong> Procuramos seções em que a fração sem biometria subiu além do que o acaso explica, com um teste de duas proporções por seção corrigido por Benjamini–Hochberg.</li>
+    </ol>
+  </aside>
+
+  <div class="capitulo__corpo graficos">
+    <h3>Onde a biometria falha: UF e modelo de urna</h3>
+    <p>A taxa de habilitação sem biometria varia de 4,1% em Roraima a 9,0% no Piauí. O Rio Grande do Sul (8,5%) e Santa Catarina (7,5%) estão entre as mais altas, e Lula teve 42% e 31% nesses estados. Entre as 27 UFs, a correlação entre a taxa e o voto em Lula é fraca e não significativa (Spearman 0,30; p = 0,13). O fator mais nítido é o <strong>equipamento</strong>. As urnas antigas (UE2013 e UE2015) deixaram 9,8% e 9,6% dos eleitores sem digital, contra 6,0% das novas (UE2020 e UE2022). A diferença persiste <em>dentro do mesmo local de votação</em>: a UE2020 tem 4,2 p.p. a menos que a UE2013 no mesmo prédio. É o leitor biométrico mais novo funcionando melhor.</p>
+    <figure class="grafico largo" data-grafico="ch07-uf" data-src="data/ch07/uf.json"
+            data-titulo="Habilitação sem biometria por UF, 1º e 2º turno"
+            data-subtitulo="Eleitores com biometria cadastrada habilitados sem digital ÷ comparecimento"
+            data-fonte="TSE — boletins de urna por seção (bweb), 2026" data-altura="620"></figure>
+
+    <h3>A correlação que existe, e o que acontece com controles</h3>
+    <p>Sem nenhum controle, há uma correlação positiva e pequena entre a taxa sem biometria e o voto em Lula (Pearson 0,068). Nas seções com 17% de habilitação sem digital, Lula teve 56%. Nas seções com 2–5%, teve 51%. É compatível com o perfil do eleitorado: a digital falha mais em pessoas mais velhas e em quem faz trabalho manual, e esse eleitorado no Nordeste vota mais em Lula. A mesma relação já aparecia no 1º turno (Pearson 0,063). Quando comparamos a seção com ela mesma no 1º turno, ou com as vizinhas do mesmo município, a relação fica perto de zero ou <em>negativa</em> com a medida do boletim; com a medida mais ampla do log, sobra uma associação pequena e positiva (abaixo).</p>
+    <figure class="grafico largo" data-grafico="ch07-bin-nivel" data-src="data/ch07/binscatter.json"
+            data-titulo="Fatia de Lula por vintil da taxa sem biometria (bruto, 2º turno)"
+            data-subtitulo="Cada ponto agrega ~25 mil seções"
+            data-fonte="TSE — bweb 2026" data-altura="340"></figure>
+    <figure class="grafico largo" data-grafico="ch07-bin-delta" data-src="data/ch07/binscatter.json"
+            data-titulo="Variação entre turnos: Δ taxa sem biometria × Δ fatia de Lula"
+            data-subtitulo="Ambos descontada a média do município. Se a suspeita valesse, a linha subiria para a direita."
+            data-fonte="TSE — bweb 2026, 1º e 2º turnos" data-altura="340"></figure>
+    <figure class="grafico largo" data-grafico="ch07-coef" data-src="data/ch07/regressoes.json"
+            data-titulo="Efeito estimado de +10 p.p. na taxa sem biometria sobre a fatia de Lula"
+            data-subtitulo="Ponto = estimativa; barra = intervalo de 95% (EP agrupado por município)"
+            data-fonte="TSE — bweb 2026; cálculo próprio (analises/07_biometria.py)" data-altura="380"></figure>
+    <div class="largo" data-tabela="ch07-tab-regs"></div>
+    <p>A especificação mais limpa compara seções do mesmo local de votação e olha a <em>variação</em> entre turnos. Nela o efeito de +10 p.p. de habilitação sem biometria é de <strong>+0,01 p.p.</strong> (IC 95% −0,02 a +0,04; p = 0,49), com intervalo compatível com zero. Dentro do município, o efeito é de −0,22 p.p. (p &lt; 0,001), na direção <em>contrária</em> à da suspeita. A correlação simples entre as variações é −0,013 (Pearson) e −0,016 (Spearman).</p>
+
+    <p>Com outra medida, que inclui também habilitações sem tentativa de captura nos logs, a regressão com controles e efeito fixo de município estima <strong>+0,10 p.p.</strong> na variação da fatia de Lula por +10 p.p. na taxa (IC 95% +0,05 a +0,15; p bruto &lt; 0,001). É associação ecológica, não prova de causa ou de inserção de votos; o contraste usa outra população e outra medida que a regressão por local. Os dados não controlam diretamente idade nem todas as diferenças entre seções. A análise das 43 rajadas com controles também estima +0,31 p.p. (p = 0,40), sem evidência estatística de diferença.</p>
+    <h3>O teto e o que os dados indicam</h3>
+    <p>No pior caso imaginável, todos os 8.632.488 votos sem biometria seriam falsos e de Lula. Isso equivale a 195% da margem de 4.430.191 votos, e é aí que mora o apelo da suspeita: o número é grande o bastante para virar a eleição. Mas esse teto não é uma medida. Duas contas ajudam a situá-lo, sem que nenhuma delas seja um teto para eventual abuso.</p>
+    <ul>
+      <li>Entre os turnos, o total de habilitações sem biometria subiu <strong>290.239</strong> (variação líquida; 6,6% da margem). Somando apenas os aumentos, seção a seção, chega-se a 1.166.376 (26% da margem). Essas variações só limitariam um abuso se todas as habilitações do 1º turno fossem legítimas e um eventual abuso fosse novo no 2º; uma quantidade estável de procedimentos pode conter misturas diferentes de casos legítimos e ilegítimos, e um aumento grande pode ser todo legítimo.</li>
+      <li>A regressão ecológica dentro do município estima quanto o eleitor sem biometria vota em Lula a mais que o eleitor com biometria. No 2º turno, a diferença é de <strong>2,8 p.p.</strong> (IC −4,0 a +9,6). No 1º turno, era de 8,1 p.p. (IC 1,8 a 14,5). O ponto estimado caiu, mas os dois intervalos se sobrepõem: os dados não mostram que a diferença tenha crescido, nem demonstram que tenha diminuído. É uma estimativa ecológica de composição, sem observação do voto de cada grupo; por isso não a convertemos em votos.</li>
+    </ul>
+
+    <h3>Ao longo do dia</h3>
+    <p>A fração de votos sem digital fica entre 12% e 13% o dia inteiro. O que muda é a composição. A fração “com tentativa”, a do boletim, cai de 8,0% às 8h para 5,3% no fim da tarde, o que é coerente com idosos votando cedo. A fração “sem tentativa” sobe. Nos 30.132 votos das faixas mantidas após 17h (faixas com menos de 1.000 votos foram excluídas), a fração sem digital chega a 16,4%. É a única faixa fora do padrão, e corresponde a filas e a seções prorrogadas, assunto do <a href="#prorrogacao-secoes-tardias">capítulo 9</a>.</p>
+    <figure class="grafico largo" data-grafico="ch07-hora" data-src="data/ch07/hora.json"
+            data-titulo="Fração de votos habilitados sem digital, por faixa de 10 minutos"
+            data-subtitulo="Horário de Brasília em que o voto foi computado; exclui exterior"
+            data-fonte="TSE — logs das urnas do 2º turno 2026" data-altura="340"></figure>
+
+    <h3>Rajadas: o que o embaralhamento diz</h3>
+    <p>Se a ordem dos eleitores fosse aleatória, a fração de seções com p ≤ 0,05 seria de no máximo 5%. Observamos menos que isso: 2,5% para a maior sequência, 1,9% para a última meia hora e 0,5% após ociosidade. Testes exatos em dados discretos são conservadores. Só na cauda extrema das sequências há algum excesso: 0,015% das seções têm p ≤ 0,0001, 1,5 vez o esperado. Depois da correção por buscas múltiplas (Benjamini–Hochberg na família das maiores sequências) sobram <strong>43 seções</strong> com rajada significativa (q &lt; 0,05). <strong>Nenhuma</strong> seção ficou sinalizada por concentração na última meia hora ou após ociosidade.</p>
+    <figure class="grafico largo" data-grafico="ch07-calib" data-src="data/ch07/calibracao.json"
+            data-titulo="Quantas seções passam de cada limiar, em relação ao esperado ao acaso"
+            data-subtitulo="1 = o que o embaralhamento aleatório produz; abaixo de 1 = menos casos que o acaso"
+            data-fonte="TSE — logs das urnas do 2º turno 2026; teste de permutação exato" data-altura="320"></figure>
+    <p>As 43 rajadas são longas: há sequências de 101, 107 e 111 eleitores seguidos sem digital. A forma delas é compatível com uma explicação mecânica. Nas rajadas, <strong>89% dos eleitores passaram por 4 ou mais tentativas</strong> de captura antes de serem liberados, e só 8,8% foram habilitados sem tentativa nenhuma. Em 7 das 43 seções a sequência só termina com o fim da votação. É compatível com um leitor que para de reconhecer digitais (o mesário tenta, a urna recusa, o mesário libera, e isso se repete até o fim), mas também com procedimento de contingência ou outra mudança operacional; sem ata de ocorrência ou registro de manutenção, a causa não está confirmada. O teste de permutação também supõe que a posição de cada eleitor na fila seja intercambiável, o que horários e grupos que chegam juntos podem violar. Essas 43 seções são uma lista concreta e pequena para conferência documental. Essas seções já tinham taxa alta no 1º turno (28,2%, contra 6,7% no país) e chegaram a 33,7% no 2º.</p>
+    <p>O que importa para a suspeita é se elas pendem para Lula. <strong>Não pendem.</strong> Comparadas às demais seções do mesmo município, a variação da fatia de Lula entre turnos é <strong>−0,48 p.p.</strong> (IC −1,13 a +0,16; p = 0,15). No teste simétrico, 14,0% delas caem na cauda pró-Flávio, contra 2,3% na cauda pró-Lula, quando o esperado é 10% em cada.</p>
+    <figure class="grafico largo" data-grafico="ch07-sinal-delta" data-src="data/ch07/sinalizadas_delta.json"
+            data-titulo="Δ da fatia de Lula nas seções com rajada, comparado com o próprio município"
+            data-subtitulo="Diferença em relação às demais seções; barra = IC 95%"
+            data-fonte="TSE — logs e bweb 2026; cálculo próprio" data-altura="200"></figure>
+    <p><strong>Explorador.</strong> A tabela abaixo traz as 1.000 seções com as sequências ou concentrações mais improváveis. As 43 com q &lt; 0,05 (menor q por família) vêm marcadas no campo “Sinal”, e as demais aparecem como “(não significativa)”. Os horários estão em Brasília. Pesquise pelo nome do município.</p>
+    <div class="largo" data-tabela="ch07-tab-sinalizadas"></div>
+
+    <h3>Votos-relâmpago</h3>
+    <p>Entre a habilitação e o voto computado, o eleitor habilitado por biometria leva <strong>10 segundos</strong> (mediana). O habilitado sem digital leva <strong>13 segundos</strong>, ou seja, é <em>mais lento</em>, o que é coerente com um eleitorado mais idoso. A fração de votos em até 5 segundos é praticamente idêntica nos dois grupos: 3,02% e 3,00%. Em até 2 segundos, 0,002% e 0,003%. Na regressão, a fração de votos-relâmpago sem digital não prediz a variação de Lula (p = 0,75). Isso enfraquece a hipótese de inserção mecânica rápida, mas não testa um mecanismo que imite tempos de votação usuais.</p>
+    <figure class="grafico largo" data-grafico="ch07-cabine" data-src="data/ch07/cabine.json"
+            data-titulo="Segundos entre a habilitação e o voto computado"
+            data-subtitulo="Distribuição em cada grupo (0–120 s)"
+            data-fonte="TSE — logs das urnas do 2º turno 2026" data-altura="320"></figure>
+
+    <h3>Saltos entre turnos</h3>
+    <p>Em 85 seções a fração sem biometria subiu de forma significativa entre os turnos (q &lt; 0,05), somando 6.998 habilitações a mais. Em 181 ela <em>caiu</em> de forma significativa. Nas que subiram, a fatia de Lula variou −0,30 p.p. em relação ao município (p = 0,24), sem favorecê-lo.</p>
+    <div class="largo" data-tabela="ch07-tab-saltos"></div>
+  </div>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <p>A assinatura que a suspeita prevê não aparece nos cinco testes, com uma ressalva: uma das medidas mostra uma associação pequena e positiva.</p>
+    <ul>
+      <li>Com a medida do boletim, onde a habilitação sem biometria aumentou Lula não cresceu mais: dentro do mesmo local de votação o efeito é +0,01 p.p. por 10 p.p. de taxa (IC −0,02 a +0,04; p = 0,49), e dentro do município o sinal é contrário. Com a medida mais ampla do log, há uma associação pequena e positiva: +0,10 p.p. por 10 p.p. (IC +0,05 a +0,15), pequena demais para explicar um deslocamento de pontos percentuais, mas não nula.</li>
+      <li>A diferença ecológica de voto entre seções com mais e menos habilitação sem digital não cresceu do 1º para o 2º turno (8,1 e 2,8 p.p., com intervalos que se sobrepõem).</li>
+      <li>As rajadas são raras (43 em 499 mil seções), são compatíveis com leitor biométrico com defeito e pendem levemente para Flávio.</li>
+      <li>Não há concentração no fim do dia nem após ociosidade, e não há votos-relâmpago em excesso.</li>
+    </ul>
+    <p>A correlação bruta positiva existe, é pequena e já estava no 1º turno. Ela é compatível com o perfil do eleitorado, que não observamos diretamente (não há idade por seção).</p>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <ul>
+      <li><strong>Inserções pequenas e espalhadas.</strong> Um mesário que libere poucos eleitores ausentes, intercalados com eleitores reais, não deixa rajada nem altera a estatística de uma seção. Os testes têm poder contra inserções concentradas ou em massa. Contra algumas unidades por seção, não têm. É o mesmo caminho de "enchimento a partir de ausentes" que a matriz de transferência do <a href="#transferencia-de-votos">capítulo 2</a> não consegue separar de mobilização real.</li>
+      <li><strong>Deslocamento uniforme.</strong> Um deslocamento nacional uniforme, que não dependa da taxa sem biometria, não é detectado por nenhuma correlação entre seções (ver <a href="#poder-dos-detectores">capítulo 5</a>).</li>
+      <li><strong>Falta de idade por seção.</strong> Não temos a idade dos eleitores por seção. Ela é a principal explicação inocente da taxa sem biometria e entra só indiretamente, pelo 1º turno e pelos efeitos fixos.</li>
+      <li><strong>Falta de logs do 1º turno.</strong> Não temos os logs do 1º turno. A comparação de rajadas entre turnos não é possível, só a do boletim.</li>
+      <li><strong>Limite do log.</strong> O log diz que houve 4 tentativas de digital, mas não diz <em>de quem</em> era o dedo. Uma liberação indevida com tentativas encenadas é indistinguível de uma falha real. Só a lista de comparecimento, o caderno assinado ou uma auditoria física distinguem os dois casos.</li>
+    </ul>
+  </aside>
+</section>

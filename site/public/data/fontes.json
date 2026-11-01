@@ -1,0 +1,526 @@
+{
+ "meta": {
+  "descricao": "Registro de fontes. Cite com <sup class=\"ref\" data-ref=\"id\"></sup>. Datas de acesso no formato AAAA-MM-DD.",
+  "atualizado_em": "2026-10-31"
+ },
+ "fontes": [
+  {
+   "id": "tse-boletins",
+   "tipo": "dado oficial",
+   "texto": "Tribunal Superior Eleitoral. Boletins de urna por seção (BWeb) — Eleições 2026, 1º e 2º turnos. Portal de Dados Abertos do TSE, pacote resultados-2026-boletim-de-urna (cada arquivo conferido contra o SHA-512 publicado).",
+   "url": "https://dadosabertos.tse.jus.br/dataset/resultados-2026-boletim-de-urna",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "tse-boletins-2022",
+   "tipo": "dado oficial",
+   "texto": "Tribunal Superior Eleitoral. Boletins de urna por seção (BWeb) — Eleições 2022, 1º e 2º turnos. Portal de Dados Abertos do TSE, pacote resultados-2022-boletim-de-urna.",
+   "url": "https://dadosabertos.tse.jus.br/dataset/resultados-2022-boletim-de-urna",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "tse-logs",
+   "tipo": "dado oficial",
+   "texto": "Tribunal Superior Eleitoral. Arquivos de log das urnas eletrônicas (logd.dat em log.jez) — Eleições 2026, 2º turno, pleito 3221.",
+   "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3221/",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "tse-arquivo-urna",
+   "tipo": "dado oficial",
+   "texto": "Tribunal Superior Eleitoral. Arquivos de urna (aux.json, log.jez, bu.dat) — Eleições 2026, 2º turno, pleito 3221, incluindo os logs internos das urnas substituídas.",
+   "url": "https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/3221/",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ibge-malhas",
+   "tipo": "dado oficial",
+   "texto": "IBGE. API de Malhas Territoriais v3 — municípios do Brasil, qualidade mínima (simplificada para o mapa).",
+   "url": "https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?intrarregiao=municipio&formato=application/vnd.geo+json&qualidade=minima",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ibge-localidades",
+   "tipo": "dado oficial",
+   "texto": "IBGE. API de Localidades — municípios, Regiões Imediatas e Microrregiões.",
+   "url": "https://servicodados.ibge.gov.br/api/v1/localidades/municipios",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "kelvins-coords",
+   "tipo": "base auxiliar",
+   "texto": "kelvins/municipios-brasileiros — coordenadas das sedes municipais (CSV).",
+   "url": "https://github.com/kelvins/municipios-brasileiros",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "tse-balanco-2t",
+   "tipo": "comunicado oficial",
+   "texto": "TSE. Presidente do TSE anuncia reeleição de Lula e faz balanço do 2º turno das Eleições 2026 (1.551 substituições de urna). URL não verificada diretamente: a página devolveu 403 ao acesso automatizado.",
+   "url": "https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/presidente-do-tse-anuncia-reeleicao-de-lula-e-faz-balanco-do-2o-turno-das-eleicoes-2026",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "tse-votos-apos-17h",
+   "tipo": "comunicado oficial",
+   "texto": "TSE. Eleições 2026: mais de 34 mil votos foram registrados após as 17h no 2º turno (34.393: 32.399 entre 17h e 18h, 1.981 entre 18h e 19h, 13 após 19h). URL não aberta diretamente; números conferidos pelas matérias que o citam.",
+   "url": "https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/eleicoes-2026-mais-de-34-mil-votos-foram-registrados-apos-as-17h-no-2o-turno",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "tse-manual-biometria",
+   "tipo": "comunicado oficial",
+   "texto": "TSE. Manual do eleitor: entenda como vai funcionar a biometria nas eleições 2026 (URL não aberta por nós).",
+   "url": "https://www.tse.jus.br/comunicacao/noticias/2026/Julho/manual-do-eleitor-entenda-como-vai-funcionar-a-biometria-nas-eleicoes-2026",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "tse-res-23751",
+   "tipo": "norma",
+   "texto": "TSE. Resolução nº 23.751/2026 (atos gerais do processo eleitoral), texto compilado (URL não aberta por nós).",
+   "url": "https://www.tse.jus.br/legislacao/compilada/res/2026/resolucao-no-23-751-de-26-de-fevereiro-de-2026",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "apuracao-aberta-2t",
+   "tipo": "análise independente",
+   "texto": "Apuração Aberta — Auditoria do segundo turno de 2026 (8.619.842 habilitações sem biometria). Fonte não acessada diretamente.",
+   "url": "https://apuracaoaberta.com.br/auditoria/segundo-turno-2026/",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "urnas-tardias",
+   "tipo": "análise independente",
+   "texto": "Apolinario — repositório urnas-tardias (contagem de votos após as 17h a partir dos logs).",
+   "url": "https://github.com/apolinario/urnas-tardias",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "oliberal-34mil",
+   "tipo": "imprensa",
+   "texto": "O Liberal — TSE: 34,4 mil pessoas votaram após 17h no segundo turno (32.399 / 1.981 / 13; decisão às 17h02).",
+   "url": "https://www.oliberal.com/politica/tse-34-4-mil-pessoas-votaram-apos-17h-no-segundo-turno-das-eleicoes-1.1187558",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "cnn-34mil",
+   "tipo": "imprensa",
+   "texto": "CNN Brasil — 34 mil eleitores votaram após as 17h no 2º turno, mostram dados do TSE.",
+   "url": "https://www.cnnbrasil.com.br/eleicoes/dados-tse-votacao-apos-prorrogacao/",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "timesbrasil-pausa",
+   "tipo": "imprensa",
+   "texto": "Times Brasil — TSE pausa apuração do segundo turno após prorrogação da votação.",
+   "url": "https://timesbrasil.com.br/brasil/decisao-2026-tse-pausa-apuracao-do-segundo-turno-apos-prorrogacao-da-votacao/",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "correio-retomada",
+   "tipo": "imprensa",
+   "texto": "Correio da Manhã — TSE retoma contagem dos votos às 19h após suspensão provocada por decisão de Zanin.",
+   "url": "https://www.correiodamanha.com.br/politica/2026/10/329719-tse-retoma-contagem-dos-votos-as-19h-apos-suspensao-provocada-por-decisao-de-zanin.html",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "cap03-datafolha-0810",
+   "tipo": "pesquisa",
+   "texto": "Diario de Pernambuco — Datafolha: 46% dos eleitores de candidatos derrotados no 1º turno migram para Flávio Bolsonaro (08/10/2026).",
+   "url": "https://www.diariodepernambuco.com.br/politica/2026/10/11726210-datafolha-46-dos-eleitores-de-candidatos-derrotados-no-1-turno-migram-para-flavio-bolsonaro.html",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "cap03-quaest-2110",
+   "tipo": "pesquisa",
+   "texto": "O Povo — Pesquisa Quaest mostra Flávio Bolsonaro com 45% e Lula 44% (campo 17–20/10/2026, BR-08535/2026).",
+   "url": "https://mais.opovo.com.br/jornal/politica/2026/10/22/pesquisa-quaest-mostra-flavio-bolsonaro-com-45-e-lula-44.html",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "cap03-pesquisas-2022",
+   "tipo": "imprensa",
+   "texto": "Brasil de Fato — Datafolha, Ipec, Atlas, Quaest e MDA: as pesquisas deste sábado, véspera da eleição (29/10/2022).",
+   "url": "https://www.brasildefato.com.br/2022/10/29/datafolha-ipec-atlas-quaest-e-mda-as-pesquisas-deste-sabado-vespera-da-eleicao",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "cap03-erros-2022-1t",
+   "tipo": "imprensa",
+   "texto": "O Povo — Lula segue em vantagem em pesquisa para segundo turno, segundo Datafolha (07/10/2022; erros do 1º turno).",
+   "url": "https://www.opovo.com.br/noticias/mundo/2022/10/07/lula-segue-em-vantagem-em-pesquisa-para-segundo-turno-segundo-datafolha.html",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch10-klimek",
+   "tipo": "literatura",
+   "texto": "Klimek, P.; Yegorov, Y.; Hanel, R.; Thurner, S. (2012). Statistical detection of systematic election irregularities. PNAS 109(41):16469–16473.",
+   "url": "https://doi.org/10.1073/pnas.1210722109",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch10-mebane",
+   "tipo": "literatura",
+   "texto": "Mebane, W. (2006). Election Forensics: Vote Counts and Benford's Law. Political Methodology Society.",
+   "url": "http://www-personal.umich.edu/~wmebane/pm06.pdf",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch10-deckert",
+   "tipo": "literatura",
+   "texto": "Deckert, J.; Myagkov, M.; Ordeshook, P. (2011). Benford's Law and the Detection of Election Fraud. Political Analysis 19(3):245–268.",
+   "url": "https://doi.org/10.1093/pan/mpr014",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-shirani-mehr",
+   "tipo": "literatura",
+   "texto": "Shirani-Mehr, H.; Rothschild, D.; Goel, S.; Gelman, A. (2018). Disentangling Bias and Variance in Election Polls. JASA 113(522).",
+   "url": "https://doi.org/10.1080/01621459.2018.1448823",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-datafolha-2410",
+   "tipo": "pesquisa",
+   "texto": "Diário do Nordeste — Datafolha no 2º turno: Flávio Bolsonaro tem 51% e Lula 49% em votos válidos (24/10/2026).",
+   "url": "https://diariodonordeste.verdesmares.com.br/pontopoder/datafolha-no-2-turno-flavio-bolsonaro-tem-51-e-lula-49-em-votos-validos-1.3800996",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-quaest-2410",
+   "tipo": "pesquisa",
+   "texto": "O Liberal — Quaest: Flávio Bolsonaro tem 51% dos votos válidos e Lula 49% na véspera do segundo turno.",
+   "url": "https://www.oliberal.com/politica/quaest-flavio-bolsonaro-tem-51-dos-votos-validos-e-lula-49-na-vespera-do-segundo-turno-1.1186432",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-atlas-2410",
+   "tipo": "pesquisa",
+   "texto": "SBT News — AtlasIntel: Flávio tem 50,8% contra 49,2% de Lula.",
+   "url": "https://sbtnews.sbt.com.br/noticia/politica/atlas-intel-flavio-tem-50-8-contra-49-2-de-lula",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-mda-2410",
+   "tipo": "pesquisa",
+   "texto": "Midiamax — CNT/MDA: Flávio Bolsonaro tem 50,7% dos votos válidos; Lula 49,3%.",
+   "url": "https://midiamax.com.br/brasil/2026/cnt-mda-flavio-bolsonaro-tem-507-votos-validos-lula-493/",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-realtime-2310",
+   "tipo": "pesquisa",
+   "texto": "Jornal Opção — RealTime Big Data: Flávio tem 52% e Lula, 48% dos votos válidos.",
+   "url": "https://www.jornalopcao.com.br/ultimas-noticias/realtime-big-data-flavio-tem-52-e-lula-48-dos-votos-validos-881600/",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-wiki-2026",
+   "tipo": "base auxiliar",
+   "texto": "Wikipedia — Opinion polling for the 2026 Brazilian presidential election.",
+   "url": "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2026_Brazilian_presidential_election",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-wiki-2022",
+   "tipo": "base auxiliar",
+   "texto": "Wikipedia — Opinion polling for the 2022 Brazilian presidential election.",
+   "url": "https://en.wikipedia.org/wiki/Opinion_polling_for_the_2022_Brazilian_presidential_election",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-hist-2014",
+   "tipo": "imprensa",
+   "texto": "Jornal do Brasil — Dilma na frente de Aécio, apontam últimas pesquisas do Ibope e Datafolha (25/10/2014).",
+   "url": "https://www.jb.com.br/eleicoes-2014/noticias/2014/10/25/amp/dilma-na-frente-de-aecio-aponta-ultimas-pesquisas-do-ibope-e-datafolha.html",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-hist-2018",
+   "tipo": "imprensa",
+   "texto": "Sul21 — Ibope traz Bolsonaro com 54% e Haddad com 46%; no Datafolha, Bolsonaro tem 55% e Haddad 45% (27/10/2018).",
+   "url": "https://sul21.com.br/?p=32342",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-datafolha-transf",
+   "tipo": "pesquisa",
+   "texto": "DGABC — 46% dos eleitores de Cury, Renan Santos, Caiado e Zema migram para Flávio, aponta Datafolha.",
+   "url": "https://www.dgabc.com.br/Noticia/4351747/46-dos-eleitores-de-cury-renan-santos-caiado-e-zema-migram-para-flavio-aonta-datafolha",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-polymarket",
+   "tipo": "imprensa",
+   "texto": "Times Brasil (CNBC) — Flávio dispara no mercado de apostas e chega à reta final com 75% de probabilidade.",
+   "url": "https://timesbrasil.com.br/eleicoes-2026/decisao-2026-flavio-dispara-no-mercado-de-apostas-e-chega-a-reta-final-da-eleicao-com-75-de-probabilidade-de-vitoria/",
+   "acesso": "2026-10-29"
+  },
+  {
+   "id": "ch11-cnn-finais-2026",
+   "tipo": "imprensa",
+   "texto": "CNN Brasil — Pesquisas mostram Flávio numericamente à frente de Lula, na margem de erro (registros de Datafolha, PoderData, Quaest, CNT/MDA, Gerp, Nexus, AtlasIntel, Futura)",
+   "url": "https://www.cnnbrasil.com.br/eleicoes/ultimas-pesquisas-segundo-turno-eleicao/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-datafolha-2410-tj",
+   "tipo": "pesquisa",
+   "texto": "Tribuna de Jundiaí — Datafolha 24/10/2026 (BR-09540/2026; 48 × 47; BN 3, NS 2)",
+   "url": "https://tribunadejundiai.com.br/politica/eleicoes-2026/pesquisa-datafolha-presidente-flavio-bolsonaro-lula-24-outubro-2026/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-datafolha-registro",
+   "tipo": "pesquisa",
+   "texto": "Diário do Pará — Pesquisa Datafolha: quando saem os próximos números (BR-09540/2026, campo 23–24/10, n=4.050)",
+   "url": "https://diariodopara.com.br/eleicoes-2026/pesquisa-datafolha-quando-saem-os-proximos-numeros-sobre-lula-e-flavio/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-realtime-2310-dgabc",
+   "tipo": "pesquisa",
+   "texto": "DGABC — Real Time Big Data: Flávio tem 52% dos votos válidos contra 48% de Lula (BR-09670/2026)",
+   "url": "https://www.dgabc.com.br/Noticia/4354342/real-time-big-data-flavio-tem-52-dos-votos-validos-contra-48-de-lula-em-empate-tecnico",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-verita-2410",
+   "tipo": "pesquisa",
+   "texto": "Congresso em Foco — Flávio tem 51,56% dos votos válidos e Lula 48,44%, diz Veritá (BR-03181/2026)",
+   "url": "https://www.congressoemfoco.com.br/noticia/123609/flavio-tem-51-56-dos-votosvalidos-e-lula-48-44--diz-verita",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-franca-2410",
+   "tipo": "pesquisa",
+   "texto": "Times Brasil — Instituto França: Flávio 51,4% × Lula 48,6% dos válidos (BR-04863/2026)",
+   "url": "https://timesbrasil.com.br/eleicoes-2026/decisao-2026-na-vespera-do-2o-turno-flavio-bolsonaro-tem-514-dos-votos-validos-contra-486-de-lula-diz-instituto-franca/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-alfa-2310",
+   "tipo": "pesquisa",
+   "texto": "Times Brasil — Alfa Inteligência: Flávio 52% × Lula 48% dos válidos (BR-08496/2026, campo 18–22/10)",
+   "url": "https://timesbrasil.com.br/brasil/decisao-2026-flavio-bolsonaro-tem-52-dos-votos-validos-contra-48-de-lula-no-2o-turno-aponta-pesquisa-alfa-inteligencia/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-ipespe-2310",
+   "tipo": "pesquisa",
+   "texto": "Poder360 — Flávio tem 50,5% contra 49,5% de Lula, diz Ipespe/Abrapel",
+   "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-505-contra-495-de-lula-diz-ipespe-abrapel/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-vox-2310",
+   "tipo": "pesquisa",
+   "texto": "O Liberal — Em votos válidos, Lula tem 50,6% contra 49,4% de Flávio, mostra Vox Brasil",
+   "url": "https://www.oliberal.com/politica/em-votos-validos-lula-tem-50-6-contra-49-4-de-flavio-mostra-pesquisa-vox-brasil-1.1185727",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-indexa-2210",
+   "tipo": "pesquisa",
+   "texto": "O Liberal — Flávio tem 45,2% ante 44,1% de Lula, mostra Indexa/Broadcast",
+   "url": "https://www.oliberal.com/politica/flavio-tem-45-2-ante-44-1-de-lula-em-empate-tecnico-mostra-pesquisa-indexa-broadcast-1.1185405",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-palver-2410",
+   "tipo": "pesquisa",
+   "texto": "Tribuna de Jundiaí — Pesquisa Palver: Flávio Bolsonaro tem 50% e Lula 49% no segundo turno",
+   "url": "https://tribunadejundiai.com.br/politica/eleicoes-2026/pesquisa-palver-flavio-bolsonaro-tem-50-e-lula-49-no-segundo-turno/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-quaest-cruz-2110",
+   "tipo": "pesquisa",
+   "texto": "Diario de Pernambuco — Quaest: 48% dos eleitores de Augusto Cury migram para Lula e 33% para Flávio (17–20/10, BR-08535/2026)",
+   "url": "https://www.diariodepernambuco.com.br/politica/2026/10/11727201-quaest-48-dos-eleitores-de-augusto-cury-migram-para-lula-e-33-para-flavio.html",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-quaest-cruz-1410",
+   "tipo": "pesquisa",
+   "texto": "O Liberal — Quaest: 34% dos eleitores de Cury migram para Lula no 2º turno e 30% para Flávio (10–13/10, BR-08729/2026)",
+   "url": "https://www.oliberal.com/politica/quaest-34-dos-eleitores-de-cury-migram-para-lula-no-2-turno-e-30-para-flavio-1.1182658",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-datafolha-2210-opovo",
+   "tipo": "pesquisa",
+   "texto": "O Povo — Datafolha tem empate numérico com 50% dos válidos (20–22/10, BR-09709/2026; sem cruzamento por voto no 1º turno)",
+   "url": "https://mais.opovo.com.br/jornal/politica/2026/10/22/datafolha-tem-empate-numerico-entre-flavio-bolsonaro-e-lula-com-50-dos-votos-validos.html",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-atlas-serie",
+   "tipo": "pesquisa",
+   "texto": "SBT News — AtlasIntel: Flávio tem 50,8% contra 49,2% de Lula (série: Lula 45,7 em 8/10, 47,6 em 18/10)",
+   "url": "https://sbtnews.sbt.com.br/noticia/politica/atlas-intel-flavio-tem-50-8-contra-49-2-de-lula",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-datafolha-0310",
+   "tipo": "pesquisa",
+   "texto": "O Liberal — Datafolha: Lula tem 45% dos votos válidos e Flávio Bolsonaro 42% no 1º turno (BR-01708/2026)",
+   "url": "https://www.oliberal.com/politica/datafolha-lula-tem-45-dos-votos-validos-e-flavio-bolsonaro-42-no-1-turno-1.1176498",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-tse-2014",
+   "tipo": "comunicado oficial",
+   "texto": "TSE — Plenário do TSE proclama resultado definitivo do segundo turno da eleição presidencial (2014)",
+   "url": "https://www.tse.jus.br/comunicacao/noticias/2014/Dezembro/plenario-do-tse-proclama-resultado-definitivo-do-segundo-turno-da-eleicao-presidencial",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-tse-2018",
+   "tipo": "comunicado oficial",
+   "texto": "TSE — Eleições 2018: Justiça Eleitoral conclui totalização dos votos do segundo turno",
+   "url": "https://www.tse.jus.br/comunicacao/noticias/2018/Outubro/eleicoes-2018-justica-eleitoral-conclui-totalizacao-dos-votos-do-segundo-turno",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-tse-2022-1t",
+   "tipo": "comunicado oficial",
+   "texto": "TSE — 100% das seções totalizadas: confira como ficou o quadro eleitoral após o 1º turno (2022)",
+   "url": "https://www.tse.jus.br/comunicacao/noticias/2022/Outubro/100-das-secoes-totalizadas-confira-como-ficou-o-quadro-eleitoral-apos-o-1o-turno",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-tse-2022-2t",
+   "tipo": "comunicado oficial",
+   "texto": "TSE — TSE proclama eleitos presidente e vice-presidente da República Luiz Inácio Lula da Silva e Geraldo Alckmin",
+   "url": "https://www.tse.jus.br/comunicacao/noticias/2022/Dezembro/tse-proclama-eleitos-presidente-e-vice-presidente-da-republica-luiz-inacio-lula-da-silva-e-geraldo-alckmin",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-hist-2018-p360",
+   "tipo": "imprensa",
+   "texto": "Poder360 — Ibope: Bolsonaro 54% x 46% Haddad; Datafolha: Bolsonaro 55% x 45% Haddad (27/10/2018)",
+   "url": "https://www.poder360.com.br/eleicoes/ibope-bolsonaro-54-x-46-haddad-datafolha-bolsonaro-55-x-45-haddad/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-2022-1t-datafolha",
+   "tipo": "pesquisa",
+   "texto": "Bloomberg Línea — Datafolha: Lula mantém 50% dos votos válidos para o 1º turno, e Bolsonaro, 36% (BR-00245/2022)",
+   "url": "https://www.bloomberglinea.com.br/2022/10/01/datafolha-lula-mantem-50-dos-votos-validos-para-o-1-turno-e-bolsonaro-36/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-2022-1t-ipec",
+   "tipo": "pesquisa",
+   "texto": "Poder360 — Ipec: Lula tem 51% dos votos válidos, contra 37% de Bolsonaro (BR-00999/2022)",
+   "url": "https://www.poder360.com.br/pesquisas/ipec-lula-tem-51-dos-votos-validos-contra-37-de-bolsonaro/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-2022-2t-vespera",
+   "tipo": "pesquisa",
+   "texto": "Brasil de Fato — Datafolha, Ipec, Atlas, Quaest e MDA: as pesquisas deste sábado, véspera da eleição (29/10/2022)",
+   "url": "https://www.brasildefato.com.br/2022/10/29/datafolha-ipec-atlas-quaest-e-mda-as-pesquisas-deste-sabado-vespera-da-eleicao",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "ch11-2022-2t-ojacare",
+   "tipo": "pesquisa",
+   "texto": "O Jacaré — Vantagem de Lula sobre Bolsonaro em pesquisas nacionais vai de 0,8 a 8 pontos (29/10/2022)",
+   "url": "https://www.ojacare.com.br/2022/10/29/vantagem-de-lula-sobre-bolsonaro-em-pesquisas-nacionais-vai-de-08-a-8-pontos",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "pedronauck-eleicoes2022",
+   "tipo": "análise independente",
+   "texto": "pedronauck/eleicoes2022 — “Diferença entre modelos de urnas” (README do repositório no GitHub, nov/2022).",
+   "url": "https://github.com/pedronauck/eleicoes2022",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "comprova-pl-ivl-2022",
+   "tipo": "imprensa",
+   "texto": "Projeto Comprova / Metrópoles — Entenda o pedido do PL para anular votos da eleição e a decisão do TSE (30/11/2022): relatório do Instituto Voto Legal, UE2009–UE2015 = 59,18% das urnas, identificador “67305985”, Bolsonaro com 51,05% só nas UE2020.",
+   "url": "https://www.metropoles.com/projeto-comprova/entenda-pedido-do-pl-para-anular-votos-de-eleicao-e-a-decisao-do-tse",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "migalhas-moraes-pl-2022",
+   "tipo": "imprensa",
+   "texto": "Migalhas — Moraes nega ação do PL que questiona urnas e aplica multa de R$ 22 mi (23/11/2022).",
+   "url": "https://www.migalhas.com.br/quentes/377514/moraes-nega-acao-do-pl-que-questiona-urnas-e-aplica-multa-de-r-22-mi",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "tse-multa-pl-2022",
+   "tipo": "dado oficial",
+   "texto": "Tribunal Superior Eleitoral — TSE confirma multa de R$ 22,9 milhões ao PL por litigância de má-fé (dez/2022).",
+   "url": "https://www.tse.jus.br/comunicacao/noticias/2022/Dezembro/tse-confirma-multa-de-r-22-9-milhoes-ao-pl-por-litigancia-de-ma-fe",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "tse-arquivo-urna-2022",
+   "tipo": "dado oficial",
+   "texto": "Tribunal Superior Eleitoral — Arquivos de urna transmitidos para totalização (BU, log, RDV), 2º turno 2022, pleito 407, um ZIP por UF; lidos por HTTP Range só para as 940 seções sorteadas.",
+   "url": "https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2022/arqurnatot/",
+   "acesso": "2026-10-30"
+  },
+  {
+   "id": "tse-historico-totalizacao",
+   "tipo": "dado oficial",
+   "texto": "Tribunal Superior Eleitoral. Histórico de totalização Presidente BR, 1º e 2º turnos de 2022 (registro segundo a segundo das seções e votos totalizados). Portal de Dados Abertos do TSE, pacote resultados-2022.",
+   "url": "https://dadosabertos.tse.jus.br/dataset/resultados-2022",
+   "acesso": "2026-10-31"
+  },
+  {
+   "id": "video-trindade-x",
+   "tipo": "alegação",
+   "texto": "Vídeo atribuído ao prof. Marcelo Trindade sobre a curva da totalização de 2022, publicado no X pelo perfil @contraAssalto (7 min 16 s; transcrito e analisado quadro a quadro).",
+   "url": "https://x.com/contraAssalto/status/2114744372503707994",
+   "acesso": "2026-10-31"
+  },
+  {
+   "id": "video-trindade-yt",
+   "tipo": "alegação",
+   "texto": "O mesmo vídeo no YouTube (o acesso automatizado foi bloqueado; a análise usou a cópia do X).",
+   "url": "https://youtu.be/rkhRoUjrsM4",
+   "acesso": "2026-10-31"
+  },
+  {
+   "id": "quaest-retencao-2026",
+   "tipo": "pesquisa",
+   "texto": "Felipe Nunes, Quaest. O que pode mudar essa eleição? (22/10/2026). Retenção declarada de 95% (Lula) e 94% (Flávio); eleitores de Cury, Caiado, Renan e Zema: 43% Flávio, 37% Lula; quem diz ter faltado ou votado branco/nulo no 1º turno: 40% Lula, 36% Flávio. Não informa os tamanhos das subamostras.",
+   "url": "https://quaest.com.br/segundo-turno-2026-votos-brancos-nulos/",
+   "acesso": "2026-10-31"
+  },
+  {
+   "id": "maues-local-vototeca",
+   "tipo": "fonte secundária",
+   "texto": "Vototeca — E. M. Indígena Uniawasap'i, zona 5, local 1406, Maués. Consulta baseada no cadastro de locais e nos resultados do TSE; cadastro original não conferido diretamente.",
+   "url": "https://vototeca.com.br/locais-de-votacao/2026/am/maues/zona/5/local/1406",
+   "acesso": "2026-10-31"
+  },
+  {
+   "id": "mpcam-fumaca-2026",
+   "tipo": "fonte pública",
+   "texto": "Ministério Público de Contas do Amazonas — boletim de 11 de outubro de 2026 sobre incêndios e qualidade do ar no estado.",
+   "url": "https://mpc.am.gov.br/2026/10/boletim-de-11-de-outubro-risco-atmosferico-no-amazonas/",
+   "acesso": "2026-10-31"
+  },
+  {
+   "id": "tcu-bu-2022",
+   "tipo": "documento oficial",
+   "texto": "Tribunal de Contas da União. 2º turno das eleições: Tribunal volta a analisar boletins de urna (30/10/2022). Coleta de 604 BUs impressos em todas as UFs no 2º turno de 2022; conclusão em 31/10: nenhuma divergência com os arquivos publicados.",
+   "url": "https://portal.tcu.gov.br/imprensa/noticias/2%C2%BA-turno-das-eleicoes-tribunal-volta-a-analisar-boletins-de-urna",
+   "acesso": "2026-10-31"
+  },
+  {
+   "id": "tse-painel-totalizacao-2026",
+   "tipo": "dado oficial",
+   "texto": "Tribunal Superior Eleitoral. Saiba como foi a totalização dos votos no 1º turno das Eleições 2026 (Painel da evolução da totalização). Acesso automatizado ao painel recusado; exportação da série não verificada.",
+   "url": "https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/saiba-como-foi-a-totalizacao-dos-votos-no-1o-turno-das-eleicoes-2026",
+   "acesso": "2026-10-31"
+  }
+ ]
+}

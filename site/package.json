@@ -1,0 +1,23 @@
+{
+  "name": "relatorio-segundo-turno-2026",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Relatório investigativo estático sobre o 2º turno da eleição presidencial de 2026 com dados oficiais do TSE.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource-variable/source-serif-4": "5.3.0",
+    "echarts": "6.1.0"
+  },
+  "devDependencies": {
+    "vite": "8.1.6"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

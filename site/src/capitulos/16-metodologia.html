@@ -1,0 +1,123 @@
+<section class="capitulo" id="metodologia" data-titulo-curto="Metodologia">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 16</div>
+    <h2>Metodologia, reprodutibilidade e limitações</h2>
+  </header>
+
+  <div class="capitulo__corpo">
+    <p>Todo número deste relatório sai de um script que roda do zero a partir dos arquivos públicos do TSE. Este capítulo descreve as fontes, como foram conferidas, a ordem de execução, as convenções de horário, os cuidados estatísticos e os problemas conhecidos dos dados. O objetivo é que qualquer pessoa, inclusive quem discorde das conclusões, consiga refazer cada conta e apontar onde erramos.</p>
+    <p><strong>De onde vêm as alegações.</strong> As alegações testadas são as principais que circulam na internet sobre as urnas e o 2º turno de 2026: contas e gráficos compartilhados nas redes depois da eleição, o vídeo analisado no <a href="#serrote-da-totalizacao">capítulo 10</a> e, para os modelos de urna, o estudo e o relatório de 2022 citados no <a href="#modelos-de-urna">capítulo 14</a>. Elas foram organizadas numa sequência lógica, da conta nacional às urnas, e cada uma é reproduzida na versão mais forte e justa que conseguimos formular. Nenhum documento privado é base do relatório: os números das alegações são citados como objeto de verificação, e todos os resultados saem dos dados públicos.</p>
+
+    <h3>Fontes de dados</h3>
+    <ul>
+      <li><strong>Boletins de urna por seção (BWeb)</strong><sup class="ref" data-ref="tse-boletins tse-boletins-2022"></sup>. CSVs do Portal de Dados Abertos do TSE, por UF, para os dois turnos de 2026 e de 2022. Cada arquivo zip é conferido contra o <strong>SHA-512 publicado pelo TSE</strong> antes de ser processado; se o hash não bate, o script para. É a base de todos os votos, do comparecimento, da habilitação sem biometria e do horário de recebimento de cada BU (<code>DT_BU_RECEBIDO</code>).</li>
+      <li><strong>Arquivos de urna do 2º turno</strong><sup class="ref" data-ref="tse-arquivo-urna"></sup> (pleito 3221). Para cada seção, o índice <code>aux.json</code>, o <code>log.jez</code> (diário da urna) e o <code>bu.dat</code>. Dos logs saem cerca de 128 milhões de registros de eleitor, com o horário de identificação, habilitação e voto e o número de tentativas de leitura da digital. O sigilo do voto impede saber em quem cada eleitor votou.</li>
+      <li><strong>bu.dat decodificado.</strong> O boletim binário (ASN.1/DER) foi decodificado por script próprio. A soma dos BUs decodificados difere do total oficial em 0,001% (71 seções sem arquivo: urnas não instaladas no exterior e votação manual), e os horários de abertura, encerramento e emissão do BU são idênticos aos do BWeb em 100% das seções.</li>
+      <li><strong>Malhas e cadastros do IBGE</strong><sup class="ref" data-ref="ibge-malhas ibge-localidades"></sup>: malha municipal simplificada para os mapas e Regiões Imediatas para os testes de aglomerado. Coordenadas das sedes municipais vêm de uma base auxiliar aberta<sup class="ref" data-ref="kelvins-coords"></sup>.</li>
+      <li><strong>Pesquisas eleitorais</strong>: conferidas nas matérias que reproduzem o registro e na tabela consolidada da Wikipédia (ver <a href="#pesquisas">capítulo 3</a> e <a href="#fontes">capítulo 17</a>).</li>
+    </ul>
+
+    <h3>A reconciliação que sustenta tudo</h3>
+    <p>Antes de qualquer teste, conferimos que a base fecha:</p>
+    <ul>
+      <li>Os totais de votos do BWeb somados por seção são <strong>idênticos ao painel de resultados do TSE</strong>, voto a voto, nos dois turnos de 2026 e de 2022 (Lula 64.256.232 e Flávio 59.826.041 no 2º turno de 2026).</li>
+      <li>Nos <strong>1.942.467 boletins</strong> das quatro eleições, nenhum viola as identidades <em>comparecimento = válidos + brancos + nulos</em>, <em>válidos = soma dos nominais</em> e <em>aptos ≥ comparecimento</em>.</li>
+      <li>As 499.205 seções do 2º turno de 2026 casam uma a uma com as do 1º turno (a 499.206ª, no exterior, só existiu no 1º turno). As seções de 2022 não casam com as de 2026; comparações com 2022 são feitas por município, ou com o mesmo método aplicado a cada eleição.</li>
+      <li>Os votos do candidato 28 do 1º turno de 2026, anulados, aparecem no BWeb como válidos; como o painel do TSE, nós os somamos aos nulos.</li>
+    </ul>
+
+    <h3>Como reproduzir</h3>
+    <p>Requisitos: Python 3.11 ou mais recente com <a href="https://docs.astral.sh/uv/" rel="noopener" target="_blank">uv</a>, cerca de 5 GB de disco para os dados e 11 GB de RAM; Node 22 para o site. Os scripts usam polars em modo <em>streaming</em> para não carregar os 128 milhões de registros de uma vez.</p>
+    <pre><code>uv sync
+# 1. dados brutos (rede; retomam de onde pararam)
+uv run scripts/baixar_bweb.py --ano 2026 --turno 1
+uv run scripts/baixar_bweb.py --ano 2026 --turno 2
+uv run scripts/baixar_bweb.py --ano 2022 --turno 1
+uv run scripts/baixar_bweb.py --ano 2022 --turno 2
+uv run scripts/baixar_logs_urna.py          # ~4 h, logs + bu.dat do 2º turno
+uv run scripts/decodificar_bu.py            # ~1 min
+# 2. base comum e análises
+uv run python analises/comum.py             # regera data/processed/base/
+uv run python analises/logs_eleitor_agregado.py
+uv run python analises/01_conta_nacional.py # e assim por diante, na ordem da tabela
+# 3. site
+cd site &amp;&amp; npm ci &amp;&amp; npm run build</code></pre>
+  </div>
+
+  <div class="capitulo__corpo graficos">
+    <div class="tabela tabela--texto largo">
+      <div class="tabela__rolagem" tabindex="0">
+        <table>
+          <caption class="sr-only">Scripts de análise, o que produzem e quanto demoram</caption>
+          <thead>
+            <tr><th scope="col">Script (em <code>analises/</code>)</th><th scope="col">O que faz</th><th scope="col">Saída</th><th scope="col">Tempo</th><th class="tabela__num" scope="col">Cap.</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>comum.py</code></td><td>Carrega e padroniza BWeb e resumo dos logs; tabelas canônicas por seção e município</td><td><code>data/processed/base/</code></td><td>minutos (1ª vez)</td><td class="tabela__num">—</td></tr>
+            <tr><td><code>logs_eleitor_agregado.py</code></td><td>Passada única pelos 128 mi de registros de eleitor; agregados por seção</td><td><code>base/log_*.parquet</code></td><td>~8 min</td><td class="tabela__num">—</td></tr>
+            <tr><td><code>01_conta_nacional.py</code></td><td>Identidades dos BUs, conta entre turnos, migração mínima por seção</td><td><code>ch01/</code></td><td>~5 s</td><td class="tabela__num"><a href="#conta-nacional">1</a></td></tr>
+            <tr><td><code>02_mapa_virada.py</code></td><td>Uniformidade, componente comum, resíduos; malha do mapa</td><td><code>ch02/</code>, <code>geo/</code></td><td>~25 s</td><td class="tabela__num"><a href="#mapa-da-virada">4</a></td></tr>
+            <tr><td><code>03_transferencia.py</code></td><td>Matriz ecológica com bootstrap (<code>N_BOOT</code>), viabilidade, teste de poder</td><td><code>cap03-*</code></td><td>~2 min</td><td class="tabela__num"><a href="#transferencia-de-votos">2</a></td></tr>
+            <tr><td><code>04_casos_rj.py</code></td><td>Gêmeos, regressão com regressoras do 1º turno, aglomerados, Monte Carlo de Silva Jardim</td><td><code>cap04-*</code></td><td>alguns min</td><td class="tabela__num"><a href="#casos-rj">6</a></td></tr>
+            <tr><td><code>05_poder_detectores.py</code></td><td>Alterações sintéticas × 10 detectores; assinaturas de nível</td><td><code>cap05-*</code></td><td>10–20 min, ~2 GB</td><td class="tabela__num"><a href="#poder-dos-detectores">5</a></td></tr>
+            <tr><td><code>06b_bweb2022_recebido.py</code></td><td>Horários do BWeb 2022 (contorna o problema de datas abaixo)</td><td><code>agregados/</code></td><td>1 vez, rede</td><td class="tabela__num"><a href="#prorrogacao-secoes-tardias">9</a></td></tr>
+            <tr><td><code>06_horarios.py</code></td><td>Relógios, alegações sobre seções tardias, votos após 17h, DiD, curvas de apuração</td><td><code>ch06/</code></td><td>minutos</td><td class="tabela__num"><a href="#prorrogacao-secoes-tardias">9</a></td></tr>
+            <tr><td><code>06b_serrote_totalizacao.py</code></td><td>Histórico de totalização de 2022: reprodução do gráfico do vídeo, espectro, perfil dos lotes, placebo do 1º turno, teste de fase com poder, viradas; mesmos testes em 2026</td><td><code>ch06b/</code></td><td>minutos, rede</td><td class="tabela__num"><a href="#serrote-da-totalizacao">10</a></td></tr>
+            <tr><td><code>06c_serrote_casos_rj.py</code></td><td>Fase do minuto, periodicidade, tendência e placebo nos nove casos do RJ</td><td><code>ch06c/</code></td><td>minutos</td><td class="tabela__num"><a href="#serrote-nos-casos-rj">11</a></td></tr>
+            <tr><td><code>07_biometria.py</code></td><td>Regressões com efeitos fixos, rajadas com nulo exato, tempo de cabine</td><td><code>ch07/</code></td><td>minutos</td><td class="tabela__num"><a href="#biometria">12</a></td></tr>
+            <tr><td><code>08_substituicoes.py</code></td><td>Baixa de novo os pacotes de 1.432 seções com déficit e 400 de controle e lê todos os logs internos</td><td><code>base/substituicoes_logs.parquet</code></td><td>~10 min, rede</td><td class="tabela__num"><a href="#logs-das-urnas">13</a></td></tr>
+            <tr><td><code>08_logs.py</code></td><td>Modelos, alertas, eventos impossíveis, reconciliação log × BU</td><td><code>ch08/</code></td><td>minutos</td><td class="tabela__num"><a href="#logs-das-urnas">13</a></td></tr>
+            <tr><td><code>08b_baixar_logs_2022.py</code></td><td>Baixa, por leitura parcial dos ZIPs do TSE, os logs de 2022 da amostra de 940 seções usada para validar o modelo pelo nº de série</td><td>logs da amostra</td><td>rede</td><td class="tabela__num"><a href="#modelos-de-urna">14</a></td></tr>
+            <tr><td><code>08b_modelos_urna.py</code></td><td>Modelo pelo nº de série, padrão bruto de 2022, comparações no mesmo local e município, Δ entre turnos, troca de urnas 2022→2026</td><td><code>ch08b/</code></td><td>minutos</td><td class="tabela__num"><a href="#modelos-de-urna">14</a></td></tr>
+            <tr><td><code>09_extremos.py</code></td><td>Nulo beta-binomial local com 400 simulações; DiD por local</td><td><code>ch09/</code></td><td>~10 min</td><td class="tabela__num"><a href="#secoes-extremas">7</a></td></tr>
+            <tr><td><code>10_benford.py</code></td><td>Benford contra nulo simulado (200 × 2 × 18); impressão digital</td><td><code>ch10/</code></td><td>~25 min</td><td class="tabela__num"><a href="#benford">8</a></td></tr>
+            <tr><td><code>11_pesquisas.py</code></td><td>Erros das pesquisas finais, série 2014–2026</td><td><code>ch11/</code></td><td>segundos</td><td class="tabela__num"><a href="#pesquisas">3</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="capitulo__corpo">
+    <p>Os nomes dos scripts e das pastas de dados seguem a numeração de trabalho original dos capítulos; a coluna “Cap.” indica o capítulo correspondente no relatório. As saídas dos scripts ficam em <code>site/public/data/</code>, e cada JSON registra em <code>meta.script</code> o script que o gerou. Os achados de cada capítulo, com números completos e fontes, estão em <code>analises/achados/</code>.</p>
+
+    <h3>Relógios e fusos</h3>
+    <p>Há quatro relógios diferentes nos dados, e confundi-los produziu o principal erro das alegações que circularam (<a href="#prorrogacao-secoes-tardias">capítulo 9</a>):</p>
+    <ul>
+      <li><strong>Abertura, encerramento e emissão do BU</strong> (BWeb e <code>bu.dat</code>): relógio <em>local</em> da urna.</li>
+      <li><strong>Recebimento do BU pelo TSE</strong> (<code>DT_BU_RECEBIDO</code>): horário de <em>Brasília</em>. Conferimos: nenhum BU é recebido antes de sua emissão convertida para Brasília, salvo 8 seções no 2º turno e 60 no 1º, com diferenças de minutos compatíveis com desvio de relógio.</li>
+      <li><strong>Horários do log</strong> (identificação, habilitação, voto): relógio local da urna, convertido para Brasília pelo fuso da UF. O Amazonas tem dois fusos: 11 municípios do sudoeste ficam em UTC−5 (tabela de municípios conferida contra a hora em que as urnas ficaram prontas; nenhum município tem seções nos dois fusos). Fernando de Noronha é +1 h. O exterior fica fora das análises por horário.</li>
+      <li>Os relógios das urnas não passam por nenhuma correção além do fuso. Convertido para Brasília, o encerramento mais cedo é 17h00min09s nos dois turnos.</li>
+    </ul>
+
+    <h3>Cuidados estatísticos</h3>
+    <ul>
+      <li><strong>Testes definidos antes de olhar o resultado</strong>, com linha de base explícita: o 1º turno nas mesmas seções, 2022, controles por UF, porte e região, ou um nulo simulado. Análises acrescentadas depois de ver os dados (como o ciclo de 66 segundos do capítulo 10 ou as faixas de comparação de Maués) são marcadas como exploratórias. Um controle interno (2022, 1º turno, mesmo local, outro modelo de urna) cancela qualquer componente presente igualmente nas duas pontas; ele não testa esse tipo de componente.</li>
+      <li><strong>Buscas múltiplas.</strong> Quem procura extremos entre 5.571 municípios ou 499 mil seções acha extremos por acaso. Usamos Benjamini–Hochberg (FDR) para listas de municípios e seções, Holm para famílias pequenas de testes, nulos simulados (beta-binomial com proporção do próprio local de votação) e testes de permutação para aglomerados. Nem todas as regressões e análises de robustez receberam correção formal; os valores brutos devem ser interpretados considerando essa limitação.</li>
+      <li><strong>Placebos.</strong> Sempre que possível, o mesmo teste foi aplicado ao 1º turno ou a 2022; um efeito que aparece igual no placebo não é atribuído ao 2º turno.</li>
+      <li><strong>Inferência ecológica.</strong> As matrizes de transferência (capítulos <a href="#transferencia-de-votos">2</a>, <a href="#mapa-da-virada">4</a> e <a href="#poder-dos-detectores">5</a>) descrevem agregados, não pessoas, e enxergam saldos, não fluxos individuais. O intervalo do bootstrap mede ruído, não o viés de agregação; por isso reportamos a variação entre especificações. A linha de brancos, nulos e abstenção é a menos confiável.</li>
+      <li><strong>Poder.</strong> Um teste que não acha nada só informa se teria achado. O <a href="#poder-dos-detectores">capítulo 5</a> mede o poder dos detectores contra alterações sintéticas e mostra que os testes entre unidades são cegos a um deslocamento uniforme. As taxas valem para os formatos simulados, com 20 réplicas por cenário (0 em 20 ainda é compatível com até cerca de 14%), e as réplicas sem alteração não reproduzem toda a dispersão do dado real.</li>
+      <li><strong>Multiplicidade combinada.</strong> Quando um teste tem várias famílias (as três buscas de rajadas da biometria), aplicamos Benjamini–Hochberg em cada família; o menor q entre famílias não é um q conjunto.</li>
+      <li><strong>Eventos de Monte Carlo.</strong> “Flávio ≤ 8.933”, “Flávio ≤ 8.933 dado o total de válidos” e “fatia ≤ observada” são perguntas diferentes; o capítulo 6 mostra as três e o ajuste do modelo ao total de válidos.</li>
+      <li><strong>Erros-padrão</strong> agrupados por município nas regressões por seção da biometria e dos modelos de urna; no modelo do componente comum (capítulo 4), agrupados por UF no nível municipal e por município no de seção (HC1 só nos modelos de uma região, com poucos grupos). A matriz ecológica de Goodman usa HC1. Efeitos fixos de UF, município ou local de votação conforme o desenho.</li>
+    </ul>
+
+    <h3>Problemas conhecidos dos dados</h3>
+    <ul>
+      <li><strong>Recurso de RR no portal.</strong> No 2º turno de 2026, o recurso do BWeb de Roraima no portal aponta para o arquivo <code>.sha512</code> em vez do zip. O script corrige o endereço. A base da Apuração Aberta, que difere da oficial em exatamente o total de RR (12.646 habilitações sem biometria), provavelmente omitiu esse estado.</li>
+      <li><strong>Logs de urnas substituídas.</strong> O coletor lê só o <code>logd.dat</code> do topo do <code>log.jez</code>, que é o da última urna usada. Quando houve substituição, os logs das urnas anteriores vêm como arquivos internos. Por isso o resumo por seção omite os votos anteriores à troca em cerca de 1.435 seções (−157.290 votos). O <a href="#logs-das-urnas">capítulo 13</a> lê todos os logs internos e reconcilia; análises por eleitor que precisem de completude filtram as seções em que log e comparecimento coincidem. O coletor também só lê linhas datadas de 25/10/2026.</li>
+      <li><strong>Datas de 2022.</strong> O BWeb de 2022 usa o formato <code>dd/mm/aaaa</code>, diferente do de 2026 (<code>aaaa-mm-dd</code>); o <code>baixar_bweb.py</code> aceita os dois. O <a href="#prorrogacao-secoes-tardias">capítulo 9</a> usou um extrato próprio (<code>06b_bweb2022_recebido.py</code>), também conferido por SHA-512.</li>
+      <li><strong>Malha do IBGE.</strong> A malha tem 5.570 polígonos e não inclui Boa Esperança do Norte (MT), município novo; ele fica sem cor no mapa, mas está em todas as contas.</li>
+      <li><strong>Eleitorado.</strong> O número que circula, e que o simulador usa, é o do arquivo nacional do TSE: 158.745.502 eleitores. A soma dos BUs dá 158.745.007 (1º turno) e 158.744.977 (2º). No arquivo nacional, aptos − comparecimento − abstenção dá 423 nos dois turnos (eleitores contados como aptos e fora da abstenção, provavelmente de seções não instaladas); sobram 72 eleitores sem linha correspondente nos boletins, que não explicamos com a base local, e a queda de 30 no 2º turno é uma seção do exterior (ZZ 30686/0001/0443) sem boletim do 2º turno. O comparecimento bate exatamente nas duas bases.</li>
+      <li><strong>Sem logs do 1º turno.</strong> Todas as comparações entre turnos de biometria e ritmo de votação usam só o boletim. O coletor filtra as linhas de 25/10; não verificamos se os pacotes do 2º turno também trazem as linhas de 04/10, que permitiriam recuperar o 1º turno.</li>
+      <li><strong>Leitor de logs.</strong> Os registros por eleitor usados neste relatório contêm só sequências completas de atendimento (identificação → habilitação → voto computado). Mensagens fora de sequência e habilitações pendentes no fim do arquivo não estão contabilizadas neles.</li>
+      <li><strong>Páginas do TSE.</strong> Algumas notícias do TSE devolveram erro 403 ao acesso automatizado; os números atribuídos a elas foram conferidos nas matérias que as citam, e isso está indicado na lista de fontes.</li>
+    </ul>
+
+    <h3>Como o trabalho foi feito</h3>
+    <p>O relatório apresenta análises de dados públicos, com as hipóteses e limitações de cada teste. Algumas perguntas e comparações são exploratórias e foram formuladas após a observação dos dados; nesses casos, isso é indicado no texto. As análises tiveram apoio de ferramentas de IA. Os scripts, dados derivados e instruções de reprodução estão no <a href="https://github.com/devgns/analises-segundo-turno-eleicao-2026">repositório público</a>.</p>
+
+    <h3>Convite à refutação</h3>
+    <p>Este relatório só tem valor se sobreviver a uma checagem hostil, venha de onde vier. Se você encontrar um número que não se reproduz, uma conta errada, uma linha de base mal escolhida ou um teste que deveria ter sido feito, refaça a análise com o código e os dados públicos e mostre a diferença. Correções serão incorporadas com registro do que mudou.</p>
+  </div>
+</section>

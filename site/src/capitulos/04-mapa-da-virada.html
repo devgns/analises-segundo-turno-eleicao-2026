@@ -1,0 +1,124 @@
+<section class="capitulo" id="mapa-da-virada" data-titulo-curto="O mapa da virada">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 4 <span data-veredito-capitulo></span></div>
+    <h2>O mapa da virada: deslocamento uniforme entre turnos? (2026 vs 2022)</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">Redes sociais, após o 2º turno</span></div>
+    <p>Circula a alegação de que no 2º turno teria havido uma alteração nacional e quase uniforme a favor de Lula. Como ela desloca a média de todos os municípios, os casos locais deixam de parecer atípicos quando comparados ao todo. Indícios citados nas contas que circulam: Lula “subiu em 5.378 cidades, Flávio em 184”, e no Sul, região de preferência pela direita, Lula cresceu em todos os 1.191 municípios.</p>
+    <p>A alegação aponta um problema de método real: se o efeito comum for estimado usando os próprios resultados, parte dele será absorvida pelo intercepto. Resíduos pequenos podem ocorrer tanto com um movimento eleitoral genuíno quanto com uma alteração sistemática.</p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>Os capítulos 1 a 3 perguntaram se os números fecham. A partir daqui, a pergunta é se há padrões estranhos neles, e a primeira alegação é a de uma virada uniforme no país inteiro. A tese tem um mérito lógico que é preciso reconhecer. Um teste que procura municípios “fora da curva” é cego, por construção, a uma alteração que move a curva inteira. Se todos os municípios recebessem +1 ponto para Lula, nenhum pareceria estranho. Por isso a resposta honesta não pode ser “nenhum município é atípico”. Ela precisa medir o <strong>componente comum</strong> diretamente e compará-lo com alguma referência externa.</p>
+    <p>A referência que temos é 2022: mesmos dois turnos, mesmo sistema, mesmo Lula, com o adversário à direita na posição de quem estava atrás e cresceu. Se o deslocamento de 2026 for produto de uma alteração uniforme somada ao comportamento normal, ele deve ser <strong>maior</strong> ou <strong>mais uniforme</strong> que o de 2022, ou ter um componente comum inexplicado maior.</p>
+  </div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <ol>
+      <li><strong>Contagens de municípios com a métrica fixada antes.</strong> As quatro perguntas possíveis por trás da alegação: ganho nominal, maior ganho absoluto, fatia entre finalistas e margem sobre válidos. Calculadas para 2026 e para 2022.</li>
+      <li><strong>Uniformidade.</strong> A distribuição, entre os 5.571 municípios e as 497 mil seções, da variação da fatia de Lula entre os dois finalistas (Δfatia). Medimos desvio-padrão, intervalo interquartil (IQR) e fração de unidades que andaram na direção nacional. Comparamos com 2022, no total e por região.</li>
+      <li><strong>O componente comum, medido diretamente.</strong> Um modelo explica a Δfatia local pelo que mudou na “matéria-prima” disponível: a parcela de eleitores dos eliminados, a variação do comparecimento e a queda de brancos e nulos. Cada uma dessas variáveis interage com a inclinação local (a fatia de Lula no 1º turno), e há efeitos de região, centralizados pelo peso de cada região nos votos dos finalistas (assim o intercepto é uma média nacional ponderada). O <strong>intercepto</strong> estima quanto a fatia de Lula se moveria numa unidade sem nenhum desses reservatórios, uma extrapolação que pode refletir migração, rotatividade ou outros fatores; não identifica uma troca individual. Fazemos o mesmo em 2022.</li>
+      <li><strong>Sul.</strong> As contagens por UF, em 2026 e 2022.</li>
+    </ol>
+  </aside>
+
+  <div class="capitulo__corpo graficos">
+    <div class="largo" data-kpis-src="data/ch02/kpis.json"></div>
+
+    <h3>1. “5.378 cidades contra 184”: depende da pergunta</h3>
+    <p>O número que circula não diz qual métrica usa. Abaixo estão as quatro métricas possíveis, com 2022 ao lado.</p>
+    <div class="tabela largo">
+      <div class="tabela__rolagem" tabindex="0">
+        <table>
+          <caption class="sr-only">Contagens de municípios por métrica, 2026 e 2022</caption>
+          <thead><tr><th scope="col">Pergunta</th><th class="tabela__num" scope="col">2026: Lula</th><th class="tabela__num" scope="col">2026: Flávio</th><th class="tabela__num" scope="col">2022: Lula</th><th class="tabela__num" scope="col">2022: Bolsonaro</th></tr></thead>
+          <tbody>
+            <tr><td>Ganhou votos nominais</td><td class="tabela__num">5.491</td><td class="tabela__num">4.624</td><td class="tabela__num">4.561</td><td class="tabela__num">5.476</td></tr>
+            <tr><td>Perdeu votos nominais</td><td class="tabela__num">79</td><td class="tabela__num">938</td><td class="tabela__num">982</td><td class="tabela__num">92</td></tr>
+            <tr><td>Teve o maior ganho absoluto</td><td class="tabela__num">5.228</td><td class="tabela__num">339</td><td class="tabela__num">715</td><td class="tabela__num">4.849</td></tr>
+            <tr><td>Ganhou fatia entre os finalistas</td><td class="tabela__num">5.411</td><td class="tabela__num">160</td><td class="tabela__num">114</td><td class="tabela__num">5.456</td></tr>
+            <tr><td>Melhorou a margem sobre os válidos</td><td class="tabela__num">5.389</td><td class="tabela__num">182</td><td class="tabela__num">923</td><td class="tabela__num">4.647</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>Nenhuma métrica reproduz exatamente “5.378 × 184”. A mais próxima é a da margem sobre os válidos (5.389 × 182), uma métrica em que, por construção, só um dos dois pode melhorar. Mas a métrica mais limpa, a fatia entre finalistas, mostra que a quase unanimidade <strong>não é peculiaridade de 2026</strong>. Em 2022, Bolsonaro ganhou fatia em 5.456 dos 5.570 municípios (98,0%). Em 2026, Lula ganhou em 5.411 de 5.571 (97,1%). Um 2º turno em que o candidato que estava atrás cresce em quase todo o país é o padrão das duas eleições, não a exceção.</p>
+
+    <h3>2. O mapa</h3>
+    <p>Abaixo, a Δfatia de Lula entre finalistas em cada município, com a mesma escala nos dois anos. Vermelho indica deslocamento a favor de Lula; azul, a favor do candidato da direita. Passe o mouse para ver o município; use a roda ou o gesto de pinça para aproximar.</p>
+    <figure class="grafico largo" data-grafico="ch02-mapa-2026" data-src="data/ch02/mapa.json"
+            data-titulo="2026: variação da fatia de Lula entre finalistas, 1º → 2º turno"
+            data-subtitulo="Pontos percentuais. Escala truncada em ±6 p.p."
+            data-fonte="TSE — boletins de urna por seção; malha municipal IBGE" data-altura="560"></figure>
+    <figure class="grafico largo" data-grafico="ch02-mapa-2022" data-src="data/ch02/mapa.json"
+            data-titulo="2022: a mesma medida (Lula × Jair Bolsonaro)"
+            data-subtitulo="Pontos percentuais. Mesma escala. Azul = deslocamento a favor de Bolsonaro, vermelho = a favor de Lula."
+            data-fonte="TSE — boletins de urna por seção; malha municipal IBGE" data-altura="560"></figure>
+    <p>Os dois mapas são quase monocromáticos, em cores opostas. A geografia do deslocamento, porém, <strong>não se repete</strong>: a correlação entre a Δfatia municipal de 2026 e a de 2022 é de 0,008, praticamente nula. Em 2022, o deslocamento para Bolsonaro foi mais forte no Sul. Em 2026, o deslocamento para Lula foi mais forte no Sudeste e no Centro-Oeste, e mais fraco no Nordeste, onde Lula já era majoritário.</p>
+
+    <h3>3. 2026 foi mais uniforme que 2022? Não.</h3>
+    <figure class="grafico largo" data-grafico="ch02-hist" data-src="data/ch02/hist-municipios.json"
+            data-titulo="Deslocamento a favor de quem estava atrás no 1º turno, por município"
+            data-subtitulo="2026: Δfatia de Lula. 2022: Δfatia de Bolsonaro. Distribuição dos municípios (pontas acumuladas)."
+            data-fonte="TSE — boletins de urna por seção, 2022 e 2026; cálculo próprio" data-altura="340"></figure>
+    <p>Somar uma constante a uma distribuição não altera sua dispersão. Comparar eleições distintas também depende de suas diferentes condições eleitorais. O que se vê é o contrário. Em 2026, o deslocamento é maior (média de +2,34 p.p. por município, contra 1,85 p.p. em 2022) e <strong>mais disperso</strong>: o desvio-padrão é de 1,25 p.p., contra 1,02 p.p., e o IQR, de 1,74 p.p., contra 1,26 p.p. A fração de municípios que andaram na direção nacional é praticamente igual (97,1% contra 98,0%).</p>
+    <p>Nas seções, 89,8% andaram na direção de Lula em 2026, contra 77,9% na direção de Bolsonaro em 2022. A dispersão nas seções é parecida nos dois anos (2,36 e 2,19 p.p.), então essa diferença vem do tamanho maior da virada de 2026, não de uma uniformidade maior.</p>
+    <div class="largo" data-tabela="ch02-uf"></div>
+
+    <h3>4. O componente comum, medido de frente</h3>
+    <p>Este é o centro do capítulo. Quando o modelo explica a Δfatia local pela matéria-prima disponível (eliminados, novos votantes e ex-brancos/nulos), sobra uma constante: o deslocamento que aconteceria mesmo onde não houvesse reservatório nenhum. Em 2026, essa constante é de <strong>+1,90 p.p. a favor de Lula</strong> (intervalo de 95%: +1,29 a +2,51, com erros agrupados por UF) nos municípios e de +2,01 p.p. nas seções (erros agrupados por município). O intercepto é avaliado num ponto contrafactual (nenhum eleitor de eliminado, nenhuma variação de comparecimento ou de brancos e nulos, divisão de 50% entre os finalistas) que quase não existe nos dados. Por isso <strong>não o convertemos em votos</strong>: multiplicá-lo pelo total nacional não estima votos trocados nem alterados, e uma especificação diferente (outros controles, outra forma funcional, outra população de referência) move o intercepto sem que nenhum voto mude.</p>
+    <p>É o “efeito comum” que a tese descreve, e ele existe. A pergunta decisiva é se ele é anormal. Em 2022, a mesma constante foi de <strong>−1,98 p.p.</strong> (a favor de Bolsonaro; IC −2,32 a −1,65; −2,00 p.p. nas seções), praticamente do mesmo tamanho, em valor absoluto, que a de 2026. O 2º turno de 2022 também teve um deslocamento comum, não explicado pela matéria-prima local, a favor de quem estava atrás. Ele foi da mesma ordem de grandeza e beneficiou o candidato da direita.</p>
+    <figure class="grafico largo" data-grafico="ch02-intercepto" data-src="data/ch02/modelo-intercepto.json"
+            data-titulo="Deslocamento comum não explicado (intercepto), a favor de quem estava atrás"
+            data-subtitulo="Pontos percentuais da fatia entre finalistas, com intervalo de 95%. 2026: a favor de Lula. 2022: a favor de Bolsonaro (sinal invertido para comparar)."
+            data-fonte="TSE — boletins de urna; modelo WLS próprio (erros agrupados por UF nos municípios e por município nas seções; HC1 nos modelos de uma só região)" data-altura="380"></figure>
+    <p>O componente comum também <strong>não é uniforme</strong> entre regiões, nem em 2026 (de +1,0 p.p. no Norte e no Sul a +3,0 p.p. no Centro-Oeste) nem em 2022 (de −1,6 p.p. no Sudeste a −3,5 p.p. no Centro-Oeste). Uma alteração de software que somasse uma constante igual em todo lugar teria de se combinar com comportamento regional heterogêneo para produzir esse padrão. Não é impossível, mas não é o que a palavra “uniforme” descreve.</p>
+    <p>O modelo também diz algo sobre a hipótese de votos inflados pelo comparecimento. O saldo de 2,96 milhões de votantes a mais (<a href="#conta-nacional">capítulo 1</a>) é associado pelo modelo à divisão <strong>aproximada do eleitorado local</strong>: num município meio a meio, cerca de 48% a 53% deles foram para Lula, e onde Flávio era forte, foram majoritariamente para Flávio. Já a queda de brancos e nulos favoreceu Lula (cerca de 3 em cada 4 ex-brancos/nulos num município meio a meio, contra cerca de 55% em 2022). Esse é um traço específico de 2026 que merece registro, embora tenha explicação inocente plausível. São estimativas ecológicas, que não observam indivíduos.</p>
+    <figure class="grafico largo" data-grafico="ch02-dispersao" data-src="data/ch02/municipios.json"
+            data-titulo="Fatia de Lula no 1º turno × deslocamento entre turnos, por município (2026)"
+            data-subtitulo="Cada ponto é um município. Passe o mouse para identificar. Linha tracejada: variação nacional (+2,80 p.p.)."
+            data-fonte="TSE — boletins de urna por seção; cálculo próprio" data-altura="440"></figure>
+
+    <h3>5. Depois de remover o componente comum: quem sobra?</h3>
+    <p>A tese prevê que, retirado o deslocamento comum, apareceriam os casos locais que ele escondia. Fizemos isso. Entre os 5.571 municípios, 54 têm resíduo maior que 3 p.p. em valor absoluto: <strong>9 a favor de Lula e 45 contra</strong>. Em 2022 foram 32, sendo 5 a favor de Lula e 27 contra. A cauda de 2026 é um pouco mais larga, mas pende <em>contra</em> Lula, ao contrário do que a tese prevê.</p>
+    <p>Os maiores resíduos a favor de Lula são municípios pequenos: Rafael Godeiro (RN, 3.668 eleitores: Lula +314, Flávio −280; +10,2 p.p. contra −4,0 p.p. em 2022), Pracuúba (AP), Paranhos (MS), São Tomé (RN) e Lajes Pintadas (RN). Rafael Godeiro também concentra várias das seções com maior migração mínima do <a href="#conta-nacional">capítulo 1</a>. É candidato natural a inspeção local, mas um único município pequeno com alinhamento político local forte é exatamente o tipo de extremo que se espera encontrar entre 5.571. Os nove municípios do RJ citados nas alegações que circulam ficam entre os percentis 51 e 99 do resíduo; o <a href="#casos-rj">capítulo 6</a> trata deles.</p>
+
+    <h3>6. Sul</h3>
+    <div class="tabela largo">
+      <div class="tabela__rolagem" tabindex="0">
+        <table>
+          <caption class="sr-only">Região Sul por UF, 2026 e 2022</caption>
+          <thead><tr><th scope="col">UF</th><th class="tabela__num" scope="col">Municípios</th><th class="tabela__num" scope="col">2026: Lula ganhou votos</th><th class="tabela__num" scope="col">2026: Flávio ganhou votos</th><th class="tabela__num" scope="col">Δ Lula</th><th class="tabela__num" scope="col">Δ Flávio</th><th class="tabela__num" scope="col">Δfatia Lula 2026</th><th class="tabela__num" scope="col">Δfatia Lula 2022</th></tr></thead>
+          <tbody>
+            <tr><td>PR</td><td class="tabela__num">399</td><td class="tabela__num">399</td><td class="tabela__num">397</td><td class="tabela__num">+511.907</td><td class="tabela__num">+346.099</td><td class="tabela__num">+3,18 p.p.</td><td class="tabela__num">−1,84 p.p.</td></tr>
+            <tr><td>SC</td><td class="tabela__num">295</td><td class="tabela__num">295</td><td class="tabela__num">294</td><td class="tabela__num">+291.146</td><td class="tabela__num">+220.051</td><td class="tabela__num">+3,27 p.p.</td><td class="tabela__num">−1,46 p.p.</td></tr>
+            <tr><td>RS</td><td class="tabela__num">497</td><td class="tabela__num">497</td><td class="tabela__num">496</td><td class="tabela__num">+529.793</td><td class="tabela__num">+300.595</td><td class="tabela__num">+3,06 p.p.</td><td class="tabela__num">−2,73 p.p.</td></tr>
+            <tr><td><strong>Sul</strong></td><td class="tabela__num">1.191</td><td class="tabela__num">1.191</td><td class="tabela__num">1.187</td><td class="tabela__num">+1.332.846</td><td class="tabela__num">+866.745</td><td class="tabela__num">+3,19 p.p.</td><td class="tabela__num">−2,11 p.p.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>Os números que circulam conferem: Lula cresceu nos 1.191 municípios, e Flávio em 1.187. No Sul, porém, os dois cresceram em quase todo lugar. O que mudou foi a <em>proporção</em>: Lula ficou com 61% do crescimento conjunto, numa região onde tinha 34% da fatia entre finalistas. Em 2022, o espelho é exato: Bolsonaro cresceu nos 1.191 municípios sulistas e Lula, em 981. A preferência regional pela direita não impediu que, em 2022, o candidato da direita ganhasse fatia em todo o Sul, e não impediu o movimento inverso em 2026.</p>
+
+    <h3>7. Explorador de municípios</h3>
+    <p>Busque qualquer município. As colunas mostram os votos nos dois turnos, a Δfatia, o percentil nacional, o resíduo do modelo (o que sobra depois de descontar o componente comum e a matéria-prima local) e a Δfatia do mesmo município em 2022.</p>
+    <div class="largo" data-tabela="ch02-explorador"></div>
+  </div>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <p><strong>O componente comum que a tese descreve existe, e é do mesmo tamanho do de 2022, com o sinal trocado.</strong> Descontada a matéria-prima local, sobra em 2026 um deslocamento de +1,90 p.p. a favor de Lula (+2,01 p.p. nas seções). Em 2022, sobrou −1,98 p.p. a favor de Bolsonaro (−2,00 p.p. nas seções). O 2º turno de 2026 não foi mais uniforme que o de 2022: a dispersão entre municípios foi maior (desvio-padrão de 1,25 p.p. contra 1,02 p.p.), a fração de municípios na direção nacional foi praticamente igual (97,1% contra 98,0%) e o componente comum varia por região nos dois anos.</p>
+    <p>As contagens de municípios que circulam (no país e no Sul) conferem aproximadamente, mas têm espelho exato em 2022: lá, o candidato da direita cresceu em quase todos os municípios, inclusive em todos os do Sul. Retirado o componente comum, os casos atípicos de 2026 pendem mais contra Lula (45) do que a favor (9).</p>
+    <p>Os dados de votação não distinguem um deslocamento comum genuíno de uma alteração uniforme de mesmo tamanho. Ainda assim, a única régua externa disponível mostra um deslocamento dessa ordem em 2022 no sentido oposto; uma comparação com um único ano não estabelece uma faixa de normalidade.</p>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <p><strong>Uma alteração uniforme de até cerca de 2 p.p. continua indistinguível, com estes dados, de comportamento real.</strong> O intercepto de +1,90 p.p. pode ser, inteiro ou em parte, migração líquida de eleitores, rotatividade diferencial (eleitores de Flávio que não voltaram e eleitores novos de Lula), voto útil anti-Flávio, ou uma alteração sistemática. O teste com 2022 só mostra que esse componente <em>não é maior</em> do que foi num 2º turno que favoreceu a direita. Se ambas as eleições tivessem alterações, a comparação não as revelaria. A tese, nessa forma, não é falseável com contagens de votos. Ela só pode ser testada por meios independentes: auditoria física de votos impressos, conferência de assinaturas e hashes, logs de urna (<a href="#logs-das-urnas">capítulo 13</a>) e pesquisas (<a href="#pesquisas">capítulo 3</a>). O <a href="#poder-dos-detectores">capítulo 5</a> mede quanto os detectores usuais conseguem enxergar.</p>
+    <p>O modelo é ecológico: os coeficientes descrevem municípios e seções, não pessoas. A separação entre “componente comum” e “transferência dos eliminados” depende de extrapolar até municípios sem eliminados, que não existem. Uma especificação diferente move o intercepto em alguns décimos de ponto: com os efeitos de região em soma zero simples, sem ponderar pelo peso de cada região, o intercepto de 2026 seria +1,75 p.p. (2022: −2,08). A comparação com 2022 resiste a essa mudança, porque o mesmo modelo foi aplicado aos dois anos. Mas ela não prova que 2022 seja uma referência livre de qualquer componente comum: se um mesmo componente existisse nas duas eleições, a comparação não o revelaria.</p>
+    <p>A malha municipal do IBGE<sup class="ref" data-ref="ibge-malhas"></sup> tem 5.570 polígonos. Boa Esperança do Norte (MT), criado depois dela, aparece no explorador, mas não no mapa.</p>
+  </aside>
+</section>

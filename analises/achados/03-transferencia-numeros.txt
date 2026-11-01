@@ -1,0 +1,169 @@
+== Totais (seções pareadas, com exterior) ==
+  lula_1        53,879,536
+  flavio_1      56,104,503
+  cury_1         3,448,569
+  renan_1        2,675,887
+  caiado_1       2,605,148
+  zema_1           326,488
+  menores_1        260,655
+  brancos_1      2,300,798
+  nulos_1        3,674,249
+  comp_1       125,275,833
+  aptos_1      158,744,977
+  lula_2        64,256,232
+  flavio_2      59,826,041
+  brancos_2      1,430,496
+  nulos_2        2,723,305
+  comp_2       128,236,074
+  aptos_2      158,744,977
+  validos_1    119,300,786
+  validos_2    124,082,273
+  ΔLula 10,376,696  ΔFlávio 3,721,538  eliminados 9,316,747  ΔBN -1,821,246  Δcomp 2,960,241
+
+Seções usadas no ajuste: 497,752 (de 499,205 pareadas; exclui exterior, <20 aptos, Δcadastro>5%)
+Modelo local: 1571 municípios com ≥60 seções ajustados um a um (80.9% do eleitorado)
+
+Bootstrap 2026 seções por UF…
+Bootstrap municípios…
+
+== Resumos (2026: dir = Flávio; 2022: dir = Bolsonaro). IC 95% bootstrap por município ==
+  2026 seções — Brasil (um ajuste)
+    retenção Lula 100.0%  Lula→dir   0.0% | retenção dir  99.2%  dir→Lula   0.0%
+    eliminados → Lula  40.0%  → dir  43.3%  → BN  15.8%  → abst   0.9%  | dir entre válidos  52.0%
+    BN1→Lula  68.9% BN1→dir   0.0% | abst1→Lula   7.7% abst1→dir   0.6% | novos válidos  6.86 mi, Lula entre eles  97.0%
+  2026 seções — por região
+    retenção Lula  99.1%  Lula→dir   0.0% | retenção dir  98.9%  dir→Lula   0.0%
+    eliminados → Lula  43.0%  → dir  39.6%  → BN  15.3%  → abst   2.1%  | dir entre válidos  47.9%
+    BN1→Lula  64.6% BN1→dir   0.8% | abst1→Lula   9.1% abst1→dir   1.8% | novos válidos  7.49 mi, Lula entre eles  91.3%
+  2026 seções — por UF (principal)
+    retenção Lula  98.9% [98.6–99.1]  Lula→dir   0.0% [0.0–0.0] | retenção dir  98.8% [98.6–99.1]  dir→Lula   0.2% [0.1–0.3]
+    eliminados → Lula  42.7% [40.8–44.5]  → dir  37.9% [36.7–38.4]  → BN  14.2% [13.5–15.1]  → abst   5.3% [4.7–6.3]  | dir entre válidos  47.0% [45.4–48.2]
+    BN1→Lula  62.0% [59.6–63.7] BN1→dir   1.4% [1.1–2.8] | abst1→Lula   9.7% [9.3–10.2] abst1→dir   2.4% [2.1–2.6] | novos válidos  7.76 [7.53–7.99] mi, Lula entre eles  88.7% [87.7–89.4]
+  2026 seções — local (município grande / UF)
+    retenção Lula  98.7%  Lula→dir   0.1% | retenção dir  97.8%  dir→Lula   0.5%
+    eliminados → Lula  37.3%  → dir  38.2%  → BN  13.9%  → abst  10.6%  | dir entre válidos  50.6%
+    BN1→Lula  57.0% BN1→dir   5.7% | abst1→Lula  11.8% abst1→dir   3.2% | novos válidos  8.67 mi, Lula entre eles  84.1%
+  2026 municípios — Brasil (um ajuste)
+    retenção Lula 100.0%  Lula→dir   0.0% | retenção dir 100.0%  dir→Lula   0.0%
+    eliminados → Lula  40.2%  → dir  41.0%  → BN  18.8%  → abst   0.0%  | dir entre válidos  50.5%
+    BN1→Lula  87.0% BN1→dir   0.0% | abst1→Lula   4.2% abst1→dir   0.0% | novos válidos  6.58 mi, Lula entre eles 100.0%
+  2026 municípios — por região
+    retenção Lula  99.2% [98.9–99.5]  Lula→dir   0.0% [0.0–0.0] | retenção dir  99.7% [99.2–99.9]  dir→Lula   0.0% [0.0–0.0]
+    eliminados → Lula  47.1% [44.9–50.4]  → dir  38.2% [35.5–40.1]  → BN  13.8% [11.6–15.8]  → abst   0.9% [0.5–2.4]  | dir entre válidos  44.8% [41.8–46.8]
+    BN1→Lula  69.7% [63.6–73.9] BN1→dir   0.0% [0.0–3.8] | abst1→Lula   6.8% [5.6–7.9] abst1→dir   1.0% [0.3–1.9] | novos válidos  6.72 [6.41–7.07] mi, Lula entre eles  94.9% [90.6–97.4]
+  2022 municípios — Brasil (um ajuste)
+    retenção Lula  97.7%  Lula→dir   0.0% | retenção dir 100.0%  dir→Lula   0.0%
+    eliminados → Lula  31.3%  → dir  59.0%  → BN   9.7%  → abst   0.0%  | dir entre válidos  65.3%
+    BN1→Lula  24.5% BN1→dir   0.6% | abst1→Lula   0.0% abst1→dir   3.7% | novos válidos  2.56 mi, Lula entre eles  52.2%
+  2022 municípios — por região
+    retenção Lula  98.9% [98.6–99.1]  Lula→dir   0.0% [0.0–0.1] | retenção dir 100.0% [100.0–100.0]  dir→Lula   0.0% [0.0–0.0]
+    eliminados → Lula  35.4% [29.9–37.8]  → dir  40.3% [35.6–46.8]  → BN  20.1% [17.3–22.3]  → abst   4.1% [2.2–6.7]  | dir entre válidos  53.2% [48.7–60.6]
+    BN1→Lula   2.0% [0.6–6.3] BN1→dir  35.1% [28.6–40.6] | abst1→Lula   0.3% [0.1–1.2] abst1→dir   3.6% [2.5–4.4] | novos válidos  3.29 [2.98–3.67] mi, Lula entre eles   6.2% [3.2–19.1]
+
+== Matriz principal (2026, seções, por UF agregada) — % do eleitorado de cada origem ==
+  Lula                98.9 [98.6–99.1]    0.0 [ 0.0– 0.0]    0.2 [ 0.1– 0.3]    1.0 [ 0.8– 1.2]
+  Flávio               0.2 [ 0.1– 0.3]   98.8 [98.6–99.1]    0.3 [ 0.2– 0.4]    0.7 [ 0.5– 0.8]
+  Cury                52.9 [51.3–54.4]   28.2 [26.3–29.5]   14.9 [13.9–16.1]    4.1 [ 3.2– 5.4]
+  Renan               39.3 [37.4–40.6]   34.9 [33.4–36.2]   16.9 [16.2–17.7]    8.8 [ 8.0–10.8]
+  Caiado              33.3 [28.2–37.4]   51.2 [48.5–53.5]   11.6 [10.5–13.0]    3.9 [ 2.2– 5.8]
+  Zema                 5.1 [ 2.0– 9.2]   81.4 [77.3–84.4]   10.3 [ 6.8–12.2]    3.2 [ 1.0– 7.0]
+  Demais candidatos   84.3 [79.1–86.6]    7.7 [ 4.8–10.7]    6.8 [ 5.9– 9.3]    1.2 [ 0.7– 3.0]
+  Branco/nulo         62.0 [59.6–63.7]    1.4 [ 1.1– 2.8]   36.1 [34.4–36.7]    0.5 [ 0.2– 1.8]
+  Abstenção            9.7 [ 9.3–10.2]    2.4 [ 2.1– 2.6]    1.1 [ 1.1– 1.3]   86.8 [86.1–87.3]
+  previsto vs real (Lula, Flávio, BN, abst): 64.048/64.041, 59.691/59.643, 4.111/4.143, 29.947/29.969
+
+== Por região (ajustes por UF, agregados na região) ==
+  Norte
+    retenção Lula  94.3% [93.1–95.4]  Lula→dir   0.0% [0.0–0.0] | retenção dir  96.3% [95.6–97.1]  dir→Lula   1.3% [0.5–2.1]
+    eliminados → Lula  60.0% [56.3–62.1]  → dir  32.3% [25.7–35.7]  → BN   6.3% [5.2–9.9]  → abst   1.3% [0.5–5.6]  | dir entre válidos  35.0% [29.8–38.5]
+    BN1→Lula  64.3% [60.1–67.5] BN1→dir   1.1% [0.2–3.7] | abst1→Lula   1.7% [0.7–3.2] abst1→dir   0.2% [0.0–0.5] | novos válidos  0.29 [0.26–0.33] mi, Lula entre eles  96.4% [92.8–98.3]
+  Nordeste
+    retenção Lula  98.4% [98.1–98.8]  Lula→dir   0.0% [0.0–0.0] | retenção dir  98.1% [97.5–98.4]  dir→Lula   0.4% [0.1–0.6]
+    eliminados → Lula  53.3% [49.7–55.5]  → dir  30.0% [27.6–32.0]  → BN  14.0% [13.3–15.1]  → abst   2.8% [2.2–5.4]  | dir entre válidos  36.1% [33.6–38.6]
+    BN1→Lula  69.2% [65.7–70.3] BN1→dir   0.3% [0.1–3.5] | abst1→Lula  12.9% [12.1–14.4] abst1→dir   0.9% [0.3–1.6] | novos válidos  2.36 [2.27–2.52] mi, Lula entre eles  96.6% [94.5–97.5]
+  Centro-Oeste
+    retenção Lula  99.6% [99.2–99.7]  Lula→dir   0.0% [0.0–0.0] | retenção dir  99.5% [99.3–99.6]  dir→Lula   0.0% [0.0–0.0]
+    eliminados → Lula  36.6% [34.2–39.3]  → dir  45.2% [42.2–46.8]  → BN  11.8% [10.8–12.3]  → abst   6.4% [5.3–9.1]  | dir entre válidos  55.2% [52.0–57.9]
+    BN1→Lula  59.8% [56.5–62.4] BN1→dir   4.7% [2.3–8.4] | abst1→Lula   9.1% [8.3–10.3] abst1→dir   1.4% [1.0–2.0] | novos válidos  0.48 [0.46–0.50] mi, Lula entre eles  89.0% [85.4–91.8]
+  Sudeste
+    retenção Lula 100.0% [99.9–100.0]  Lula→dir   0.0% [0.0–0.0] | retenção dir  99.0% [98.7–99.4]  dir→Lula   0.0% [0.0–0.1]
+    eliminados → Lula  42.0% [40.0–44.6]  → dir  36.9% [35.6–37.8]  → BN  15.6% [14.6–16.7]  → abst   5.5% [4.0–6.8]  | dir entre válidos  46.8% [44.6–48.3]
+    BN1→Lula  59.2% [54.1–62.6] BN1→dir   0.3% [0.0–2.1] | abst1→Lula   8.8% [8.3–9.4] abst1→dir   3.8% [3.5–4.1] | novos válidos  3.58 [3.38–3.72] mi, Lula entre eles  83.6% [81.7–85.3]
+  Sul
+    retenção Lula 100.0% [99.9–100.0]  Lula→dir   0.0% [0.0–0.0] | retenção dir 100.0% [99.9–100.0]  dir→Lula   0.0% [0.0–0.0]
+    eliminados → Lula  28.9% [27.6–30.4]  → dir  47.3% [46.0–48.9]  → BN  15.2% [14.6–15.7]  → abst   8.5% [7.6–9.5]  | dir entre válidos  62.1% [60.3–63.6]
+    BN1→Lula  54.5% [51.9–57.4] BN1→dir   7.6% [5.3–9.3] | abst1→Lula  11.4% [10.8–11.9] abst1→dir   2.0% [1.6–2.6] | novos válidos  1.05 [1.03–1.08] mi, Lula entre eles  86.0% [83.4–88.4]
+
+== Linha de cada eliminado, por UF (destaque onde o candidato foi forte) ==
+  Caiado   Brasil: Lula 33.3% Flávio 51.2% | GO (12.3% dos válidos): Lula 35.0% [31.9–39.4] Flávio 50.8% [46.7–53.0]
+  Zema     Brasil: Lula 5.1% Flávio 81.4% | MG (0.8% dos válidos): Lula 11.5% [0.0–22.2] Flávio 75.7% [65.6–85.5]
+  Cury     Brasil: Lula 52.9% Flávio 28.2% | SP (3.6% dos válidos): Lula 53.5% [51.6–56.5] Flávio 25.7% [22.4–28.5]
+  Renan    Brasil: Lula 39.3% Flávio 34.9% | SP (3.2% dos válidos): Lula 38.2% [35.7–40.1] Flávio 30.6% [28.4–32.7]
+
+Goiás, municípios (n=246): inclinação ΔLula/aptos vs Caiado/aptos = 0.295; ΔFlávio = 0.519
+
+== Sem modelo: variações por faixa de Lula/(Lula+Flávio) no 1º turno, em % do eleitorado ==
+     0–10% seções    699  ΔLula  2.16  ΔFlávio  3.10  eliminados  3.85  queda BN  0.32  Δcomp  1.09
+    10–20% seções 13,272  ΔLula  3.70  ΔFlávio  3.36  eliminados  5.44  queda BN  0.35  Δcomp  1.26
+    20–30% seções 56,917  ΔLula  5.17  ΔFlávio  3.49  eliminados  6.41  queda BN  0.59  Δcomp  1.66
+    30–40% seções 102,695  ΔLula  6.32  ΔFlávio  3.18  eliminados  6.86  queda BN  0.80  Δcomp  1.83
+    40–50% seções 104,639  ΔLula  7.02  ΔFlávio  2.74  eliminados  6.78  queda BN  1.06  Δcomp  1.92
+    50–60% seções 81,839  ΔLula  7.46  ΔFlávio  2.08  eliminados  6.10  queda BN  1.41  Δcomp  2.04
+    60–70% seções 61,084  ΔLula  7.21  ΔFlávio  1.29  eliminados  4.92  queda BN  1.64  Δcomp  1.95
+    70–80% seções 45,679  ΔLula  6.63  ΔFlávio  0.68  eliminados  3.73  queda BN  1.76  Δcomp  1.82
+    80–90% seções 24,992  ΔLula  5.62  ΔFlávio  0.44  eliminados  2.75  queda BN  1.67  Δcomp  1.64
+   90–100% seções  6,081  ΔLula  4.00  ΔFlávio  0.22  eliminados  1.71  queda BN  1.25  Δcomp  1.25
+
+  Municípios 2026 (direita = flavio):
+       <20% n= 148  ΔLula  3.48  Δdir  3.60  elim  5.06  queda BN  0.44  Δcomp  1.58  fatia da direita no ganho  50.9%
+     20–30% n= 663  ΔLula  4.90  Δdir  3.43  elim  6.00  queda BN  0.65  Δcomp  1.67  fatia da direita no ganho  41.2%
+     30–40% n=1143  ΔLula  6.28  Δdir  3.26  elim  6.83  queda BN  0.85  Δcomp  1.86  fatia da direita no ganho  34.2%
+     40–50% n= 952  ΔLula  6.94  Δdir  2.57  elim  6.58  queda BN  0.99  Δcomp  1.94  fatia da direita no ganho  27.1%
+     50–60% n= 614  ΔLula  7.65  Δdir  2.43  elim  6.47  queda BN  1.41  Δcomp  2.19  fatia da direita no ganho  24.1%
+     60–70% n= 698  ΔLula  6.53  Δdir  0.88  elim  4.29  queda BN  1.61  Δcomp  1.50  fatia da direita no ganho  11.8%
+     70–80% n= 925  ΔLula  6.40  Δdir  0.59  elim  3.63  queda BN  1.70  Δcomp  1.66  fatia da direita no ganho   8.5%
+       ≥80% n= 428  ΔLula  5.38  Δdir  0.25  elim  2.85  queda BN  1.43  Δcomp  1.34  fatia da direita no ganho   4.4%
+
+  Municípios 2022 (direita = bolsonaro):
+       <20% n=  31  ΔLula  0.78  Δdir  5.92  elim  4.80  queda BN  0.25  Δcomp  1.65  fatia da direita no ganho  88.4%
+     20–30% n= 310  ΔLula  1.04  Δdir  5.62  elim  5.84  queda BN  0.15  Δcomp  0.67  fatia da direita no ganho  84.4%
+     30–40% n= 790  ΔLula  1.77  Δdir  5.61  elim  6.76  queda BN -0.06  Δcomp  0.68  fatia da direita no ganho  76.1%
+     40–50% n=1060  ΔLula  2.05  Δdir  5.26  elim  6.81  queda BN -0.04  Δcomp  0.54  fatia da direita no ganho  71.9%
+     50–60% n= 897  ΔLula  2.60  Δdir  5.11  elim  7.67  queda BN -0.34  Δcomp  0.39  fatia da direita no ganho  66.3%
+     60–70% n= 697  ΔLula  1.91  Δdir  3.57  elim  5.79  queda BN -0.24  Δcomp -0.06  fatia da direita no ganho  65.1%
+     70–80% n= 887  ΔLula  1.76  Δdir  2.47  elim  4.45  queda BN -0.26  Δcomp  0.05  fatia da direita no ganho  58.4%
+       ≥80% n= 898  ΔLula  1.39  Δdir  1.51  elim  3.42  queda BN -0.22  Δcomp -0.30  fatia da direita no ganho  52.2%
+
+== Teste de poder: alteração sintética injetada nas seções, reestimada por UF ==
+  Virada uniforme: 4,8% dos votos de Flávio viram de Lula: 2.86 mi de votos movidos; Lula passa a 54.09% dos válidos
+      reestimado
+    retenção Lula  98.8%  Lula→dir   0.0% | retenção dir  95.3%  dir→Lula   2.5%
+    eliminados → Lula  51.2%  → dir  32.2%  → BN  12.6%  → abst   3.9%  | dir entre válidos  38.6%
+    BN1→Lula  64.2% BN1→dir   0.6% | abst1→Lula  11.6% abst1→dir   1.5% | novos válidos  8.19 mi, Lula entre eles  93.4%
+  Enchimento: 20% dos abstencionistas viram votos de Lula: 5.99 mi de votos movidos; Lula passa a 54.01% dos válidos
+      reestimado
+    retenção Lula  99.2%  Lula→dir   0.0% | retenção dir  98.9%  dir→Lula   0.3%
+    eliminados → Lula  43.7%  → dir  37.9%  → BN  14.2%  → abst   4.2%  | dir entre válidos  46.5%
+    BN1→Lula  61.7% BN1→dir   1.4% | abst1→Lula  27.1% abst1→dir   2.4% | novos válidos 13.44 mi, Lula entre eles  93.6%
+  Enchimento proporcional a Lula: +9% sobre os votos de Lula, tirados da abstenção: 5.76 mi de votos movidos; Lula passa a 53.92% dos válidos
+      reestimado
+    retenção Lula  99.9%  Lula→dir   0.0% | retenção dir  99.0%  dir→Lula   0.2%
+    eliminados → Lula  53.3%  → dir  34.1%  → BN  12.2%  → abst   0.4%  | dir entre válidos  39.0%
+    BN1→Lula  74.3% BN1→dir   0.3% | abst1→Lula  19.7% abst1→dir   3.2% | novos válidos 11.98 mi, Lula entre eles  90.9%
+
+Quaest 17–20/10 ponderada pelos votos do 1º turno: Lula 32.9% × Flávio 45.7% (58.1% Flávio entre quem escolhe)
+
+== Cenários (resultado oficial: Lula 51.785% dos válidos). Retenção dos finalistas = estimada pelos dados (Lula 98.9%, Flávio 98.8%); novos votantes divididos como o cabeçalho da própria pesquisa ==
+  Quaest 17–20/10: eliminados → Flávio 58.7% entre válidos (votam válido 79%). Lula previsto 48.61% (oficial − previsto +3.17 p.p.; com novos 50/50: 48.65%); novos válidos 7.94 mi; Lula precisaria de 99.0% deles (cabeçalho da pesquisa: 49.4%); com retenção 100%: 108.4% de 6.78 mi
+  Datafolha 06–07/10: eliminados → Flávio 59.0% entre válidos (votam válido 78%). Lula previsto 48.51% (oficial − previsto +3.28 p.p.; com novos 50/50: 48.64%); novos válidos 7.99 mi; Lula precisaria de 98.9% deles (cabeçalho da pesquisa: 48.0%); com retenção 100%: 108.3% de 6.83 mi
+  Quaest 22/10: eliminados → Flávio 53.8% entre válidos (votam válido 80%). Lula previsto 49.10% (oficial − previsto +2.68 p.p.; com novos 50/50: 48.94%); novos válidos 7.80 mi; Lula precisaria de 95.3% deles (cabeçalho da pesquisa: 52.6%); com retenção 100%: 104.3% de 6.64 mi
+  Quaest 22/10, retenção declarada (95%/94%): eliminados → Flávio 53.8% entre válidos (votam válido 80%). Lula previsto 49.49% (oficial − previsto +2.30 p.p.; com novos 50/50: 49.28%); novos válidos 9.67 mi; Lula precisaria de 82.1% deles (cabeçalho da pesquisa: 52.6%); com retenção 100%: 104.3% de 6.64 mi
+  Inferência ecológica (este capítulo): eliminados → Flávio 47.0% entre válidos (votam válido 81%). Lula previsto 51.76% (oficial − previsto +0.02 p.p.; com novos 50/50: 49.34%); novos válidos 7.75 mi; Lula precisaria de 89.1% deles (cabeçalho da pesquisa: 88.7%); com retenção 100%: 97.0% de 6.59 mi
+  Mapa: curva de reprodução do oficial: x=0.30→y=0.947, x=0.35→y=0.938, x=0.40→y=0.930, x=0.45→y=0.921, x=0.50→y=0.912, x=0.55→y=0.904, x=0.60→y=0.895, x=0.65→y=0.886
+  Eliminados (todos)   dados 47.0% [45.4–48.2]  Quaest 17–20/10 (ponderada): 58.1%  Datafolha 06–07/10: 59.0%  Quaest 22/10: 53.8%
+  Cury                 dados 34.8% [32.6–36.4]  Quaest 17–20/10: 40.7%
+  Renan                dados 47.0% [45.2–48.8]  Quaest 17–20/10: 67.1%
+  Caiado               dados 60.6% [56.7–65.4]  Quaest 17–20/10: 73.1%
+  Zema                 dados 94.1% [89.6–97.7]  
+
+Tempo total: 110 s

@@ -1,0 +1,308 @@
+<section class="capitulo" id="transferencia-de-votos" data-titulo-curto="Transferência de votos">
+  <header class="capitulo__cabecalho">
+    <div class="capitulo__numero">Capítulo 2 <span data-veredito-capitulo></span></div>
+    <h2>Para onde foram os eleitores de Cury, Renan, Caiado e Zema</h2>
+  </header>
+
+  <aside class="caixa caixa--pista">
+    <div class="caixa__rotulo">O que circula <span class="caixa__fonte">Redes sociais, após o 2º turno</span></div>
+    <p>Circula a alegação de que “eleitor de direita não vota em Lula” e de que, por isso, a virada não teria de onde sair. A conta que a acompanha: entre os turnos, Lula ganhou 10.376.694 votos, e Flávio, 3.721.538. Os candidatos eliminados (Cury, Renan Santos, Caiado, Zema e os nanicos) somavam 9.316.747 votos. O ganho de Lula sozinho supera todo esse estoque em mais de 1 milhão. Para quem levanta a suspeita, isso não fecha por três razões:</p>
+    <ul>
+      <li>eleitor de direita raramente vota em Lula;</li>
+      <li>três dos quatro eliminados declararam apoio a Flávio;</li>
+      <li>as pesquisas mostravam os eleitores dos eliminados pendendo para Flávio. No Datafolha de 06 e 07/10 eram 46% para Flávio, 32% para Lula e 15% branco ou nulo<sup class="ref" data-ref="cap03-datafolha-0810"></sup>. Na Quaest de 17 a 20/10, por candidato<sup class="ref" data-ref="ch11-quaest-cruz-2110"></sup>:
+        <ul>
+          <li>Cury: 48% Lula e 33% Flávio;</li>
+          <li>Renan: 51% Flávio e 25% Lula;</li>
+          <li>Caiado: 57% Flávio e 21% Lula.</li>
+        </ul>
+        Ponderados pelos votos, são cerca de 46% para Flávio e 33% para Lula. A Quaest divulgada em 22/10 trouxe o agregado: 43% para Flávio e 37% para Lula entre os eleitores dos eliminados, retenção declarada de 95% (Lula) e 94% (Flávio), e 40% Lula × 36% Flávio entre quem diz ter faltado ou votado branco ou nulo no 1º turno.<sup class="ref" data-ref="quaest-retencao-2026"></sup> Circula ainda um 47 × 26 atribuído ao Datafolha de 20 a 22/10, que não localizamos na fonte.</li>
+    </ul>
+    <p>A pergunta: <strong>o resultado oficial exige taxas de transferência incompatíveis com as pesquisas e com essas premissas?</strong></p>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <p>O <a href="#conta-nacional">capítulo 1</a> mostrou que a conta fecha. A próxima alegação é sobre o comportamento: os eleitores dos eliminados teriam ido para Flávio, e não haveria eleitores suficientes para Lula. A conta nacional não diz quem votou em quem. Ela só diz quanto cada lado ganhou. Lula pode ter crescido por quatro caminhos:</p>
+    <ul>
+      <li>herdando votos dos eliminados;</li>
+      <li>trazendo de volta quem votou branco, nulo ou se absteve no 1º turno;</li>
+      <li>tirando votos do próprio Flávio;</li>
+      <li>por um quinto caminho, que é o da tese: votos que não vieram de eleitor nenhum.</li>
+    </ul>
+    <p>Cada caminho deixa uma assinatura geográfica diferente. É isso que este capítulo tenta ler.</p>
+    <div class="largo" data-kpis-src="data/cap03-kpis.json"></div>
+    <p>A ferramenta é a <em>inferência ecológica</em>. Temos 499.205 seções eleitorais que existiram nos dois turnos, com a mesma lista de eleitores. Em cada uma sabemos quantos votaram em cada candidato no 1º turno e quantos votaram em Lula, em Flávio, em branco ou nulo, ou se abstiveram no 2º.</p>
+    <p>Se nas seções onde Caiado teve muitos votos Flávio cresceu muito e Lula pouco, a conclusão natural é que o eleitor de Caiado foi para Flávio. A regressão faz essa leitura para todos os grupos ao mesmo tempo, com duas regras: nenhuma taxa pode ser negativa, e cada grupo de origem tem de se distribuir por inteiro (100%) entre os quatro destinos.</p>
+  </div>
+
+  <aside class="caixa caixa--teste">
+    <div class="caixa__rotulo">O teste</div>
+    <p><strong>Definido antes de olhar o resultado.</strong></p>
+    <ol>
+      <li><strong>Matriz de transição.</strong> As origens são Lula, Flávio, Cury, Renan, Caiado, Zema, demais, branco/nulo e abstenção no 1º turno. Os destinos são Lula, Flávio, branco/nulo e abstenção no 2º. O método é uma regressão de Goodman restrita (mínimos quadrados ponderados pelo eleitorado, com taxas entre 0 e 1 e cada linha somando 100%). Ela é ajustada separadamente em cada UF sobre 497.752 seções e agregada ao Brasil.</li>
+      <li><strong>Incerteza.</strong> Bootstrap com 200 reamostragens de municípios dentro de cada UF.</li>
+      <li><strong>Robustez.</strong> O mesmo modelo é ajustado de mais quatro formas: um ajuste nacional único, um por região, um "local" (um ajuste por município com 60 seções ou mais, cobrindo 81% do eleitorado) e um no nível municipal.</li>
+      <li><strong>Linha de base.</strong> O mesmo método é aplicado a 2022 (Lula × Bolsonaro, com Ciro e Tebet eliminados), no nível municipal, porque as seções de 2022 não casam com as de 2026.</li>
+      <li><strong>Comparação com as pesquisas.</strong> Compara-se a divisão dos eliminados, por candidato, com as únicas pesquisas verificadas (Quaest de 17 a 20/10 e Datafolha de 06 e 07/10). Nenhuma delas publicou a retenção dos finalistas.</li>
+      <li><strong>Mapa de viabilidade.</strong> O mapa mostra que combinações de parâmetros reproduzem o placar oficial e qual erro de pesquisa cada combinação implica.</li>
+      <li><strong>Teste de poder.</strong> Injetamos alterações sintéticas nas seções e vemos se a matriz as denuncia.</li>
+    </ol>
+  </aside>
+
+  <div class="capitulo__corpo">
+    <h3>O que as margens permitem sem uma matriz ecológica</h3>
+    <p>Para 443.483 seções pareadas com o mesmo número de aptos nos dois turnos, os limites aritméticos para quem se absteve ou votou branco/nulo no 1º turno e votou em Lula no 2º vão de <strong>14.984 a 33.645.436</strong> pessoas. O grupo inicial tem 34.947.663 aptos. A igualdade de totais não prova que são as mesmas pessoas: esses limites pressupõem eleitorado individual fixo em cada seção e excluem 55.723 seções. A faixa não é um intervalo de confiança nem mede diretamente a parcela dos 7,8 milhões estimados pelo modelo; mostra que as margens, sozinhas, deixam muitos fluxos possíveis.</p>
+    <h3>O que os dados dizem que aconteceu</h3>
+    <p>O diagrama abaixo é a matriz estimada, em votos. Lê-se da esquerda para a direita. A espessura de cada fluxo é o número estimado de eleitores que saíram de uma origem no 1º turno e chegaram a um destino no 2º.</p>
+  </div>
+  <div class="capitulo__corpo graficos">
+    <figure class="grafico largo" data-grafico="cap03-sankey" data-src="data/cap03-matriz.json"
+            data-titulo="De onde vieram os votos do 2º turno"
+            data-subtitulo="Fluxos estimados por inferência ecológica (ajuste por UF, 497.752 seções pareadas). Fluxos abaixo de 30 mil votos omitidos."
+            data-fonte="TSE (boletins de urna, 1º e 2º turnos de 2026); cálculo próprio (analises/03_transferencia.py)"
+            data-altura="560"></figure>
+    <div class="largo" data-tabela="cap03-tab-matriz"></div>
+  </div>
+
+  <div class="capitulo__corpo">
+    <p>Quatro coisas saltam.</p>
+    <ol>
+      <li><strong>Os finalistas retiveram praticamente todo o seu eleitorado.</strong> A retenção estimada de Flávio é de 98,8% (IC 95%: 98,6% a 99,1%) e a de Lula, de 98,9%. O fluxo de Flávio para Lula é de 0,2% (0,1% a 0,3%), cerca de 104 mil votos. Os dados <em>não</em> exigem que eleitores de Flávio tenham virado para Lula. Trata-se de uma estimativa ecológica, sujeita às hipóteses do modelo, e não de uma confirmação de comportamentos individuais.</li>
+      <li><strong>Os eliminados se dividiram quase ao meio, e não pendendo para Flávio.</strong> Entre os eleitores dos eliminados que escolheram um finalista, 47,0% (45,4% a 48,2%) foram para Flávio. As pesquisas verificadas indicavam 58% (Quaest de 17 a 20/10, ponderada), 59% (Datafolha de 6 e 7/10) e 53,75% (Quaest divulgada em 22/10).</li>
+      <li><strong>A divisão varia muito de candidato para candidato:</strong>
+        <ul>
+          <li>Zema: 81% para Flávio e 5% para Lula;</li>
+          <li>Caiado: 51% para Flávio e 33% para Lula (na Quaest, 57 × 21);</li>
+          <li>Renan: 35% para Flávio e 39% para Lula (na Quaest, 51 × 25);</li>
+          <li>Cury: 28% para Flávio e 53% para Lula (na Quaest, 33 × 48).</li>
+        </ul>
+        O eleitorado de Augusto Cury, o maior dos eliminados, com 3,45 milhões de votos, parece ter tido perfil popular e se comportado mais como eleitor de Lula do que de Flávio. Isso aconteceu apesar do apoio de Cury a Flávio, anunciado em 08/10<sup class="ref" data-ref="cap03-datafolha-0810"></sup>.</li>
+      <li><strong>O que decidiu foi quem não tinha votado em ninguém.</strong> Cerca de 7,8 milhões de eleitores que votaram branco, nulo ou se abstiveram no 1º turno votaram em um finalista no 2º. Segundo o modelo, 88,7% deles (87,7% a 89,4%) escolheram Lula. É esse grupo, e não os eliminados, que fecha a conta.</li>
+    </ol>
+  </div>
+
+  <h3>Pesquisas × dados</h3>
+  <div class="capitulo__corpo graficos">
+    <figure class="grafico largo" data-grafico="cap03-pesquisas" data-src="data/cap03-pesquisas.json"
+            data-titulo="Fração que foi para Flávio, entre os eleitores de cada eliminado que escolheram um finalista"
+            data-subtitulo="Losangos: pesquisas verificadas. Círculos: inferência ecológica, com IC 95% (bootstrap de municípios). A Quaest não publicou Zema."
+            data-fonte="Quaest 17–20/10/2026 (BR-08535/2026) e Datafolha 06–07/10/2026, via Diario de Pernambuco; TSE; cálculo próprio"
+            data-altura="320" data-tabela="false"></figure>
+  </div>
+  <div class="capitulo__corpo">
+    <p>Em todos os candidatos, os dados ficam 6 a 20 pontos menos favoráveis a Flávio do que a pesquisa:</p>
+    <ul>
+      <li>Cury: 35% contra 41% na Quaest;</li>
+      <li>Caiado: 61% contra 73%;</li>
+      <li>Renan: 47% contra 67%. É a maior distância.</li>
+    </ul>
+    <p>O ordenamento, porém, é o mesmo: Cury é o mais lulista, e Caiado e Zema, os mais bolsonaristas. O padrão se parece com um erro sistemático das pesquisas, e não com eleitorados trocados.</p>
+    <p>Nenhuma pesquisa verificada publicou a retenção dos finalistas nem o voto de quem anulou ou se absteve no 1º turno. Por isso essas linhas não têm comparação. O modelo diz que 89% desses "novos" votantes foram para Lula. É a estimativa menos confiável do capítulo, como se verá na linha de base de 2022.</p>
+  </div>
+
+  <h3>A conta que não fecha com as pesquisas: o mapa de viabilidade</h3>
+  <div class="capitulo__corpo">
+    <p>Deixando a inferência ecológica de lado, dá para usar só os totais oficiais e perguntar: que combinações de comportamento reproduzem 51,79% para Lula? O mapa abaixo varia duas coisas:</p>
+    <ul>
+      <li>a fração dos eleitores dos eliminados que, ao escolher um finalista, escolheu Flávio (eixo horizontal);</li>
+      <li>a retenção de Flávio (eixo vertical). Metade de quem o abandona vai para Lula, e a outra metade, para branco, nulo ou abstenção.</li>
+    </ul>
+    <p>O resto fica fixo:</p>
+    <ul>
+      <li>retenção de Lula estimada pelos dados (98,9%);</li>
+      <li>79% dos eleitores dos eliminados votando em um finalista (Quaest);</li>
+      <li>novos votantes divididos como o resultado geral da própria Quaest (49,4% Lula). Como nenhuma pesquisa mediu esse grupo, supomos que ele vota como o eleitorado médio.</li>
+    </ul>
+    <p>A quantidade de novos votantes é a que faz o total de votos válidos bater com o oficial. A cor mostra quanto Lula ficaria acima (vermelho) ou abaixo (azul) do resultado oficial.</p>
+  </div>
+  <div class="capitulo__corpo graficos">
+    <figure class="grafico largo" data-grafico="cap03-viabilidade" data-src="data/cap03-viabilidade.json"
+            data-titulo="Que combinações reproduzem o resultado oficial?"
+            data-subtitulo="Cor: Lula previsto menos Lula oficial, em p.p. dos válidos. Tracejado: combinações que reproduzem exatamente 51,79%. Losangos: pesquisas (com a retenção estimada pelos dados, para que sejam comparáveis entre si)."
+            data-fonte="TSE (totais oficiais); Quaest 17–20/10, Quaest 22/10 e Datafolha 06–07/10; cálculo próprio"
+            data-altura="460" data-tabela="false" data-csv="false"></figure>
+  </div>
+  <div class="capitulo__corpo">
+    <p><strong>Este é o ponto que a tese tem razão em levantar.</strong> Com os parâmetros que as próprias pesquisas mediram, o 2º turno daria:</p>
+    <ul>
+      <li><strong>48,6% para Lula</strong> com a divisão por candidato da Quaest de 17 a 20/10;</li>
+      <li><strong>48,5%</strong> com a do Datafolha de 06 e 07/10;</li>
+      <li><strong>49,1%</strong> com o agregado da Quaest divulgada em 22/10 (43% Flávio × 37% Lula entre os eliminados; quem diz ter faltado ou anulado, 40% × 36%), ou <strong>49,5%</strong> usando também a retenção declarada nessa pesquisa (95% e 94%, metade das perdas indo ao adversário).</li>
+    </ul>
+    <p>Nos três primeiros cenários usamos a retenção estimada pelos dados (98,9% e 98,8%), e os novos votantes se dividem como o resultado geral de cada pesquisa (na Quaest de 22/10, como o cruzamento de quem faltou ou anulou). Flávio venceria em todos. A distância para o oficial é de <strong>3,2 a 3,3 pontos percentuais</strong> com os cruzamentos do início e meados de outubro e de <strong>2,3 a 2,7 pontos</strong> com o de 22/10. Com os novos votantes divididos meio a meio, o resultado quase não muda (48,6% a 48,7%).</p>
+    <p>A versão mais forte do argumento: mantida a divisão dos eliminados da Quaest de 17 a 20/10 ou do Datafolha, Lula precisaria de 99% dos cerca de 8 milhões de novos votantes (com a Quaest de 22/10, 95%). A Quaest de 22/10 é a única que mediu esse grupo, como autodeclaração, e o dava quase dividido (40% × 36%). Com retenção de 100% dos dois finalistas, Lula precisaria de mais de 100% deles (104% a 108%), o que é aritmeticamente impossível. A outra saída seria a retenção de Flávio cair para algo entre 89,5% e 94,7% (curva tracejada), com milhões de eleitores dele virando para Lula. A inferência ecológica não vê esse fluxo.</p>
+    <p>Essas distâncias têm a mesma ordem de grandeza do erro de cabeçalho das próprias pesquisas:</p>
+    <ul>
+      <li>a Quaest de 17 a 20/10 dava 49,4% dos válidos para Lula<sup class="ref" data-ref="cap03-quaest-2110"></sup> (erro de 2,4 pontos);</li>
+      <li>o Datafolha de 06 e 07/10 dava 48%<sup class="ref" data-ref="cap03-datafolha-0810"></sup> (erro de 3,8 pontos);</li>
+      <li>as pesquisas finais erraram em média 2,7 pontos nos válidos publicados (<a href="#pesquisas">capítulo 3</a>).</li>
+    </ul>
+    <p>Dizer que a transferência medida pelas pesquisas não fecha com a urna é, em grande parte, dizer que as pesquisas erraram por 2 a 4 pontos. O erro se concentra justamente no eleitorado dos eliminados e de quem não tinha votado, que é o mais volátil e o menos representado nas amostras.</p>
+    <p>Erros desse tamanho já aconteceram. Em 2022, as pesquisas finais do 2º turno davam a Lula de 52% (Datafolha, Quaest) a 54% (Ipec) dos válidos, e ele teve 50,9%. Foi um erro de 1 a 3 pontos, só que na direção contrária<sup class="ref" data-ref="cap03-pesquisas-2022"></sup>. No 1º turno de 2022, Datafolha e Ipec deram 50% e 51% a Lula, que teve 48,4%<sup class="ref" data-ref="cap03-erros-2022-1t"></sup>.</p>
+    <p>No 1º turno de 2022, os válidos de Bolsonaro foram subestimados em 5,2 pontos em média (<a href="#pesquisas">capítulo 3</a>). Um erro de 3 pontos está no limite alto do histórico recente, mas não fora dele. Ter todos os institutos errando na mesma direção é o padrão de erro de pesquisa no Brasil, não uma exceção (ver <a href="#pesquisas">capítulo 3</a>).</p>
+  </div>
+
+  <h3>A assinatura geográfica: 2026 não se parece com 2022</h3>
+  <div class="capitulo__corpo">
+    <p>Antes de qualquer modelo, há um retrato direto. Agrupamos os municípios pela força de Lula no 1º turno e medimos quanto cada finalista cresceu, em pontos do eleitorado. Fizemos o mesmo com 2022.</p>
+  </div>
+  <div class="capitulo__corpo graficos">
+    <figure class="grafico largo" data-grafico="cap03-faixas" data-src="data/cap03-faixas.json"
+            data-titulo="Quem cresceu entre os turnos, por força de Lula no 1º turno"
+            data-subtitulo="Variação de votos entre turnos, em pontos percentuais do eleitorado. Linhas cheias: 2026. Tracejadas: 2022."
+            data-fonte="TSE (boletins de urna de 2022 e 2026, agregados por município); cálculo próprio"
+            data-altura="380"></figure>
+    <figure class="grafico largo" data-grafico="cap03-faixas-bn" data-src="data/cap03-faixas.json"
+            data-titulo="Brancos/nulos e comparecimento, por força de Lula no 1º turno"
+            data-subtitulo="Em pontos percentuais do eleitorado. Valores positivos: menos brancos/nulos ou mais comparecimento no 2º turno."
+            data-fonte="TSE (boletins de urna de 2022 e 2026, agregados por município); cálculo próprio"
+            data-altura="360" data-tabela="false"></figure>
+  </div>
+  <div class="capitulo__corpo">
+    <p>Este é o achado mais forte do capítulo, e ele precisa ser apresentado com destaque.</p>
+    <ul>
+      <li><strong>Redutos de Lula</strong> (municípios onde ele teve 80% ou mais dos votos dos finalistas no 1º turno):
+        <ul>
+          <li>em 2022, Bolsonaro ficou com 52% do crescimento líquido dos dois finalistas entre os turnos;</li>
+          <li>em 2026, Flávio ficou com <strong>4%</strong>.</li>
+        </ul>
+      </li>
+      <li><strong>Redutos da direita</strong> (Lula abaixo de 20%):
+        <ul>
+          <li>em 2022, Bolsonaro levou 88% do crescimento;</li>
+          <li>em 2026, Flávio levou 51%.</li>
+        </ul>
+      </li>
+    </ul>
+    <p>A fatia da direita no crescimento cai de 37 a 53 pontos em <em>todas</em> as faixas. É um deslocamento amplo e de mesmo sentido, o formato que a tese descreve.</p>
+    <p>A forma como isso aconteceu também é nova:</p>
+    <ul>
+      <li>em 2022, brancos e nulos <em>subiram</em> nos redutos de Lula, e o comparecimento caiu;</li>
+      <li>em 2026, brancos e nulos caíram 1,4 a 1,7 ponto do eleitorado nesses mesmos lugares, e o comparecimento subiu de 1,3 a 2,2 pontos em todas as faixas.</li>
+    </ul>
+    <p>A explicação inocente mais forte tem três partes.</p>
+    <ol>
+      <li><strong>Os eliminados eram outros.</strong> Em 2022, Ciro e Tebet tinham eleitores de centro e de centro-esquerda antipetistas. Em 2026, o maior eliminado (Cury) tinha um eleitorado popular que, segundo o modelo, pendia para Lula.</li>
+      <li><strong>Os candidatos eram outros.</strong> Flávio não é Bolsonaro: rejeição parecida, mas outra capacidade de mobilizar o eleitorado popular do Nordeste.</li>
+      <li><strong>A campanha foi outra.</strong> A queda de brancos e nulos concentrada onde Lula é forte é exatamente o rastro de uma mobilização bem-sucedida de quem anulou no 1º turno.</li>
+    </ol>
+    <p>Os dados de 2026 não separam essa história de uma alteração que convertesse brancos, nulos e ausentes em votos de Lula nos redutos dele. As duas produzem o mesmo boletim de urna.</p>
+  </div>
+
+  <h3>Experimentos naturais: onde cada eliminado foi forte</h3>
+  <div class="capitulo__corpo">
+    <p>Se o modelo estivesse inventando a divisão dos eliminados, ela não sobreviveria onde o candidato teve muitos votos. Caiado teve 12,3% dos válidos em Goiás, estado que governou, e no máximo 4,8% (no DF) em qualquer outra UF. Cury e Renan tiveram sua maior fatia entre os estados grandes em São Paulo.</p>
+  </div>
+  <div class="capitulo__corpo graficos">
+    <figure class="grafico largo" data-grafico="cap03-candidatos" data-src="data/cap03-candidatos.json"
+            data-titulo="Destino estimado dos eleitores de cada eliminado"
+            data-subtitulo="Brasil (agregado dos ajustes por UF) e a UF grande onde o candidato teve a maior fatia. Passe o mouse para ver o IC 95%."
+            data-fonte="TSE; cálculo próprio" data-altura="380"></figure>
+    <figure class="grafico largo" data-grafico="cap03-goias" data-src="data/cap03-goias.json"
+            data-titulo="Goiás: onde Caiado foi mais votado, quem cresceu mais?"
+            data-subtitulo="Cada ponto é um município goiano (tamanho = eleitorado). Retas: regressão ponderada. A inclinação é o ganho de votos por voto de Caiado."
+            data-fonte="TSE (boletins de urna de 2026, agregados por município); cálculo próprio" data-altura="400"></figure>
+  </div>
+  <div class="capitulo__corpo">
+    <p>Em Goiás, cada 100 votos de Caiado no 1º turno se associam a 52 votos a mais para Flávio e a 30 a mais para Lula no 2º. A estimativa do modelo para Goiás é de 51% para Flávio e 35% para Lula, praticamente igual à nacional (51% e 33%). O apoio formal de Caiado a Flávio, anunciado em 06/10<sup class="ref" data-ref="cap03-datafolha-0810"></sup>, não levou todo o seu eleitorado. Ainda assim, a maioria foi para Flávio, como a premissa espera.</p>
+    <p>Zema confirma a premissa ainda mais (81% para Flávio), mas com pouca precisão: teve só 0,8% dos válidos até em Minas. Em São Paulo, Cury repete o padrão nacional (54% Lula, 26% Flávio), e Renan também (38% Lula, 31% Flávio).</p>
+  </div>
+
+  <h3>Por região</h3>
+  <div class="capitulo__corpo graficos">
+    <figure class="grafico largo" data-grafico="cap03-regioes" data-src="data/cap03-regioes.json"
+            data-titulo="Divisão dos eliminados e dos novos votantes, por região"
+            data-subtitulo="Ajustes por UF agregados por região; IC 95% por bootstrap de municípios."
+            data-fonte="TSE; cálculo próprio" data-altura="320"></figure>
+  </div>
+  <div class="capitulo__corpo">
+    <p>A divisão dos eliminados acompanha a geografia política do país:</p>
+    <ul>
+      <li>Sul: 62% para Flávio entre os que escolheram;</li>
+      <li>Centro-Oeste: 55%;</li>
+      <li>Sudeste: 47%;</li>
+      <li>Nordeste: 36%;</li>
+      <li>Norte: 35%.</li>
+    </ul>
+    <p>Isso é o esperado de comportamento real, porque o eleitor do eliminado se parece com os vizinhos. Um ajuste mecânico uniforme não produziria essa variação por si só. Mas a variação também não prova a ausência de um ajuste somado a ela.</p>
+    <p>A retenção de Flávio fica entre 98% e 100% em todas as regiões, exceto no Norte (96,3%), onde o modelo também estima 1,3% de eleitores de Flávio indo para Lula. A tabela por UF está abaixo.</p>
+  </div>
+  <div class="capitulo__corpo graficos">
+    <div class="largo" data-tabela="cap03-tab-ufs"></div>
+  </div>
+
+  <h3>Robustez e linha de base de 2022</h3>
+  <div class="capitulo__corpo graficos">
+    <figure class="grafico largo" data-grafico="cap03-modelos" data-src="data/cap03-modelos.json"
+            data-titulo="A conclusão depende do modelo?"
+            data-subtitulo="Retenção do candidato da direita e fração dos eliminados que o escolheu, por especificação. Em 2022, a direita é Bolsonaro."
+            data-fonte="TSE (2022 e 2026); cálculo próprio" data-altura="420"></figure>
+  </div>
+  <div class="capitulo__corpo">
+    <p><strong>Retenção de Flávio.</strong> Fica entre 97,8% e 100% nas seis especificações de 2026, e o fluxo de Flávio para Lula nunca passa de 0,5%. Essa é a conclusão mais estável do capítulo.</p>
+    <p><strong>Divisão dos eliminados.</strong> Vai de aproximadamente 44,8% a 52% para Flávio, sempre abaixo dos 58% a 59% das pesquisas verificadas de outubro e, na maior parte das especificações, abaixo também dos 53,75% da Quaest de 22/10.</p>
+    <p><strong>Destino dos novos votantes.</strong> É instável. Varia de 84% a 100% para Lula em 2026. Em 2022, o mesmo método dá um resultado implausível: os brancos e nulos do 1º turno teriam ido 35% para Bolsonaro e 2% para Lula no ajuste por região, mas 25% para Lula no ajuste nacional.</p>
+    <p>A regressão ecológica identifica mal essas duas linhas, porque abstenção e voto nulo variam junto com região, renda e força partidária (o chamado viés de agregação). Os 89% devem ser lidos como "a maior parte", não como número preciso. A tabela de 2022 está abaixo, para comparação.</p>
+  </div>
+  <div class="capitulo__corpo graficos">
+    <div class="largo" data-tabela="cap03-tab-2022"></div>
+  </div>
+
+  <h3>O método enxergaria uma alteração?</h3>
+  <div class="capitulo__corpo">
+    <p>Pegamos as seções reais, injetamos três tipos de alteração hipotética uniforme, cada uma suficiente para mover o resultado em 2,1 a 2,3 pontos (a ordem de grandeza do erro das pesquisas), e reestimamos a matriz.</p>
+  </div>
+  <div class="capitulo__corpo graficos">
+    <div class="largo" data-tabela="cap03-tab-poder"></div>
+  </div>
+  <div class="capitulo__corpo">
+    <ul>
+      <li><strong>Virada uniforme.</strong> Trocar 4,8% dos votos de Flávio por votos de Lula em todas as seções derruba a retenção estimada de Flávio para 95,3% e cria um fluxo Flávio → Lula de 2,5%.
+        <ul>
+          <li>Os dados reais mostram 98,8% e 0,2%, simétricos aos de Lula.</li>
+          <li><strong>Uma virada desse tipo, grande o bastante para explicar o erro das pesquisas, deixaria uma impressão digital que não aparece.</strong></li>
+          <li>Parte dela, porém, é absorvida como "eliminados indo para Lula" (a divisão cai de 47% para 39%). Uma virada menor, de 1% a 2%, ficaria escondida.</li>
+        </ul>
+      </li>
+      <li><strong>Enchimento.</strong> Transformar ausentes em votos de Lula, seja proporcionalmente à abstenção, seja aos votos de Lula, é absorvido pelo modelo como "mobilização". A matriz continua com cara de comportamento real, só com mais novos votantes indo para Lula. <strong>Esse tipo de alteração é invisível para a inferência ecológica.</strong> O enchimento proporcional aos votos de Lula ainda faz a divisão estimada dos eliminados cair para 39% para Flávio. Ou seja, parte da distância entre os 47% dos dados e os 58% a 59% das pesquisas <em>poderia</em>, em tese, ser o rastro de algo assim. Ele precisa ser testado por outros meios: comparecimento, biometria e logs das urnas (capítulos <a href="#biometria">12</a> e <a href="#logs-das-urnas">13</a>).</li>
+    </ul>
+  </div>
+
+  <h3>Simulador: refaça a conta com as suas premissas</h3>
+  <div class="capitulo__corpo">
+    <p>Escolha a retenção de cada finalista, para onde vai cada eliminado e quantos ausentes ou anuladores voltam a votar. O simulador sorteia 20.000 vezes as taxas verdadeiras em torno das suas escolhas e mostra a distribuição do resultado contra o oficial.</p>
+    <p>Os botões carregam quatro cenários:</p>
+    <ul>
+      <li>o estimado pelos dados;</li>
+      <li>os das duas pesquisas;</li>
+      <li>uma versão da premissa da tese. Nos cenários de pesquisa e da tese, a volta dos abstencionistas é calibrada para o total de votos válidos bater com o oficial.</li>
+    </ul>
+  </div>
+  <div class="capitulo__corpo graficos">
+    <div class="largo" id="cap03-simulador"></div>
+  </div>
+
+  <aside class="caixa caixa--resultado">
+    <div class="caixa__rotulo">Resultado <span data-veredito-capitulo></span></div>
+    <p><strong>Há uma diferença real em relação às pesquisas.</strong> Com a divisão dos eliminados que Quaest (17 a 20/10) e Datafolha (6 e 7/10) mediram, Lula teria 48,5% a 48,6% dos válidos, e Flávio venceria. Com o cruzamento mais recente, da Quaest divulgada em 22/10 (53,75% para Flávio entre os eliminados que escolheram), Lula teria 49,1%; usando também a retenção declarada nessa pesquisa (95% e 94%), 49,5%. A diferença para o oficial cai de 3,2–3,3 para 2,3–2,7 p.p., perto do erro das próprias pesquisas no resultado final (<a href="#pesquisas">capítulo 3</a>). O oficial exige que os eleitores dos eliminados tenham se dividido quase ao meio (47% para Flávio; em Renan, 47% contra 67% na Quaest de 17 a 20/10) e que os eleitores que voltaram a votar tenham escolhido Lula em larga maioria. Os cruzamentos das pesquisas não trazem tamanhos de subamostra e dependem da lembrança do voto no 1º turno; não são parâmetros exatos.</p>
+    <p>Na comparação com 2022, a fatia da direita no crescimento entre turnos caiu de 37 a 53 pontos em todas as faixas de municípios.</p>
+    <p><strong>A premissa central da tese, porém, não é contrariada pelos dados, que também não exigem nenhuma virada de eleitores de Flávio.</strong> A retenção estimada de Flávio é de 98,8%, e o fluxo de Flávio para Lula, de 0,2%. Uma virada uniforme do tamanho do erro das pesquisas deixaria marca na matriz, e ela não aparece. O resultado se explica por três coisas:</p>
+    <ul>
+      <li>a divisão dos eliminados, coerente por candidato e por região (Zema e Caiado com Flávio; Cury com Lula);</li>
+      <li>a queda de brancos e nulos onde Lula é forte;</li>
+      <li>a volta de ausentes.</li>
+    </ul>
+    <p>A distância para as pesquisas (2,3 a 3,3 pontos, conforme o cruzamento) tem a ordem de grandeza dos erros de cabeçalho delas (2,4 a 3,8 pontos em 2026; 5,2 pontos contra Bolsonaro no 1º turno de 2022). Por isso o veredito é <em>parcial</em>: a anomalia existe, e há explicação inocente plausível que os dados não conseguem descartar.</p>
+  </aside>
+
+  <aside class="caixa caixa--limites">
+    <div class="caixa__rotulo">O que isso não exclui</div>
+    <ul>
+      <li><strong>Falácia ecológica.</strong> A matriz descreve agregados, não pessoas. Ela supõe que eleitores de um mesmo grupo se comportam igual dentro da UF (ou do município, no modelo local). Se o eleitor de Cury em bairros lulistas se comporta diferente do de bairros bolsonaristas, as taxas ficam enviesadas. O intervalo de confiança do bootstrap mede o ruído amostral, não esse viés. A variação entre especificações dá uma ideia melhor dele.</li>
+      <li><strong>Fluxos líquidos, não brutos.</strong> O modelo enxerga saldos. Se 1 milhão de eleitores de Lula ficou em casa e 1 milhão de ausentes votou nele, a matriz vê "retenção de 100%".</li>
+      <li><strong>Enchimento uniforme é indistinguível de mobilização.</strong> Votos acrescentados a Lula a partir de ausentes ou de anulados, em todas as seções, são absorvidos como "novos votantes foram para Lula" (teste de poder acima). O mesmo vale para uma virada pequena, de 1% a 2%. Só dados fora do boletim de urna (comparecimento físico, biometria, logs, auditoria de papel) separam as duas coisas. Os testes possíveis com os dados públicos foram feitos em outros capítulos e não acharam a assinatura de enchimento: o aumento da habilitação sem biometria não acompanha o crescimento de Lula (<a href="#biometria">capítulo 12</a>), não há rajadas de votos pró-Lula nem eventos impossíveis nos registros dos logs que o leitor pareou (<a href="#biometria">12</a> e <a href="#logs-das-urnas">13</a>), e nos redutos mais fortes de Lula o comparecimento subiu <em>menos</em> que no resto do país (<a href="#benford">capítulo 8</a>). O balanço completo está no <a href="#conclusoes">capítulo 15</a>.</li>
+      <li><strong>Pesquisas não são verdade.</strong> Os cruzamentos por eleitorado dos eliminados têm poucas centenas de entrevistados (margem de 6 a 8 pontos) e dependem de o eleitor lembrar e declarar corretamente o voto do 1º turno. A Quaest divulgada em 22/10 publicou retenções de 95% para Lula e 94% para Flávio, além do agregado dos eliminados e de quem faltou ou anulou; usamos esses números num cenário à parte, sem tamanhos de subamostra.<sup class="ref" data-ref="quaest-retencao-2026"></sup> Os demais cenários usam a Quaest de 17 a 20/10 por candidato e o Datafolha de 06 e 07/10. Nenhum desses cruzamentos fornece todas as peças necessárias para estimar essas transições. Nos cenários de pesquisa, essas peças vêm dos próprios dados ou de suposições declaradas.</li>
+      <li><strong>2022 é linha de base imperfeita.</strong> Outros candidatos, outros eliminados e o nível municipal em vez do seccional.</li>
+    </ul>
+  </aside>
+</section>
